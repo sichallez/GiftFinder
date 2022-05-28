@@ -1,0 +1,42 @@
+.card {
+    width: 15rem;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.info {
+    padding: 15px;
+}
+
+.img-container {
+    padding-top: 0;
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.fa-bookmark, .fa-trash {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #c23c27;
+    padding-top: 2px;
+}
+
+.circle-icon {
+    background: white;
+    padding:8px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.circle-icon:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.price {
+    font-weight: bold;
+}
