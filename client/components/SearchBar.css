@@ -1,0 +1,40 @@
+.btn-light:not(:disabled):not(.disabled).active {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white
+}
+
+.input-group {
+    width: unset;
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.input-group .focus {
+    box-shadow: unset;
+}
+
+#priceGroup {
+    flex: none;
+    width: 200px;
+}
+
+.form-control {
+    display: inline-block;
+    width: 300px;
+}
+
+.searchbar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.input-group-append {
+    display: block;
+}
+.filterbtn {
+    margin-left: 5px;
+}
