@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
+import { getWishlist } from '../store/wishlist'
 
 class Wishlist extends Component{
+
+    componentDidMount(){
+        this.props.getWishlist();
+    }
 
     render(){
         return(
@@ -12,4 +17,12 @@ class Wishlist extends Component{
     }
 }
 
-export default connect(state=>state)(Wishlist)
+const mapDispatchToProps = (dispatch) => {
+    return {
+      getWishlist: function () {
+        dispatch(getWishlist());
+      },
+    };
+};
+
+export default connect(state=>state,mapDispatchToProps)(Wishlist)
