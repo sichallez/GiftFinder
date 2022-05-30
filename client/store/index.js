@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth';
 import gifts from "./gifts";
+import wishlist from './wishlist';
 
-const reducer = combineReducers({ auth, gifts })
+const reducer = combineReducers({ auth, gifts, wishlist })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

@@ -9,9 +9,21 @@ class Wishlist extends Component{
     }
 
     render(){
+        console.log(this.props)
+        if(!this.props.wishlist){
+            return;
+        }
+
+        if(this.props.wishlist.totalItems ===0){
+            return(
+                <div>
+                    Wishlist Is Empty
+                </div>
+            )
+        }
         return(
             <div>
-                Wishlist Is Empty
+                Wishlist
             </div>
         )
     }
