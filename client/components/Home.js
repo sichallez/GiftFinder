@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Productcard from "./Productcard";
 import { Input, FormBtn, Filters } from "./SearchBar";
+import { Typography, Box, Grid } from "@mui/material";
+
+import Welcome from './Welcome';
 // import { fetchProducts } from "../store/gifts";
-import axios from "axios";
+import axios from "axios";  // axios call should NOT appear here in component..
 
 /**
  * COMPONENT
  */
  class Home extends Component {
   state = {
-    products: [],
+    products: [], 
     filteredProducts: [],
     giftSearch: "",
     giftOccasion: "Anniversary",
@@ -129,6 +132,7 @@ import axios from "axios";
   render() {
     return (
       <div>
+        <Welcome />
         <Filters
           handleFilter={this.handleFilter}
           handlePrice={this.handlePrice} />
@@ -148,7 +152,7 @@ import axios from "axios";
         </form>
         {this.displayErrorMessage()}
         {this.displayLoading()}
-        <div className="row">
+        <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map(product => {
             return (
               <Productcard
@@ -163,10 +167,7 @@ import axios from "axios";
                 loggedIn={this.props.loggedIn}
               />)
           })}
-        </div>
-        <div>
-        
-        </div>
+        </Grid>
       </div> 
     )
   }
