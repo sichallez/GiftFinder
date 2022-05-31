@@ -34,9 +34,9 @@ import axios from "axios";  // axios call should NOT appear here in component..
   handleFormSubmit = event => {
     event.preventDefault();
     
-    var term = this.state.giftSearch.toLowerCase();
+    let term = this.state.giftSearch.toLowerCase();
 
-    var filterProduct = this.state.products.filter(function (product) {
+    let filterProduct = this.state.products.filter(function (product) {
       return product.title.toLowerCase().indexOf(term) !== -1
     })
     this.setState({ filteredProducts: filterProduct })
@@ -61,8 +61,8 @@ import axios from "axios";  // axios call should NOT appear here in component..
   }
 
   handlePrice = (value) => {
-    var minPrice;
-    var maxPrice;
+    let minPrice;
+    let maxPrice;
     switch (value) {
       case "1":
       default:
