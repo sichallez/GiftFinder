@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 a {
@@ -18,4 +18,46 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/** Navbar **/
+nav {
+  text-decoration: none;
+  /* width: 1300px; */
+  margin: auto;
+}
+
+nav a, nav li {
+  color: #4d4d4d;
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+.nav-title {
+  font-size: 35px;
+}
+
+.nav-flex-item a {
+  display: block;
+  margin: auto;
+}
+
+.nav-top-level {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-top-level li {
+  padding: 10px;
+  vertical-align: middle;
+  cursor: pointer;
 }
