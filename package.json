@@ -1,7 +1,7 @@
 {
-  "name": "capstone_2201_team_8",
+  "name": "giftfinder",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Our capstone project is intended to be recommend gifts for occasions, people, or specific requests using a recommendation and personal questionnaire application. Members are Simon Cheng, Ying Ying Feng, Maribel Jaramillo, and Savannah Yahsuanlin.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
