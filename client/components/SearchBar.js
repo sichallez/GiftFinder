@@ -46,7 +46,7 @@ export function Filters(props) {
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <div
         role="tabpanel"
@@ -63,7 +63,7 @@ export function Filters(props) {
       </div>
     );
   }
-  
+
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
@@ -73,7 +73,7 @@ export function Filters(props) {
   function a11yProps(index) {
     return {
       id: `category-tab-${index}`,
-      'aria-controls': `category-tabpanel-${index}`,
+      "aria-controls": `category-tabpanel-${index}`,
     };
   }
 
@@ -83,8 +83,11 @@ export function Filters(props) {
         <Tabs
           value={value}
           indicatorColor="secondary"
-          onChange={() => {handleChange(); props.handleFilter("birthday")}}
-        //   onChange={() => props.handleFilter("anniversary")}
+          onChange={() => {
+            handleChange();
+            props.handleFilter("birthday");
+          }}
+          //   onChange={() => props.handleFilter("anniversary")}
           aria-label="icon label tabs"
         >
           <Tab icon={<WeddingGift />} label="Anniversary" {...a11yProps(0)} />
@@ -92,7 +95,11 @@ export function Filters(props) {
           <Tab icon={<Birthday />} label="Birthday" {...a11yProps(2)} />
           <Tab icon={<Graduation />} label="Graduation" {...a11yProps(3)} />
           <Tab icon={<SmallHearts />} label="Wedding" {...a11yProps(4)} />
-          <Tab icon={<PersonPinIcon />} label="Father's Day" {...a11yProps(5)} />
+          <Tab
+            icon={<PersonPinIcon />}
+            label="Father's Day"
+            {...a11yProps(5)}
+          />
           <Tab icon={<Mother />} label="Mother's Day" {...a11yProps(6)} />
           <Tab icon={<Valentine />} label="Valentine's Day" {...a11yProps(7)} />
           <Tab icon={<Christmas />} label="Christmas" {...a11yProps(8)} />

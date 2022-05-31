@@ -11,16 +11,17 @@ const _getWishlist = (wishlist) => {
   };
 };
 
-
 /* Thunks */
 
 export const getWishlist = () => {
   return async (dispatch) => {
-    const wishlist = (await axios.get("/api/wishlist/", {
+    const wishlist = (
+      await axios.get("/api/wishlist/", {
         headers: {
-          authorization: window.localStorage.token
-        }
-    })).data;
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
 
     console.log(wishlist);
 

@@ -33,7 +33,11 @@ const _addProduct = (newFlower) => {
 
 export const fetchProducts = (query, minPrice, maxPrice) => {
   return async (dispatch) => {
-    const gifts = (await axios.get("/api/gifts", { params: { q: query, minPrice: minPrice, maxPrice: maxPrice } })).data;
+    const gifts = (
+      await axios.get("/api/gifts", {
+        params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
+      })
+    ).data;
     console.log("STORE STORE STORE", gifts);
     dispatch(_fetchProducts(gifts));
   };
