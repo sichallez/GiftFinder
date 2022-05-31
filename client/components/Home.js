@@ -1,64 +1,69 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import Productcard from "./Productcard";
 import { Input, FormBtn, Filters } from "./SearchBar";
-import { Typography, Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
-import Welcome from './Welcome';
+import Welcome from "./Welcome";
 // import { fetchProducts } from "../store/gifts";
-import axios from "axios";  // axios call should NOT appear here in component..
+import axios from "axios"; // axios call should NOT appear here in component..
 
 /**
  * COMPONENT
  */
- class Home extends Component {
+class Home extends Component {
   state = {
-    products: [], 
+    products: [],
     filteredProducts: [],
     giftSearch: "",
     giftOccasion: "Anniversary",
     minPrice: "0",
     maxPrice: "50",
     PageType: "homepage",
-    isLoading: true
+    isLoading: true,
   };
 
   componentDidMount = () => {
     this.handleFilter(this.state.giftOccasion);
-  }
+  };
 
   fetchProducts = (query, minPrice, maxPrice) => {
-    return axios.get("/api/gifts", { params: { q: query, minPrice: minPrice, maxPrice: maxPrice } });
-  }
+    return axios.get("/api/gifts", {
+      params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
+    });
+  };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
-    
+
     let term = this.state.giftSearch.toLowerCase();
 
     let filterProduct = this.state.products.filter(function (product) {
-      return product.title.toLowerCase().indexOf(term) !== -1
-    })
-    this.setState({ filteredProducts: filterProduct })
+      return product.title.toLowerCase().indexOf(term) !== -1;
+    });
+    this.setState({ filteredProducts: filterProduct });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
   handleFilter = (occasion) => {
-    
     this.setState({ isLoading: true, products: [], filteredProducts: [] });
     this.fetchProducts(occasion, this.state.minPrice, this.state.maxPrice)
-      .then(res => {
-        this.setState({ isLoading: false, giftSearch: "", 
-        products: res.data.results, filteredProducts: res.data.results })
+      .then((res) => {
+        this.setState({
+          isLoading: false,
+          giftSearch: "",
+          products: res.data.results,
+          filteredProducts: res.data.results,
+        });
       })
-      .catch(err => console.log(err));
-  }
+      .catch((err) => console.log(err));
+  };
 
   handlePrice = (value) => {
     let minPrice;
@@ -81,53 +86,66 @@ import axios from "axios";  // axios call should NOT appear here in component..
         minPrice = 250;
         break;
     }
-    
 
     this.setState({ isLoading: true, products: [], filteredProducts: [] });
     this.fetchProducts(occasion, this.state.minPrice, this.state.maxPrice)
-      .then(res => {
-        this.setState({ isLoading: false, giftSearch: "", 
-        products: res.data.results, filteredProducts: res.data.results })
+      .then((res) => {
+        this.setState({
+          isLoading: false,
+          giftSearch: "",
+          products: res.data.results,
+          filteredProducts: res.data.results,
+        });
       })
-      .catch(err => console.log(err));
-  }
+      .catch((err) => console.log(err));
+  };
 
-  handleBookmark = id => {
-    
-    const savedProduct = this.state.products.filter(product => product.listing_id === parseInt(id))
-    
+  handleBookmark = (id) => {
+    const savedProduct = this.state.products.filter(
+      (product) => product.listing_id === parseInt(id)
+    );
+
     const productTobeSaved = {
-
       title: savedProduct[0].title,
       image: savedProduct[0].Images[0].url_170x135,
       url: savedProduct[0].url,
       price: savedProduct[0].price,
-      listing_id: savedProduct[0].listing_id
-    }
+      listing_id: savedProduct[0].listing_id,
+    };
 
-    API.saveProducts(productTobeSaved)
-      .then(result => {
-        
-        const nosaved = this.state.products.filter(product => product.listing_id !== result.data.listing_id)
-        this.setState({ books: nosaved })
-      })
+    API.saveProducts(productTobeSaved).then((result) => {
+      const nosaved = this.state.products.filter(
+        (product) => product.listing_id !== result.data.listing_id
+      );
+      this.setState({ books: nosaved });
+    });
   };
 
   displayErrorMessage = () => {
     if (this.state.filteredProducts.length === 0 && !this.state.isLoading) {
-      return <div className="error-message" style={{ textAlign: "center", marginTop: "50px" }}>
-        <span>Sorry, we couldn't find any matching results. Try searching for a different keyword.</span>
-      </div>
+      return (
+        <div
+          className="error-message"
+          style={{ textAlign: "center", marginTop: "50px" }}
+        >
+          <span>
+            Sorry, we couldn't find any matching results. Try searching for a
+            different keyword.
+          </span>
+        </div>
+      );
     }
-  }
+  };
 
   displayLoading = () => {
     if (this.state.isLoading) {
-      return <div className="spinner">
+      return (
+        <div className="spinner">
           <i className="fas fa-spinner fa-spin"></i>
-      </div>
+        </div>
+      );
     }
-  }
+  };
 
   render() {
     return (
@@ -135,17 +153,20 @@ import axios from "axios";  // axios call should NOT appear here in component..
         <Welcome />
         <Filters
           handleFilter={this.handleFilter}
-          handlePrice={this.handlePrice} />
+          handlePrice={this.handlePrice}
+        />
         <form>
           <div className="searchbar-container">
             <Input
               name="giftSearch"
               value={this.state.giftSearch}
               onChange={this.handleInputChange}
-              placeholder="Filter your results" />
+              placeholder="Filter your results"
+            />
             <FormBtn
-              disabled={!(this.state.giftSearch)}
-              onClick={this.handleFormSubmit}>
+              disabled={!this.state.giftSearch}
+              onClick={this.handleFormSubmit}
+            >
               Filter
             </FormBtn>
           </div>
@@ -153,7 +174,7 @@ import axios from "axios";  // axios call should NOT appear here in component..
         {this.displayErrorMessage()}
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
-          {this.state.filteredProducts.map(product => {
+          {this.state.filteredProducts.map((product) => {
             return (
               <Productcard
                 key={product.listing_id}
@@ -165,23 +186,24 @@ import axios from "axios";  // axios call should NOT appear here in component..
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
                 loggedIn={this.props.loggedIn}
-              />)
+              />
+            );
           })}
         </Grid>
-      </div> 
-    )
+      </div>
+    );
   }
 }
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     username: state.auth.username,
-    gifts: state.gifts
-  }
-}
+    gifts: state.gifts,
+  };
+};
 
 // const mapDispatch = (dispatch) => {
 //   return {
@@ -189,4 +211,4 @@ const mapState = state => {
 //   };
 // };
 
-export default connect(mapState)(Home)
+export default connect(mapState)(Home);
