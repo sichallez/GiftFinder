@@ -114,6 +114,7 @@ export function Filters(props) {
             id="priceGroup"
             label="Price"
             onChange={(event) => props.handlePrice(event.target.value)}
+            defaultValue = ""
           >
             <MenuItem value="1">Under $50</MenuItem>
             <MenuItem value="2">$50 to $100</MenuItem>
