@@ -2,32 +2,36 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
 import history from '../history'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
-
+   const {name, displayName, handleSubmit, error} = props
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+    <div className='authform'>
+      <form onSubmit={handleSubmit} name={name} className='formContainer'>
+        <div className='text_field'>
+          <input name="username" type="text" placeholder='Username' required autoFocus='on'/>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+        <div className='text_field'>
+          <input name="password" type="password" placeholder='Password' required/>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div className='authBtn'>
+          <button type="submit" >{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
+        <div className='divider'><span></span></div>
+        <div className='authBtn'>
+          { displayName === 'Login' ? <>
+            <p className="message">Not registered?</p>
+            <Link to="/signup"><button style={{backgroundColor: '#F1F1F1', color:'#000'}}>Sign Up</button></Link></>
+            : 
+            <Link to="/login"><button style={{backgroundColor: '#F1F1F1', color:'#000'}}>LogIn</button></Link>
+          }
+          
+        </div>
       </form>
     </div>
   )
@@ -71,3 +75,4 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+
