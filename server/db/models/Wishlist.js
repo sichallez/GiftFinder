@@ -5,11 +5,11 @@ const Wishlist = db.define("wishlist", {
   name: {
     type: STRING,
     allowNull: false,
-    default: 'Wishlist'
+    default: "Wishlist",
   },
-  totalItems:{
-      type: INTEGER
-  }
+  totalItems: {
+    type: INTEGER,
+  },
 });
 
 module.exports = Wishlist;
