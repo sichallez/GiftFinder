@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+import Questions from './Questions';
+
 import {
   Button,
   Typography,
@@ -52,8 +55,8 @@ const Welcome = () => {
             <h5>OR</h5>
           </Grid>
           <Grid xs={5}>
-            <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
-              Tell us more about you
+            <Button className='button' variant="contained" sx={{ backgroundColor: "#DB4437" }}>
+              <Link to='/questions'>Tell us more about you</Link>
             </Button>
           </Grid>
         </Grid>

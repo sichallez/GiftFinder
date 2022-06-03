@@ -5,6 +5,10 @@ import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 const Navbar = ({ handleClick, isLoggedIn, username }) => (
   <div>
     <nav>
@@ -22,8 +26,12 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
             <ul className="nav-top-level">
               <li>
                 <ul className="nav-top-level">
-                  <li>{username}</li>
                   <li>
+                  {/* <FaceRetouchingNaturalIcon /> */}
+                  Hi, {username}
+                  </li>
+                  <li>
+                    {/* <FavoriteBorderIcon /> */}
                     <Link to="/wishlist">Wishlist</Link>
                   </li>
                   <li>

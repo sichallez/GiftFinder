@@ -20,6 +20,15 @@ form div {
   display: inline-block;
 }
 
+.button {
+  text-decoration: none;
+}
+
+.button:hover {
+  text-decoration: none;
+
+}
+
 /** Navbar **/
 nav {
   text-decoration: none;
@@ -60,4 +69,90 @@ nav a, nav li {
   padding: 10px;
   vertical-align: middle;
   cursor: pointer;
+}
+
+/** Product Card **/
+.card {
+  width: 15rem;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.info {
+  padding: 15px;
+}
+
+.img-container {
+  padding-top: 0;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.fa-bookmark, .fa-trash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #c23c27;
+  padding-top: 2px;
+}
+
+.circle-icon {
+  background: white;
+  padding:8px;
+  border-radius: 50%;
+  margin: 5px;
+}
+.circle-icon:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.price {
+  font-weight: bold;
+}
+
+/** Search Bar **/
+.btn-light:not(:disabled):not(.disabled).active {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white
+}
+
+.input-group {
+  width: unset;
+  display: flex;
+  justify-content: center;
+  background: #f8f9fa;
+}
+
+.input-group .focus {
+  box-shadow: unset;
+}
+
+#priceGroup {
+  flex: none;
+  width: 200px;
+}
+
+.form-control {
+  display: inline-block;
+  width: 300px;
+}
+
+.searchbar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.input-group-append {
+  display: block;
+}
+.filterbtn {
+  margin-left: 5px;
 }

@@ -5,8 +5,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import gifts from "./gifts";
 import wishlist from "./wishlist";
+import questions from "./questions";
 
-const reducer = combineReducers({ auth, gifts, wishlist });
+const reducer = combineReducers({ auth, gifts, wishlist, questions });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
@@ -16,3 +17,4 @@ export default store;
 export * from "./auth";
 export * from "./gifts";
 export * from "./wishlist";
+export * from './questions';

@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Wishlist from "./components/Wishlist";
+import Questions from "./components/Questions";
 import { me } from "./store";
 
 /**
@@ -23,6 +24,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/wishlist" component={Wishlist} />
+            <Route path='/questions' component={Questions} />
           </Switch>
         ) : (
           <Switch>
@@ -30,6 +32,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
+            <Route path='/questions' component={Questions} />
           </Switch>
         )}
       </div>

@@ -23,8 +23,6 @@ import PropTypes from "prop-types";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 
-import "./SearchBar.css";
-
 export function Input(props) {
   return <input className="form-control" {...props} />;
 }
