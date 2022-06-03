@@ -37,7 +37,7 @@ const Welcome = () => {
           Looking for a spectacular gift idea for your cared ones?
         </Typography>
         <Grid>
-          <Grid xs={6}>
+          <Grid>
             <InputBase
               sx={{ ml: 1, flex: 1, color: "white" }}
               placeholder="Search Gift Ideas"
@@ -51,12 +51,12 @@ const Welcome = () => {
               <SearchIcon />
             </IconButton>
           </Grid>
-          <Grid xs={1}>
+          <Grid>
             <h5>OR</h5>
           </Grid>
-          <Grid xs={5}>
-            <Button className='button' variant="contained" sx={{ backgroundColor: "#DB4437" }}>
-              <Link to='/questions'>Tell us more about you</Link>
+          <Grid>
+            <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
+              Tell us more about you
             </Button>
           </Grid>
         </Grid>
