@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Productcard from "./Productcard";
-import { Input, FormBtn, Filters } from "./SearchBar";
-import { Grid } from "@mui/material";
+import ProductCard from "./ProductCard";
+import { Category, FilterResults } from "./CategoryTabs";
+import { Typography, Box, Grid } from "@mui/material";
 
-import Welcome from "./Welcome";
+import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
 import axios from "axios"; // axios call should NOT appear here in component..
 
@@ -88,7 +88,7 @@ class Home extends Component {
     }
 
     this.setState({ isLoading: true, products: [], filteredProducts: [] });
-    this.fetchProducts(occasion, this.state.minPrice, this.state.maxPrice)
+    this.fetchProducts(this.state.giftOccasion, minPrice, maxPrice)
       .then((res) => {
         this.setState({
           isLoading: false,
@@ -107,7 +107,7 @@ class Home extends Component {
 
     const productTobeSaved = {
       title: savedProduct[0].title,
-      image: savedProduct[0].Images[0].url_170x135,
+      image: savedProduct[0].Images[0].url_570xN,
       url: savedProduct[0].url,
       price: savedProduct[0].price,
       listing_id: savedProduct[0].listing_id,
@@ -150,15 +150,25 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Welcome />
-        <Filters
-          handleFilter={this.handleFilter}
+        <Box sx={{ display: "grid", justifyContent: "center" }}>
+          <SearchBar />
+          <Category
+            handleFilter={this.handleFilter}
+            handlePrice={this.handlePrice}
+          />
+        </Box>
+        <FilterResults
+          name="giftSearch"
+          value={this.state.giftSearch}
+          onChange={this.handleInputChange}
+          disabled={!this.state.giftSearch}
+          onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
         />
-        <form>
-          <div className="searchbar-container">
+        {/* <form>
+          <div className="filterbar-container">
             <Input
-              name="giftSearch"
+              name="giftFilter"
               value={this.state.giftSearch}
               onChange={this.handleInputChange}
               placeholder="Filter your results"
@@ -170,17 +180,18 @@ class Home extends Component {
               Filter
             </FormBtn>
           </div>
-        </form>
+        </form> */}
         {this.displayErrorMessage()}
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map((product) => {
+            // console.log("PRODUCT", product);
             return (
-              <Productcard
+              <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
-                image={product.Images[0].url_170x135}
+                image={product.Images[0].url_570xN}
                 url={product.url}
                 price={product.price}
                 handleBookmark={this.handleBookmark}
