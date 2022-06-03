@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import {
   Button,
   Typography,
@@ -51,8 +52,8 @@ const SearchBar = () => {
         <h5>OR</h5>
       </Grid>
       <Grid item direction="column" display="flex" justifyContent="center">
-        <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
-          Tell us more about you
+        <Button className='searchbar-btn' variant="contained" sx={{ backgroundColor: "#DB4437" }}>
+            <Link to='/questions'>Tell us more about you</Link>
         </Button>
       </Grid>
     </Grid>

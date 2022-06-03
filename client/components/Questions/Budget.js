@@ -13,7 +13,7 @@ class Budget extends Component {
         const { budget } = this.state
         return (
             <div>
-
+                helloooo
             </div>
         )
     }

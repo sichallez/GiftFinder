@@ -2,10 +2,11 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
+import { me } from "./store";
 import Home from "./components/Home";
 import Wishlist from "./components/Wishlist";
 import Questions from "./components/Questions";
-import { me } from "./store";
+import Budget from './components/Questions';
 
 /**
  * COMPONENT
@@ -24,7 +25,9 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/wishlist" component={Wishlist} />
-            <Route path='/questions' component={Questions} />
+            <Route path='/questions/budget' exact component={Budget} />
+            <Route path='/questions' exact component={Questions} />
+            <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
@@ -32,7 +35,8 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
-            <Route path='/questions' component={Questions} />
+            <Route path='/questions/budget' exact component={Budget} />
+            <Route path='/questions' exact component={Questions} />
           </Switch>
         )}
       </div>
