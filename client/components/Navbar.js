@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
+import SearchBar from "./SearchBar";
 
 const Navbar = ({ handleClick, isLoggedIn, username }) => (
   <div>
@@ -18,6 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               </li>
             </ul>
           </div>
+          <SearchBar />
           <div className="nav-flex-item">
             <ul className="nav-top-level">
               <li>
@@ -46,6 +48,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               </li>
             </ul>
           </div>
+          <SearchBar />
           <div className="nav-flex-item">
             <ul className="nav-top-level">
               <li>
@@ -67,24 +70,45 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
   </div>
 );
 
-// const Navbar = ({handleClick, isLoggedIn}) => {
+// const Navbar = ({ handleClick, isLoggedIn, username }) => {
 //   return (
-//     <AppBar position="static" color="default">
-//       <Toolbar>
-//         <Box sx={{ flexGrow: 1 }}>
-//           <Link to="/">
-//             <img src="/images/logo.png" alt="logo" style={{maxHeight: 35}} />
-//           </Link>
-//         </Box>
-//         {/* <Box sx={{ flexGrow: 0 }}> */}
+//     <>
+//       <AppBar
+//         elevation={0}
+//         position="static"
+//         color="transparent"
+//         sx={{ marginTop: "24px", marginBottom: "24px" }}
+//       >
+//         <Toolbar>
+//           <Box sx={{ flexGrow: 1, display: "flex" }}>
+//             <Link to="/home">
+//               {/* <img src="/images/logo.png" alt="logo" style={{maxHeight: 35}} /> */}
+//               <Typography
+//                 sx={{
+//                   fontSize: "35px",
+//                   color: "#4d4d4d",
+//                   textDecoration: "none",
+//                   fontFamily:
+//                     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+//                 }}
+//                 component="div"
+//               >
+//                 GIFTFINDER
+//               </Typography>
+//             </Link>
+//             <SearchBar />
+//           </Box>
+//           {/* <Box sx={{ flexGrow: 0 }}> */}
 //           {isLoggedIn ? (
 //             <div>
 //               {/* The navbar will show these links after you log in */}
-//               <Link to="/home">Home</Link>
-//               <a href="#" onClick={handleClick}>
-//                 Logout
-//               </a>
-//               <Link to='/wishlist'>Wishlist</Link>
+//               <Button>{username}</Button>
+//               <Link to="/wishlist">
+//                 <Button>Wishlist</Button>
+//               </Link>
+//               <Link to="#">
+//                 <Button onClick={handleClick}>Logout</Button>
+//               </Link>
 //             </div>
 //           ) : (
 //             <>
@@ -99,11 +123,13 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
 //               </Link>
 //             </>
 //           )}
-//         {/* </Box> */}
-//       </Toolbar>
-//     </AppBar>
-//   )
-// }
+//           {/* </Box> */}
+//         </Toolbar>
+//       </AppBar>
+//       <hr style={{ color: "#4d4d4d" }} />
+//     </>
+//   );
+// };
 
 /**
  * CONTAINER
