@@ -39,13 +39,14 @@ export const addToWishlist = (product) => {
         })
       ).data;
 
+      console.log(product)
       //create the gift with the wishlist id
       const gift = (await axios.post("/api/gifts/",{
         name: product.title, 
         price: product.price, 
         description: product.description, 
         image_url: product.Images[0].url_fullxfull, 
-        listingId: product.listingId,
+        listingId: product.listing_id,
         url: product.url,
         wishlistId: wishlist.id
       })).data;

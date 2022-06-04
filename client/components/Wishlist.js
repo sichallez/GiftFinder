@@ -20,7 +20,18 @@ class Wishlist extends Component {
 
     return (
       <div>{wishListGifts.map(gift=>{
+        
         console.log(gift)
+
+        return(
+          <div key = {gift.id}>
+            {gift.name} <br/>
+            <img src = {gift.image_url} width = "50%"/> <br/>
+            {`$${gift.price}`}
+            <br/> 
+            <br/>
+          </div>
+        )
       })}</div>
     );
   }
