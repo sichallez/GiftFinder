@@ -150,8 +150,8 @@ class Home extends Component {
     }
   };
 
-  onClick = ()=>{
-    this.props.addToWishlist();
+  onClick = (product)=>{
+    this.props.addToWishlist(product);
     console.log('adding');
   };
 
@@ -172,31 +172,14 @@ class Home extends Component {
           disabled={!this.state.giftSearch}
           onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
-          defaultValue =''
         />
-        {/* <form>
-          <div className="filterbar-container">
-            <Input
-              name="giftFilter"
-              value={this.state.giftSearch}
-              onChange={this.handleInputChange}
-              placeholder="Filter your results"
-            />
-            <FormBtn
-              disabled={!this.state.giftSearch}
-              onClick={this.handleFormSubmit}
-            >
-              Filter
-            </FormBtn>
-          </div>
-        </form> */}
         {this.displayErrorMessage()}
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map((product) => {
-             console.log("PRODUCT", product);
             return (
-              <><ProductCard
+              <div key={product.listing_id}>
+                <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
@@ -206,7 +189,7 @@ class Home extends Component {
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
                 loggedIn={this.props.loggedIn} />
-                <button type= 'button' onClick={this.onClick.bind(this)}>Wishlist</button></>
+                <button type= 'button' onClick={this.onClick.bind(this, product)}>Wishlist</button></div>
             );
           })}
         </Grid>
@@ -227,7 +210,7 @@ const mapState = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToWishlist: () => dispatch(addToWishlist()),
+    addToWishlist: (product) => dispatch(addToWishlist(product)),
   };
 };
 

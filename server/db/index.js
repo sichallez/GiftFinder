@@ -25,5 +25,6 @@ module.exports = {
   models: {
     User,
     Wishlist,
+    Gift
   },
 };

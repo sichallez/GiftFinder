@@ -27,19 +27,36 @@ export const getWishlist = () => {
   };
 };
 
-export const addToWishlist = () => {
+export const addToWishlist = (product) => {
   return async (dispatch) => {
-    // const wishlist = (
-    //   await axios.get("/api/wishlist/", {
-    //     headers: {
-    //       authorization: window.localStorage.token,
-    //     },
-    //   })
-    // ).data;
+   //get the wishlist id
+   const wishlist = (
+      await axios.get("/api/wishlist/", {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+   //create the gift with the wishlist id
+    console.log(product);
+   const gift = (await axios.post("/api/gifts/",{
+    name: product.title, 
+    price: product.price, 
+    description: product.description, 
+    image_url: product.Images[0].url_fullxfull, 
+    listingId: product.listingId,
+    url: product.url,
+    wishlistId: wishlist.id
+   })).data;
+
+   console.log(gift);
+   //return updated wishlist to state
 
     console.log('adding in store');
+    console.log(product);
 
-    //dispatch(_getWishlist(wishlist));
+    dispatch(_getWishlist(wishlist));
   };
 };
 
