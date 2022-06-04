@@ -23,9 +23,23 @@ export const getWishlist = () => {
       })
     ).data;
 
-    console.log(wishlist);
-
     dispatch(_getWishlist(wishlist));
+  };
+};
+
+export const addToWishlist = () => {
+  return async (dispatch) => {
+    // const wishlist = (
+    //   await axios.get("/api/wishlist/", {
+    //     headers: {
+    //       authorization: window.localStorage.token,
+    //     },
+    //   })
+    // ).data;
+
+    console.log('adding in store');
+
+    //dispatch(_getWishlist(wishlist));
   };
 };
 

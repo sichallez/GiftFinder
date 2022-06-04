@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
 import { Typography, Box, Grid } from "@mui/material";
+import {addToWishlist} from '../store/wishlist'
 
 import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
@@ -100,8 +101,10 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
-  handleBookmark = (id) => {
-    const savedProduct = this.state.products.filter(
+  handleBookmark = (id) => {  
+      console.log('here')
+
+      const savedProduct = this.state.products.filter(
       (product) => product.listing_id === parseInt(id)
     );
 
@@ -147,6 +150,11 @@ class Home extends Component {
     }
   };
 
+  onClick = ()=>{
+    this.props.addToWishlist();
+    console.log('adding');
+  };
+
   render() {
     return (
       <div>
@@ -164,6 +172,7 @@ class Home extends Component {
           disabled={!this.state.giftSearch}
           onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
+          defaultValue =''
         />
         {/* <form>
           <div className="filterbar-container">
@@ -185,9 +194,9 @@ class Home extends Component {
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map((product) => {
-            // console.log("PRODUCT", product);
+             console.log("PRODUCT", product);
             return (
-              <ProductCard
+              <><ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
@@ -196,8 +205,8 @@ class Home extends Component {
                 price={product.price}
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
-                loggedIn={this.props.loggedIn}
-              />
+                loggedIn={this.props.loggedIn} />
+                <button type= 'button' onClick={this.onClick.bind(this)}>Wishlist</button></>
             );
           })}
         </Grid>
@@ -216,10 +225,10 @@ const mapState = (state) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchProducts: () => dispatch(fetchProducts()),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToWishlist: () => dispatch(addToWishlist()),
+  };
+};
 
-export default connect(mapState)(Home);
+export default connect(mapState,mapDispatchToProps)(Home);

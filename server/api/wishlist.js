@@ -7,8 +7,6 @@ router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
 
-    console.log("USER");
-
     console.log(req.headers);
 
     const wishlist = await Wishlist.findOne({
