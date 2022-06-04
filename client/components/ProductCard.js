@@ -14,7 +14,6 @@ import ShareIcon from "@mui/icons-material/Share";
 import "./ProductCard.css";
 
 const ProductCard = ({
-  key,
   loggedIn,
   page_type,
   handleBookmark,

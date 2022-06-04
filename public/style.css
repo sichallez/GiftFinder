@@ -3,9 +3,9 @@ body {
   background-color: #faf7f0;
 }
 
-#app {
-  margin-left: 250px;
-  margin-right: 250px;
+#app {  
+  margin-left: 100px;
+  margin-right: 100px;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -40,8 +40,7 @@ form div {
 /** Navbar **/
 nav {
   text-decoration: none;
-  /* width: 1300px; */
-  margin: auto;
+
 }
 
 nav a, nav li {
@@ -85,4 +84,41 @@ nav a, nav li {
   color: white;
 }
 
-/** Questions **/
+/** Budget **/
+.sliderBudget {
+  margin-bottom: 20px;
+  appearance: none;
+  width: 60%;
+  height: 15px;
+  border-radius: 10px;
+}
+
+.sliderBudget::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background-size: 28px 28px;
+  cursor: pointer;
+}
+
+.budget-value {
+  font-size: 50px;
+  font-family: Petrona;
+  text-align: center;
+  margin-bottom: auto;
+}
+
+@media only screen and (max-width: 700px) {
+  .sliderBudget {
+    width: 80%;
+    height: 12px;
+  }
+  .sliderBudget::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+  }
+  .budget-value {
+    font-size: 16px;
+  }
+}

@@ -6,7 +6,7 @@ import { me } from "./store";
 import Home from "./components/Home";
 import Wishlist from "./components/Wishlist";
 import Questions from "./components/Questions";
-import Budget from './components/Questions';
+import Budget from './components/Questions/Budget';
 
 /**
  * COMPONENT
@@ -25,17 +25,17 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/wishlist" component={Wishlist} />
-            <Route path='/questions/budget' exact component={Budget} />
+            <Route path='/questions/budget' component={Budget} />
             <Route path='/questions' exact component={Questions} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
-            <Route path='/questions/budget' exact component={Budget} />
+            <Route path='/questions/budget' component={Budget} />
             <Route path='/questions' exact component={Questions} />
           </Switch>
         )}

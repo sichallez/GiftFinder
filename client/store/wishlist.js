@@ -23,9 +23,40 @@ export const getWishlist = () => {
       })
     ).data;
 
-    console.log(wishlist);
-
     dispatch(_getWishlist(wishlist));
+  };
+};
+
+export const addToWishlist = (product) => {
+  return async (dispatch) => {
+    try{
+      //get the wishlist id
+      let wishlist = (
+        await axios.get("/api/wishlist/", {
+          headers: {
+            authorization: window.localStorage.token,
+          },
+        })
+      ).data;
+
+      console.log(product)
+      //create the gift with the wishlist id
+      const gift = (await axios.post("/api/gifts/",{
+        name: product.title, 
+        price: product.price, 
+        description: product.description, 
+        image_url: product.Images[0].url_fullxfull, 
+        listingId: product.listing_id,
+        url: product.url,
+        wishlistId: wishlist.id
+      })).data;
+
+      //return updated wishlist to state
+      dispatch(_getWishlist(wishlist));
+    }
+    catch(err){
+      console.log(err)
+    }
   };
 };
 

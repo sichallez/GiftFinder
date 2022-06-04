@@ -17,14 +17,13 @@ const SearchBar = () => {
   return (
     <Grid
       container
-      direction="row"
       justifyContent="center"
       spacing={0}
       align="center"
       sx={{ margin: "auto" }}
     >
       <form>
-        <Grid item direction="row" display="flex" justifyContent="center">
+        <Grid item display="flex" justifyContent="center">
           <TextField
             id="search-bar"
             className="text"
@@ -45,15 +44,14 @@ const SearchBar = () => {
       <Grid
         xs={1}
         item
-        direction="column"
         display="flex"
         justifyContent="center"
       >
         <h5>OR</h5>
       </Grid>
-      <Grid item direction="column" display="flex" justifyContent="center">
-        <Button className='searchbar-btn' variant="contained" sx={{ backgroundColor: "#DB4437" }}>
-            <Link to='/questions'>Tell us more about you</Link>
+      <Grid item  display="flex" justifyContent="center">
+        <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
+          Tell us more about you
         </Button>
       </Grid>
     </Grid>
