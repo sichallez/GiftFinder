@@ -29,34 +29,33 @@ export const getWishlist = () => {
 
 export const addToWishlist = (product) => {
   return async (dispatch) => {
-   //get the wishlist id
-   const wishlist = (
-      await axios.get("/api/wishlist/", {
-        headers: {
-          authorization: window.localStorage.token,
-        },
-      })
-    ).data;
+    try{
+      //get the wishlist id
+      let wishlist = (
+        await axios.get("/api/wishlist/", {
+          headers: {
+            authorization: window.localStorage.token,
+          },
+        })
+      ).data;
 
-   //create the gift with the wishlist id
-    console.log(product);
-   const gift = (await axios.post("/api/gifts/",{
-    name: product.title, 
-    price: product.price, 
-    description: product.description, 
-    image_url: product.Images[0].url_fullxfull, 
-    listingId: product.listingId,
-    url: product.url,
-    wishlistId: wishlist.id
-   })).data;
+      //create the gift with the wishlist id
+      const gift = (await axios.post("/api/gifts/",{
+        name: product.title, 
+        price: product.price, 
+        description: product.description, 
+        image_url: product.Images[0].url_fullxfull, 
+        listingId: product.listingId,
+        url: product.url,
+        wishlistId: wishlist.id
+      })).data;
 
-   console.log(gift);
-   //return updated wishlist to state
-
-    console.log('adding in store');
-    console.log(product);
-
-    dispatch(_getWishlist(wishlist));
+      //return updated wishlist to state
+      dispatch(_getWishlist(wishlist));
+    }
+    catch(err){
+      console.log(err)
+    }
   };
 };
 

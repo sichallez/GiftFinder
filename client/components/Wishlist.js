@@ -8,15 +8,21 @@ class Wishlist extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (!this.props.wishlist) {
       return;
     }
 
-    if (this.props.wishlist.totalItems === 0) {
+    if (!this.props.wishlist.gifts || this.props.wishlist.gifts.length === 0) {
       return <div>Wishlist Is Empty</div>;
     }
-    return <div>Wishlist</div>;
+
+    const wishListGifts = this.props.wishlist.gifts;
+
+    return (
+      <div>{wishListGifts.map(gift=>{
+        console.log(gift)
+      })}</div>
+    );
   }
 }
 

@@ -21,7 +21,6 @@ async function seed() {
 
   const list1 = Wishlist.create({
     name: "Wishlist",
-    totalItems: 0,
     userId: users[0].id,
   });
   const list2 = Wishlist.create({

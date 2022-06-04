@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Wishlist, User },
+  models: { Wishlist, User, Gift },
 } = require("../db");
 
 router.get("/", async (req, res, next) => {
@@ -10,6 +10,9 @@ router.get("/", async (req, res, next) => {
       where: {
         userId: user.id,
       },
+      include:[
+        { model: Gift}
+      ],
     });
 
     res.send(wishlist);

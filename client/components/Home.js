@@ -151,8 +151,12 @@ class Home extends Component {
   };
 
   onClick = (product)=>{
-    this.props.addToWishlist(product);
-    console.log('adding');
+    try{
+      this.props.addToWishlist(product);
+    }
+    catch(err){
+      console.log('HOME ERR')
+    }
   };
 
   render() {
