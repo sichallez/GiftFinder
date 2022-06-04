@@ -20,22 +20,13 @@ const Gift = db.define("gift", {
   image_url: {
     type: STRING,
   },
-  image_url2: {
-    type: STRING,
+  listingId:{
+    type: INTEGER
   },
-  image_url3: {
-    type: STRING,
-  },
-  image_url4: {
-    type: STRING,
-  },
-  stock: {
-    type: INTEGER,
-  },
-  category: {
+  url:{
     type: TEXT,
-    allowNull: false,
-  },
+    unique: true
+  }
 });
 
 module.exports = Gift;
