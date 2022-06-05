@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import GoogleIcon from '@mui/icons-material/Google';
 
 // import "./authForm.module.css";
 
@@ -145,27 +146,12 @@ const AuthForm = (props) => {
           </Button>
         </form>
         <Grid align="center">
-          {/* <h5>OR</h5>
+           <h5>OR</h5>
           <hr />
-          <GoogleLogin
-            clientId={clientId}
-            buttonText="Login"
-            render={(renderProps) => (
-              <GoogleLoginButton
-                disabled={renderProps.disabled}
-                align="center"
-                style={{ backgroundColor: "#dc4a3d", color: "white" }}
-                activeStyle={{ backgroundColor: "#e82517" }}
-                onClick={renderProps.onClick}
-              >
-                <span>Log in with Google</span>
-              </GoogleLoginButton>
-            )}
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-          />
-          <FacebookLoginButton
+          <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%' }}>
+            <GoogleIcon /><a href="/auth/login/google" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Google</a>
+          </Button>
+          {/*<FacebookLoginButton
             align="center"
             onClick={() => (window.location = "/auth/facebook")}
           >

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { models: {User }} = require('../db')
+const passport = require('passport')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -31,3 +32,29 @@ router.get('/me', async (req, res, next) => {
     next(ex)
   }
 })
+
+
+router.get('/login/google',passport.authenticate('google', {scope: ['profile', 'email']}))
+
+
+router.get('/callback', passport.authenticate('google', {
+  failureRedirect: '/login',
+  session: false
+}),
+  async(req, res) => {
+    const passportId = req.user[0].dataValues.passportId
+    const token = await User.authenticateViaSocial(passportId)
+    res.send(
+    `
+      <html>
+        <body>
+          <script>
+            window.localStorage.setItem('token', '${token}')
+            window.document.location = '/'
+          </script>
+        </body>
+      </html>
+    `)
+  }
+
+)
