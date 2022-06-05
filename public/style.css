@@ -82,18 +82,17 @@ nav a, nav li {
 .searchbar-btn a {
   text-decoration: none;
   color: white;
+  padding: 2rem;
 }
 
 /** Budget **/
 .sliderBudget {
-  margin-bottom: 20px;
-  appearance: none;
-  width: 60%;
-  height: 15px;
-  border-radius: 10px;
+  height: 2rem;
+  cursor: pointer;
+  width: 80%;
 }
 
-.sliderBudget::-webkit-slider-thumb {
+/* .sliderBudget::-webkit-slider-thumb {
   appearance: none;
   width: 28px;
   height: 28px;
@@ -121,4 +120,4 @@ nav a, nav li {
   .budget-value {
     font-size: 16px;
   }
-}
+} */

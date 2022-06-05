@@ -5,11 +5,11 @@ const SET_CATEGORY = 'SET_CATEGORY'
 const SET_CHARACTER = 'SET_CHARACTER';
 const RESET_STATE = 'RESET_STATE';
 
-const setBudget = (budget) => {return { type: SET_BUDGET, budget }}
-const setPerson = (person) => {return { type: SET_PERSON, person}}
-const setCategory = (category) => {return { type: SET_CATEGORY, category}}
-const setCharacter = (character) => {return { type: SET_CHARACTER, character}}
-const resetState = () => { return { type: RESET_STATE }}
+export const setBudget = (budget) => {return { type: SET_BUDGET, budget }}
+export const setPerson = (person) => {return { type: SET_PERSON, person}}
+export const setCategory = (category) => {return { type: SET_CATEGORY, category}}
+export const setCharacter = (character) => {return { type: SET_CHARACTER, character}}
+export const resetState = () => { return { type: RESET_STATE }}
 
 export const initialState = {
     budget: 20,

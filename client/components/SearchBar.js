@@ -50,9 +50,11 @@ const SearchBar = () => {
         <h5>OR</h5>
       </Grid>
       <Grid item  display="flex" justifyContent="center">
-        <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
+      <Link to='/questions'>
+        <Button className='searchbar-btn' variant="contained" sx={{ backgroundColor: "#DB4437", padding: "1rem" }}>
           Tell us more about you
         </Button>
+      </Link>
       </Grid>
     </Grid>
   );
