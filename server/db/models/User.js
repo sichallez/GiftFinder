@@ -9,7 +9,7 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
-    unique: true
+    unique: true,
   },
   password: {
     type: Sequelize.STRING,
@@ -18,20 +18,20 @@ const User = db.define("user", {
     type: Sequelize.STRING,
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   fullName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   token: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   passportId: {
     type: Sequelize.STRING,
-  }
+  },
 });
 
 module.exports = User;
@@ -93,7 +93,6 @@ User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
 User.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
-
 
 User.authenticateViaSocial = async function (passportId) {
   const user = await this.findOne({ where: { passportId } });

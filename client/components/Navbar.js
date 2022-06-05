@@ -23,7 +23,7 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
               <li>
                 <ul className="nav-top-level">
                   <li>{username || firstName}</li>
-                  <li>t
+                  <li>
                     <Link to="/wishlist">Wishlist</Link>
                   </li>
                   <li>
@@ -112,7 +112,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     username: state.auth.username,
-    firstName: state.auth.firstName
+    firstName: state.auth.firstName,
   };
 };
 
