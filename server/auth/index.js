@@ -43,7 +43,7 @@ router.get('/callback', passport.authenticate('google', {
 }),
   async(req, res) => {
     const passportId = req.user[0].dataValues.passportId
-    const token = await User.authenticateViaSocial(passportId)
+    const token = await User.authenticateViaSocial(passportId);
     res.send(
     `
       <html>

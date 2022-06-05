@@ -5,7 +5,7 @@ import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
 
-const Navbar = ({ handleClick, isLoggedIn, username }) => (
+const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -22,7 +22,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
             <ul className="nav-top-level">
               <li>
                 <ul className="nav-top-level">
-                  <li>{username}</li>
+                  <li>{username || firstName}</li>
                   <li>
                     <Link to="/wishlist">Wishlist</Link>
                   </li>
@@ -112,6 +112,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     username: state.auth.username,
+    firstName: state.auth.firstName
   };
 };
 

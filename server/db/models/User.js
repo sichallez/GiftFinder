@@ -9,8 +9,7 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
+    unique: true
   },
   password: {
     type: Sequelize.STRING,
@@ -90,3 +89,18 @@ const hashPassword = async (user) => {
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
+
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT);
+};
+
+
+User.authenticateViaSocial = async function (passportId) {
+  const user = await this.findOne({ where: { passportId } });
+  if (!user) {
+    const error = Error("No user exists");
+    error.status = 401;
+    throw error;
+  }
+  return user.generateToken();
+};
