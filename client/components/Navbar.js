@@ -23,7 +23,7 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
               <li>
                 <ul className="nav-top-level">
                   <li>{username || firstName}</li>
-                  <li>
+                  <li>t
                     <Link to="/wishlist">Wishlist</Link>
                   </li>
                   <li>
