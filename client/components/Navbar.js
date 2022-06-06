@@ -15,7 +15,7 @@ import { logout } from "../store";
 import SearchBar from "./SearchBar";
 import AccountMenu from "./account/AccountMenu";
 
-const Navbar = ({ handleClick, isLoggedIn, username }) => (
+const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -33,6 +33,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
             <ul className="nav-top-level">
               <li>
                 <ul className="nav-top-level">
+                  <li>{username || firstName}</li>
                   <li>
                     <AccountMenu />
                   </li>
@@ -157,6 +158,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     username: state.auth.username,
+    firstName: state.auth.firstName,
   };
 };
 
