@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const passport = require("passport");
 const app = express();
+
 require("./auth/google")(passport);
 
 module.exports = app;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 app.use(passport.initialize());
+
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
 );
