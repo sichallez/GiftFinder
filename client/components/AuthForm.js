@@ -20,6 +20,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import GoogleIcon from '@mui/icons-material/Google';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 // import "./authForm.module.css";
 
@@ -151,13 +152,10 @@ const AuthForm = (props) => {
           <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%' }}>
             <GoogleIcon /><a href="/auth/login/google" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Google</a>
           </Button>
-          {/*<FacebookLoginButton
-            align="center"
-            onClick={() => (window.location = "/auth/facebook")}
-          >
-            <span>Log in with Facebook</span>
-          </FacebookLoginButton>
-          <TwitterLoginButton
+          <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%', marginTop: '20px' }}>
+            <FacebookIcon/><a href="/auth/login/facebook" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Facebook</a>
+          </Button>
+          {/*<TwitterLoginButton
             align="center"
             onClick={() => (window.location = "/auth/twitter")}
           >
