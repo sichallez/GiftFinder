@@ -11,7 +11,7 @@ module.exports = function(passport) {
 				clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
 				callbackURL: REDIRECT_URI
-			},
+			}),
 			async function(token, refreshToken, profile, done) {
 				profile = profile._json;
 				try {
@@ -25,12 +25,10 @@ module.exports = function(passport) {
             },
           });
           done(null, user);
-				}
-				catch(error) {	
+				} catch(error) {	
 					console.log(error);
 				}
 			}
-		)
 	)
 }
 

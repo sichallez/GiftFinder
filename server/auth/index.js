@@ -62,28 +62,3 @@ router.get(
     );
   }
 );
-
-
-router.get('/login/facebook', passport.authenticate('facebook'))
-
-router.get('/callback', 
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false
-  }),
-  async (req, res) => {
-    const passportId = req.user[0].dataValues.passportId
-    const token = await User.authenticateViaSocial(passportId)
-    res.send(
-    `
-      <html>
-        <body>
-          <script>
-            window.localStorage.setItem('token', '${token}')
-            window.document.location = '/'
-          </script>
-        </body>
-      </html>
-    `)
-  }
-)

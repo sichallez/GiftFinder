@@ -152,9 +152,6 @@ const AuthForm = (props) => {
           <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%' }}>
             <GoogleIcon /><a href="/auth/login/google" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Google</a>
           </Button>
-          <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%', marginTop: '20px' }}>
-            <FacebookIcon/><a href="/auth/login/facebook" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Facebook</a>
-          </Button>
           {/*<TwitterLoginButton
             align="center"
             onClick={() => (window.location = "/auth/twitter")}
