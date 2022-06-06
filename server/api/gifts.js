@@ -51,6 +51,7 @@ router.get("/", async (req, res, next) => {
         "&includes=Images&sort_on=score&api_key=dggfhwkwf5yl2hsyp2mhwn38"
     );
     const gifts = response.data;
+    //console.log(gifts.results.map(ele => ele.views).sort((a, b) => b - a))
     res.json(gifts);
   } catch (err) {
     next(err);

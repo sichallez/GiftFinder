@@ -1,9 +1,28 @@
 "use strict";
-
+const https = require('https')
 const {
   db,
   models: { User, Wishlist, Gift },
 } = require("../server/db");
+
+
+
+const giftAPI = 'https://openapi.etsy.com/v2/listings/active?limit=1&fields=listing_id,title&api_key=dggfhwkwf5yl2hsyp2mhwn38'
+
+https.get(giftAPI, function all(res){
+    let body = '';
+    let results = []
+    res.on('data', function(chunk){
+        body += chunk;
+    });
+    res.on('end', function all(){
+        results = JSON.parse(body).results
+        console.log("Got a response: ", results);
+    });
+    return results
+}).on('error', function(e){
+      console.log("Got an error: ", e);
+});
 
 /**
  * seed - this function clears the database, updates tables to
@@ -18,6 +37,15 @@ async function seed() {
     User.create({ username: "cody", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
   ]);
+  
+  //Create Gifts
+  const createGifts = await Promise.all(
+    Array(25).fill().map(() => {
+      return Gift.create({
+        name: title,
+      })
+    })
+  )
 
   const list1 = Wishlist.create({
     name: "Wishlist",
@@ -31,6 +59,7 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
+  
   return {
     users: {
       cody: users[0],
@@ -69,3 +98,7 @@ if (module === require.main) {
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed;
+
+
+
+
