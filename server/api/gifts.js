@@ -20,7 +20,7 @@ router.delete("/:id", requireAdmin, async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     console.log(req.body);
-    const gift = await Gift.create({...req.body});
+    const gift = await Gift.create({ ...req.body });
     console.log(gift);
     res.send(gift).sendStatus(201);
   } catch (err) {
@@ -51,7 +51,6 @@ router.get("/", async (req, res, next) => {
         "&includes=Images&sort_on=score&api_key=dggfhwkwf5yl2hsyp2mhwn38"
     );
     const gifts = response.data;
-    //console.log(gifts.results.map(ele => ele.views).sort((a, b) => b - a))
     res.json(gifts);
   } catch (err) {
     next(err);

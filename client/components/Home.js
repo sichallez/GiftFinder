@@ -22,6 +22,8 @@ class Home extends Component {
     maxPrice: "50",
     PageType: "homepage",
     isLoading: true,
+    mostViews: 0,
+    isCustomizable: false
   };
 
   componentDidMount = () => {
