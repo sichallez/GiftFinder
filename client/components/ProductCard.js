@@ -11,10 +11,9 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
-import "./ProductCard.css";
+// import "./ProductCard.css";
 
 const ProductCard = ({
-  key,
   loggedIn,
   page_type,
   handleBookmark,

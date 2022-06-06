@@ -25,7 +25,6 @@ const SearchBar = () => {
   return (
     <Grid
       container
-      direction="row"
       justifyContent="center"
       spacing={0}
       align="center"
@@ -64,7 +63,6 @@ const SearchBar = () => {
       <Grid
         xs={1}
         item
-        direction="column"
         display="flex"
         justifyContent="center"
       >

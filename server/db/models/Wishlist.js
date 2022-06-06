@@ -6,10 +6,7 @@ const Wishlist = db.define("wishlist", {
     type: STRING,
     allowNull: false,
     default: "Wishlist",
-  },
-  totalItems: {
-    type: INTEGER,
-  },
+  }
 });
 
 module.exports = Wishlist;

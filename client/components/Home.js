@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
 import { Typography, Box, Grid } from "@mui/material";
+import {addToWishlist} from '../store/wishlist'
 
 import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
@@ -100,8 +101,10 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
-  handleBookmark = (id) => {
-    const savedProduct = this.state.products.filter(
+  handleBookmark = (id) => {  
+      console.log('here')
+
+      const savedProduct = this.state.products.filter(
       (product) => product.listing_id === parseInt(id)
     );
 
@@ -147,6 +150,15 @@ class Home extends Component {
     }
   };
 
+  onClick = (product)=>{
+    try{
+      this.props.addToWishlist(product);
+    }
+    catch(err){
+      console.log('HOME ERR')
+    }
+  };
+
   render() {
     return (
       <div>
@@ -165,29 +177,13 @@ class Home extends Component {
           onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
         />
-        {/* <form>
-          <div className="filterbar-container">
-            <Input
-              name="giftFilter"
-              value={this.state.giftSearch}
-              onChange={this.handleInputChange}
-              placeholder="Filter your results"
-            />
-            <FormBtn
-              disabled={!this.state.giftSearch}
-              onClick={this.handleFormSubmit}
-            >
-              Filter
-            </FormBtn>
-          </div>
-        </form> */}
         {this.displayErrorMessage()}
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map((product) => {
-            // console.log("PRODUCT", product);
             return (
-              <ProductCard
+              <div key={product.listing_id}>
+                <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
@@ -196,8 +192,8 @@ class Home extends Component {
                 price={product.price}
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
-                loggedIn={this.props.loggedIn}
-              />
+                loggedIn={this.props.loggedIn} />
+                <button type= 'button' onClick={this.onClick.bind(this, product)}>Wishlist</button></div>
             );
           })}
         </Grid>
@@ -216,10 +212,10 @@ const mapState = (state) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchProducts: () => dispatch(fetchProducts()),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToWishlist: (product) => dispatch(addToWishlist(product)),
+  };
+};
 
-export default connect(mapState)(Home);
+export default connect(mapState,mapDispatchToProps)(Home);

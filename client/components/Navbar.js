@@ -1,10 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
 import SearchBar from "./SearchBar";
+import AccountMenu from "./account/AccountMenu";
 
 const Navbar = ({ handleClick, isLoggedIn, username }) => (
   <div>
@@ -24,14 +33,24 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
             <ul className="nav-top-level">
               <li>
                 <ul className="nav-top-level">
-                  <li>{username}</li>
                   <li>
-                    <Link to="/wishlist">Wishlist</Link>
+                    <AccountMenu />
                   </li>
                   <li>
-                    <a href="#" onClick={handleClick}>
-                      Logout
-                    </a>
+                    <Link to="/account/notification">
+                      <IconButton>
+                        <NotificationsNoneIcon />
+                      </IconButton>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/account/wishlist">Wishlist</Link>
+                  </li>
+                  <li>
+                    <Link to="/account/group">Groups</Link>
+                  </li>
+                  <li>
+                    <Link to="/account/gift">Shop For</Link>
                   </li>
                 </ul>
               </li>
