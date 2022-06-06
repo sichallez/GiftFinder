@@ -61,7 +61,7 @@ export const addToWishlist = (product) => {
 };
 
 /* Reducer */
-export default function (state = [], action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case GET_WISHLIST:
       return action.wishlist;

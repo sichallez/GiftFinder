@@ -23,6 +23,8 @@ const ProductCard = ({
   url,
   title,
   price,
+  product,
+  onClick
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -94,6 +96,8 @@ const ProductCard = ({
                 backgroundColor: "white",
               }}
               aria-label="add to favorites"
+
+              onClick={onClick.bind(this,product)}
             >
               <FavoriteBorderIcon />
             </IconButton>
