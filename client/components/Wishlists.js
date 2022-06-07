@@ -27,7 +27,7 @@ class Wishlists extends Component {
           )
         })}
       </div>
-      <Wishlist /></>
+      <Wishlist id={4}/></>
     )
   }
 }

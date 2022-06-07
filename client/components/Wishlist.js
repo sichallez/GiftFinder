@@ -5,13 +5,13 @@ import { getAllLists } from "../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    this.props.getWishlist();
+    this.props.getWishlist(this.props.id);
     this.props.getAllLists();
   }
 
   render() {
     if (!this.props.wishlist) {
-      return;
+      return null;
     }
 
     if (!this.props.wishlist.gifts || this.props.wishlist.gifts.length === 0) {
@@ -40,8 +40,8 @@ class Wishlist extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getWishlist: function () {
-      dispatch(getWishlist());
+    getWishlist: function (id) {
+      dispatch(getWishlist(id));
     },
     getAllLists: function () {
       dispatch(getAllLists());
