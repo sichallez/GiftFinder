@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getWishlist } from "../store/wishlist";
+import { getAllLists } from "../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
     this.props.getWishlist();
+    this.props.getAllLists();
   }
 
   render() {
@@ -19,20 +21,19 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
-      <div>{wishListGifts.map(gift=>{
-        
-        console.log(gift)
+      <><h3>{this.props.wishlist.name}</h3>
+      <div>{wishListGifts.map(gift => {
 
-        return(
-          <div key = {gift.id}>
-            {gift.name} <br/>
-            <img src = {gift.image_url} width = "50%"/> <br/>
+        return (
+          <div key={gift.id}>
+            {gift.name} <br />
+            <img src={gift.image_url} width="50%" /> <br />
             {`$${gift.price}`}
-            <br/> 
-            <br/>
+            <br />
+            <br />
           </div>
-        )
-      })}</div>
+        );
+      })}</div></>
     );
   }
 }
@@ -41,6 +42,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getWishlist: function () {
       dispatch(getWishlist());
+    },
+    getAllLists: function () {
+      dispatch(getAllLists());
     },
   };
 };
