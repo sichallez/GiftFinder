@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Wishlist from "./components/Wishlist";
 import Questions from "./components/Questions";
 import Budget from './components/Questions/Budget';
+import Person from './components/Questions/Person';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/wishlist" component={Wishlist} />
             <Route path='/questions/budget' component={Budget} />
+            <Route path='/questions/person' component={Person} />
             <Route path='/questions' exact component={Questions} />
             <Redirect to="/home" />
           </Switch>
@@ -36,6 +38,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
             <Route path='/questions/budget' component={Budget} />
+            <Route path='/questions/person' component={Person} />
             <Route path='/questions' exact component={Questions} />
           </Switch>
         )}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navigation = (props) => {
     //icon below to props
-    const { text, to, color, width, click } = this.props;
+    const { text, to, color, width, click } = props;
     const hoverClass = color === 'var(--purple)' ? "purple-hover" : 'black-hover';
 
     return (
@@ -11,8 +11,6 @@ const Navigation = (props) => {
             <Link
                 onClick={ click ? () => click() : () => {} }
                 to={to}
-                className={`${styles[hoverClass]}`}
-                style={{ backgroundColor: color, width: width }}
             >
                 {text}
             

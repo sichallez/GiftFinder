@@ -11,9 +11,34 @@ export const setCategory = (category) => {return { type: SET_CATEGORY, category}
 export const setCharacter = (character) => {return { type: SET_CHARACTER, character}}
 export const resetState = () => { return { type: RESET_STATE }}
 
-export const initialState = {
+const initialState = {
     budget: 20,
-    person: null,
+    person: ['sister',
+    'brother',
+    'sibiling',
+    'mom',
+    'dad',
+    'parent',
+    'grandma',
+    'grandpa',
+    'grandparent',
+    'grandson',
+    'granddaughter',
+    'grandchild',
+    'partner',
+    'couple',
+    'cousin',
+    'coworker',
+    'child',
+    'son',
+    'daughter',
+    'client',
+    'coworker',
+    'boss',
+    'niece',
+    'nephew',
+    'aunt',
+    'uncle'],
     category: [],
     character: null
 }

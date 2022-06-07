@@ -1,47 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setBudget } from '/client/store';
+import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
 
-class Budget extends Component {
-    constructor(props) {
-        super(props);
-        console.log(props.budget, 'props')
-        this.state = {
-            budget: '' || props.budget,
-        }
-        this.onBudgetChange = this.onBudgetChange.bind(this)
+const Budget = ({ budget, setBudget }) => {
+    const initialBudget = budget;
+    const [value, setValue] = useState(initialBudget)
+
+    function onBudgetChange(ev) {
+        setValue(ev.target.value)
+        console.log(ev.target.value, 'value')
     }
-    componentDidMount() {
-        this.props.setBudget()
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.budget !== prevProps.budget) {
-            this.props.setBudget()
-        }
-    }
-    async onBudgetChange(ev) {
-        this.setState = ({
-            ...ev.target.value,
-            value: ev.target.value 
-        })
-        console.log(ev.target.value)
-    }
-    render() {
-        const { budget } = this.state
-        const { onBudgetChange } = this;
-        return (
-            <div>
-                <h1>What is your budget?</h1>
-                $10<input type='range' min="10" max="100"step="5" defaultValue={budget} onChange={onBudgetChange} className='sliderBudget'>
-                </input>$100
-                <label htmlFor='budget'>$</label>
-                <p>
-                    {/* {text} */}
-                </p>
-                {/* <button onClick={() => setBudget(budget)}>Next</button> */}
+    return (
+        <div>
+            <h1>What is your budget?</h1>
+            <div className='budget-label'>
+                $10
+                <input type='range' min="10" max="100"step="5" defaultValue={value} onChange={onBudgetChange} className='sliderBudget'>
+                </input>
+                $100
             </div>
-        )
-    }
+            <label htmlFor='budget' className='budget-label'>${value}</label>
+            <ReturnAndContinue
+                returnPath={'/questions'}
+                continuePath={'/questions/person'}
+                onContinueClick = {() => setBudget(value)}
+            />
+        </div>
+    )
 }
 
 const mapState = (state) => {
@@ -52,7 +38,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        setBudget: budget => console.log((setBudget(budget)))
+        setBudget: value => dispatch((setBudget(value)))
     }
 }
 

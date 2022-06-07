@@ -1,12 +1,12 @@
 import React from 'react';
-import Navgiation from './Navigation';
+import Navigation from './Navigation';
 
 const ReturnAndContinue = (props) => {
-    const { returnPath, continuePath, onContinueClick } = this.props;
+    const { returnPath, continuePath, onContinueClick } = props;
     return (
         <div>
             <Navigation to={returnPath} text="Return" color="var(--purple)" />
-            <Naviation 
+            <Navigation 
                 to={continuePath}
                 text="Continue"
                 click={onContinueClick}
