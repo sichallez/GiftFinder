@@ -13,12 +13,20 @@ class Wishlists extends Component {
     const lists = this.props.wishlists;
 
     if(!lists || lists.length === 0){
-      return <div></div>;
+      return null;
     }
 
     console.log(lists);
     return (
       <><h3>Your Lists</h3>
+
+      <div>
+        {lists.map(list=>{
+          return(
+            <div key = {list.id}>{list.name}</div>
+          )
+        })}
+      </div>
       <Wishlist /></>
     )
   }
