@@ -3,6 +3,7 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  FormControlLabel,
   Select,
   Tabs,
   Tab,
@@ -11,6 +12,7 @@ import {
   Box,
   Typography,
   Button,
+  Checkbox,
 } from "@mui/material";
 import {
   WeddingGift,
@@ -130,6 +132,8 @@ export function FilterResults({
   disabled,
   onClick,
   handlePrice,
+  isMostViews,
+  handleMostViews
 }) {
   return (
     <Grid
@@ -174,6 +178,16 @@ export function FilterResults({
           <MenuItem value="4">Over $250</MenuItem>
         </Select>
       </FormControl>
+      <FormControlLabel
+            label="Most Views"
+            control={
+              <Checkbox
+                checked={isMostViews}
+                onChange={() => handleMostViews(handleMostViews)}
+              />
+            }
+            sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
+          />
     </Grid>
   );
 }

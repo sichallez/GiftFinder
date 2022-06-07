@@ -23,6 +23,7 @@ const ProductCard = ({
   url,
   title,
   price,
+  views
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -80,6 +81,9 @@ const ProductCard = ({
                 </Typography>
                 <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
                   ${price}
+                </Typography>
+                <Typography sx={{ fontSize: "12px", fontWeight: "normal", color: 'rgba(0, 0, 0, 0.55)' }}>
+                  Views: {views}
                 </Typography>
               </CardContent>
             </Box>

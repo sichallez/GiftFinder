@@ -22,7 +22,7 @@ class Home extends Component {
     maxPrice: "50",
     PageType: "homepage",
     isLoading: true,
-    mostViews: 0,
+    isMostViews: false,
     isCustomizable: false
   };
 
@@ -60,14 +60,14 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           isLoading: false,
-          giftSearch: "",
+          giftSearch: "",                               
           products: res.data.results,
           filteredProducts: res.data.results,
         });
       })
       .catch((err) => console.log(err));
   };
-
+                                
   handlePrice = (value) => {
     let minPrice;
     let maxPrice;
@@ -102,6 +102,22 @@ class Home extends Component {
       })
       .catch((err) => console.log(err));
   };
+
+  handleMostViews = (isMostViews) => {
+    if(!this.state.isMostViews) {
+      this.setState({ isLoading: true, products: [], filteredProducts: [], isMostViews: true });
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews)
+        .then((res) => {
+          this.setState({
+            giftSearch: "",
+            isMostViews: true,
+            products: res.data.results,
+            filteredProducts: res.data.results.map(ele => ele.views).sort((a,b)=> b-a),
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  }
 
   handleBookmark = (id) => {  
       console.log('here')
@@ -169,6 +185,7 @@ class Home extends Component {
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
+            handleMostViews={this.handleMostViews}
           />
         </Box>
         <FilterResults
@@ -178,6 +195,7 @@ class Home extends Component {
           disabled={!this.state.giftSearch}
           onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
+          handleMostViews={this.handleMostViews}
         />
         {this.displayErrorMessage()}
         {this.displayLoading()}
@@ -192,6 +210,7 @@ class Home extends Component {
                 image={product.Images[0].url_570xN}
                 url={product.url}
                 price={product.price}
+                views={product.views}
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
                 loggedIn={this.props.loggedIn} />
