@@ -106,7 +106,7 @@ class Home extends Component {
   handleMostViews = (isMostViews) => {
     if(!this.state.isMostViews) {
       this.setState({ isLoading: true, products: [], filteredProducts: [], isMostViews: true });
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews)
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.çisMostViews)
         .then((res) => {
           this.setState({
             giftSearch: "",
@@ -181,7 +181,7 @@ class Home extends Component {
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center" }}>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}

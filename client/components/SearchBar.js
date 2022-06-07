@@ -9,9 +9,18 @@ import {
   IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import BackspaceIcon from "@mui/icons-material/Backspace";
+// import "./SearchBar.css";
+// import { Theme, createStyles, makeStyles, withStyles } from '@mui/styles';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  // const classes = useStyles();
+
+  const clearInput = () => {
+    setSearchQuery("");
+  };
 
   return (
     <Grid
@@ -19,20 +28,31 @@ const SearchBar = () => {
       justifyContent="center"
       spacing={0}
       align="center"
+      alignItems="center"
       sx={{ margin: "auto" }}
     >
       <form>
-        <Grid item display="flex" justifyContent="center">
-          <TextField
+        <Grid
+          item
+          direction="row"
+          display="flex"
+          justifyContent="center"
+          sx={{
+            border: "1px solid gray",
+            borderBottomLeftRadius: "25px",
+            borderTopLeftRadius: "25px",
+            borderBottomRightRadius: "25px",
+            borderTopRightRadius: "25px",
+          }}
+        >
+          <InputBase
+            sx={{ margin: 0, paddingLeft: 2, paddingTop: 1, paddingBottom: 1 }}
             id="search-bar"
-            className="text"
             onInput={(e) => {
               setSearchQuery(e.target.value);
             }}
-            label="search gift ideas"
-            variant="outlined"
             placeholder="Search Gift Ideas"
-            size="small"
+            inputProps={{ "aria-label": "search gift ideas" }}
           />
           <IconButton type="submit" aria-label="search">
             <SearchIcon style={{ fill: "blue" }} />
@@ -48,9 +68,9 @@ const SearchBar = () => {
       >
         <h5>OR</h5>
       </Grid>
-      <Grid item  display="flex" justifyContent="center">
-        <Button variant="contained" sx={{ backgroundColor: "#DB4437" }}>
-          Tell us more about you
+      <Grid item direction="column" display="flex" justifyContent="center">
+        <Button variant="contained" color="primary">
+          Need Guidence?
         </Button>
       </Grid>
     </Grid>
