@@ -24,7 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
                 <ul className="nav-top-level">
                   <li>{username}</li>
                   <li>
-                    <Link to="/wishlist">Wishlist</Link>
+                    <Link to="/wishlists">Wishlists</Link>
                   </li>
                   <li>
                     <a href="#" onClick={handleClick}>
