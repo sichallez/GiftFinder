@@ -5,8 +5,13 @@ import { getAllLists } from "../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    this.props.getWishlist(this.props.id);
-    this.props.getAllLists();
+    this.props.getWishlist(this.state.id);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id !== this.props.match.params.id){
+      this.props.getWishlist(this.props.match.params.id);
+    }
   }
 
   render() {
