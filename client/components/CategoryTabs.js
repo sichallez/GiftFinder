@@ -30,7 +30,6 @@ import "./CategoryTabs.css";
 
 export function Category(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
-
   function handleChange(event, newValue) {
     setSelectedTab(newValue);
   }
@@ -132,13 +131,12 @@ export function FilterResults({
   disabled,
   onClick,
   handlePrice,
-  handleMostViews,
-  sortProducts
+  handleMostViews
 }) {
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
 
-  const handleChange = (event) => {
-    setChecked(event);
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
   };
   return (
     <Grid
@@ -187,19 +185,16 @@ export function FilterResults({
             label="Most Views"
             control={
               <Checkbox
-                value='foo'
                 checked={checked}
-                onChange={(event) =>{ 
-console.log('before',event)
-                    handleChange(event);
-console.log('after',event)
-                                  //handleMostViews(e.target.checked)
+                onChange={(e) =>{ 
+                  handleChange(e);
+                  handleMostViews(e)
                   }
                 }
               />
             }
             sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
-          />
+        />
     </Grid>
   );
 }
