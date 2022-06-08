@@ -176,13 +176,9 @@ class Home extends Component {
   };
 
   onClick = (product)=>{
-    try{
-      this.props.addToWishlist(product);
-    }
-    catch(err){
-      console.log('HOME ERR')
-    }
+    this.props.addToWishlist(product);
   };
+  
 
   render() {
     return (
@@ -209,7 +205,6 @@ class Home extends Component {
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {this.state.filteredProducts.map((product) => {
             return (
-              <div key={product.listing_id}>
                 <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
@@ -220,8 +215,10 @@ class Home extends Component {
                 views={product.views}
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
-                loggedIn={this.props.loggedIn} />
-                <button type= 'button' onClick={this.onClick.bind(this, product)}>Wishlist</button></div>
+                loggedIn={this.props.loggedIn}
+                product = {product}
+                onClick = {this.onClick}
+                />
             );
           })}
         </Grid>
