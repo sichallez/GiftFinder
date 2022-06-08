@@ -97,7 +97,6 @@ async function seed() {
     name: "Default Wishlist"
   });
 
-
   //additional list for each user
   await Wishlist.create({
     name: "Birthday Wishlist",
