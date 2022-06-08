@@ -16,7 +16,15 @@ export const theme = createTheme({
         root: {
           backgroundColor: "#fffefa",
           marginBottom: "8px",
-          "&.Mui-selected": { backgroundColor: "#f4eee0" },
+          "&.Mui-selected": { backgroundColor: "#ddcba1" },    //#f4eee0
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "transparent",
+          "&.Mui-selected": { backgroundColor: "#ddcba1" },
         },
       },
     },
