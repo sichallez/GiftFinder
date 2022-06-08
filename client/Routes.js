@@ -28,7 +28,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/account/wishlist" component={Wishlists} />
+            {/* <Route path="/wishlist" component={Wishlists} /> */}
             <Route path="/account" component={Account} />
           </Switch>
         ) : (
