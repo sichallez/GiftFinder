@@ -133,7 +133,8 @@ export function FilterResults({
   onClick,
   handlePrice,
   isMostViews,
-  handleMostViews
+  handleMostViews,
+  sortProducts
 }) {
   return (
     <Grid
@@ -182,8 +183,8 @@ export function FilterResults({
             label="Most Views"
             control={
               <Checkbox
-                value={isMostViews}
-                checked={isMostViews}
+                value={sortProducts}
+                checked={sortProducts}
                 onChange={(e) => handleMostViews(e.target.checked)}
               />
             }

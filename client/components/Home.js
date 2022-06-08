@@ -105,15 +105,18 @@ class Home extends Component {
 
   handleMostViews = () => {
     if(!this.state.isMostViews) {
-      let filteredProducts = res.data.results.map(ele => ele).sort((a,b)=> b-a)
-  console.log(filteredProducts)
+      let sortProducts = this.state.products.sort((a, b) => {
+        let key1 = a.views
+        let key2 = b.views
+        if(key1 < key2) return 1
+        if(key1 > key2) return -1
+      })
       this.setState({ isLoading: true, products: [], filteredProducts: [], isMostViews: true });
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews)
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews, sortProducts)
         .then((res) => {
           this.setState({
             isLoading: false,
             giftSearch: "",
-            isMostViews: false,
             products: res.data.results,
             filteredProducts: res.data.results,
           });
