@@ -103,19 +103,23 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
-  handleMostViews = (isMostViews) => {
+  handleMostViews = () => {
     if(!this.state.isMostViews) {
+      let filteredProducts = res.data.results.map(ele => ele).sort((a,b)=> b-a)
+  console.log(filteredProducts)
       this.setState({ isLoading: true, products: [], filteredProducts: [], isMostViews: true });
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.çisMostViews)
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews)
         .then((res) => {
           this.setState({
+            isLoading: false,
             giftSearch: "",
-            isMostViews: true,
+            isMostViews: false,
             products: res.data.results,
-            filteredProducts: res.data.results.map(ele => ele.views).sort((a,b)=> b-a),
+            filteredProducts: res.data.results,
           });
         })
         .catch((err) => console.log(err));
+     
     }
   }
 
@@ -206,8 +210,8 @@ class Home extends Component {
                 <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
-                title={product.title.slice(0, 25)}
-                image={product.Images[0].url_570xN}
+                { ...product.title?.length > 50 ? `title=${product.title.slice(0, 25)}` : `title=${product.title}`}
+                image={product.Images?.[0].url_570xN}
                 url={product.url}
                 price={product.price}
                 views={product.views}

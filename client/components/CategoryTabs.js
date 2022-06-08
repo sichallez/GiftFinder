@@ -182,8 +182,9 @@ export function FilterResults({
             label="Most Views"
             control={
               <Checkbox
+                value={isMostViews}
                 checked={isMostViews}
-                onChange={() => handleMostViews(handleMostViews)}
+                onChange={(e) => handleMostViews(e.target.checked)}
               />
             }
             sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
