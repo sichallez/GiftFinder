@@ -64,24 +64,43 @@ async function seed() {
     }),
   ]);
 
-  const list1 = Wishlist.create({
-    userId: users[0].id,
-    default: true
-  });
-  const list2 = Wishlist.create({
-    totalItems: 0,
-    userId: users[1].id,
-    default: true
+  //create default wish list for every user
+  users.map( user=>{
+    Wishlist.create({
+      userId: user.id,
+      default: true
+    });
   });
 
+  //create an additional list for each user
   Wishlist.create({
     name: "Birthday Wishlist",
     userId: users[0].id
   });
+
   Wishlist.create({
     name: "Valentine's Day Ideas",
-    totalItems: 0,
     userId: users[1].id
+  });
+
+  Wishlist.create({
+    name: "Birthday List",
+    userId: users[2].id
+  });
+
+  Wishlist.create({
+    name: "Christmas Wishlist",
+    userId: users[3].id
+  });
+
+  Wishlist.create({
+    name: "Anniversary Ideas",
+    userId: users[4].id
+  });
+
+  Wishlist.create({
+    name: "Graduation gifts",
+    userId: users[5].id
   });
 
   console.log(`seeded ${users.length} users`);
@@ -90,6 +109,10 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
+      ying: users[2],
+      savannah: users[3],
+      maribel: users[4],
+      simon: users[5]
     },
   };
 }
