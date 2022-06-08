@@ -64,23 +64,64 @@ async function seed() {
     }),
   ]);
 
-  //create default wish list for every user
-  users.map( user=>{
-    Wishlist.create({
-      userId: user.id,
-      default: true
-    });
+  //default list for each user
+  await Wishlist.create({
+    userId: users[0].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
   });
 
-  //create an additional list for each user
-  Wishlist.create({
+  await Wishlist.create({
+    userId: users[1].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[2].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[4].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[5].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+
+
+  //additional list for each user
+  await Wishlist.create({
     name: "Birthday Wishlist",
-    userId: users[0].id
+    userId: users[0].dataValues.id
   });
-
-  Wishlist.create({
+  await Wishlist.create({
     name: "Valentine's Day Ideas",
-    userId: users[1].id
+    userId: users[1].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Birthday Ideas",
+    userId: users[2].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Graduation Gifts",
+    userId: users[3].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Anniversary Gifts",
+    userId: users[4].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Mother's Day",
+    userId: users[5].dataValues.id
   });
 
   Wishlist.create({

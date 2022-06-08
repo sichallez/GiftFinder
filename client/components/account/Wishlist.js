@@ -5,7 +5,7 @@ import { getAllLists } from "../../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    this.props.getWishlist(this.state.id);
+    this.props.getWishlist(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps){

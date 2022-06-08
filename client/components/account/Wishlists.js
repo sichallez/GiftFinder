@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {HashRouter, BrowserRouter, Route, Link} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
 import Wishlist from "./Wishlist";
 
@@ -25,10 +25,10 @@ class Wishlists extends Component {
         <div>
           {lists.map(list=>{
             return(
-              <div key = {list.id}><Link to={`/account/wishlist/${list.id}`}>{list.name}</Link></div>
+              <div key = {list.id}><Link to={`/wishlist/${list.id}`}>{list.name}</Link></div>
             )
           })}
-          <Route path = "/account/wishlist/:id" component={Wishlist}/>
+          <Route path = "/wishlist/:id" component={Wishlist}/>
         </div>
       </BrowserRouter>
       </>
