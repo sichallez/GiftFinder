@@ -65,13 +65,23 @@ async function seed() {
   ]);
 
   const list1 = Wishlist.create({
-    name: "Wishlist",
     userId: users[0].id,
+    default: true
   });
   const list2 = Wishlist.create({
-    name: "Wishlist",
     totalItems: 0,
     userId: users[1].id,
+    default: true
+  });
+
+  Wishlist.create({
+    name: "Birthday Wishlist",
+    userId: users[0].id
+  });
+  Wishlist.create({
+    name: "Valentine's Day Ideas",
+    totalItems: 0,
+    userId: users[1].id
   });
 
   console.log(`seeded ${users.length} users`);

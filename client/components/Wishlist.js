@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getWishlist } from "../store/wishlist";
+import { getAllLists } from "../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    this.props.getWishlist();
+    this.props.getWishlist(this.state.id);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id !== this.props.match.params.id){
+      this.props.getWishlist(this.props.match.params.id);
+    }
   }
 
   render() {
     if (!this.props.wishlist) {
-      return;
+      return null;
     }
 
     if (!this.props.wishlist.gifts || this.props.wishlist.gifts.length === 0) {
@@ -19,28 +26,30 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
-      <div>{wishListGifts.map(gift=>{
-        
-        console.log(gift)
+      <><h3>{this.props.wishlist.name}</h3>
+      <div>{wishListGifts.map(gift => {
 
-        return(
-          <div key = {gift.id}>
-            {gift.name} <br/>
-            <img src = {gift.image_url} width = "50%"/> <br/>
+        return (
+          <div key={gift.id}>
+            {gift.name} <br />
+            <img src={gift.image_url} width="50%" /> <br />
             {`$${gift.price}`}
-            <br/> 
-            <br/>
+            <br />
+            <br />
           </div>
-        )
-      })}</div>
+        );
+      })}</div></>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getWishlist: function () {
-      dispatch(getWishlist());
+    getWishlist: function (id) {
+      dispatch(getWishlist(id));
+    },
+    getAllLists: function () {
+      dispatch(getAllLists());
     },
   };
 };

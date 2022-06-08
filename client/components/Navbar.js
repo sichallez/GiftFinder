@@ -45,7 +45,7 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
                     </Link>
                   </li>
                   <li>
-                    <Link to="/account/wishlist">Wishlist</Link>
+                    <Link to="/account/wishlist">Wishlists</Link>
                   </li>
                   <li>
                     <Link to="/account/group">Groups</Link>
