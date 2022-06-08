@@ -4,7 +4,7 @@ const db = require("../db");
 const Wishlist = db.define("wishlist", {
   name: {
     type: STRING,
-    default: "Default Wishlist",
+    allowNull: false
   },
   default:{
     type: BOOLEAN,

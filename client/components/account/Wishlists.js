@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route, Link} from 'react-router-dom';
-import { getAllLists } from "../store/wishlists";
+import { getAllLists } from "../../store/wishlists";
 import Wishlist from "./Wishlist";
 
 class Wishlists extends Component {
