@@ -13,10 +13,10 @@ const _getWishlist = (wishlist) => {
 
 /* Thunks */
 
-export const getWishlist = () => {
+export const getWishlist = (listId) => {
   return async (dispatch) => {
     const wishlist = (
-      await axios.get("/api/wishlist/", {
+      await axios.get(`/api/wishlist/${listId}`, {
         headers: {
           authorization: window.localStorage.token,
         },
