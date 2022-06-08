@@ -70,7 +70,6 @@ async function seed() {
     default: true,
     name: "Default Wishlist"
   });
-
   await Wishlist.create({
     userId: users[1].dataValues.id,
     default: true,
