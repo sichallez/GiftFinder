@@ -64,24 +64,64 @@ async function seed() {
     }),
   ]);
 
-  const list1 = Wishlist.create({
-    userId: users[0].id,
-    default: true
-  });
-  const list2 = Wishlist.create({
-    totalItems: 0,
-    userId: users[1].id,
-    default: true
+  //default list for each user
+  await Wishlist.create({
+    userId: users[0].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
   });
 
-  Wishlist.create({
-    name: "Birthday Wishlist",
-    userId: users[0].id
+  await Wishlist.create({
+    userId: users[1].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
   });
-  Wishlist.create({
+  await Wishlist.create({
+    userId: users[2].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[4].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+  await Wishlist.create({
+    userId: users[5].dataValues.id,
+    default: true,
+    name: "Default Wishlist"
+  });
+
+
+  //additional list for each user
+  await Wishlist.create({
+    name: "Birthday Wishlist",
+    userId: users[0].dataValues.id
+  });
+  await Wishlist.create({
     name: "Valentine's Day Ideas",
-    totalItems: 0,
-    userId: users[1].id
+    userId: users[1].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Birthday Ideas",
+    userId: users[2].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Graduation Gifts",
+    userId: users[3].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Anniversary Gifts",
+    userId: users[4].dataValues.id
+  });
+  await Wishlist.create({
+    name: "Mother's Day",
+    userId: users[5].dataValues.id
   });
 
   console.log(`seeded ${users.length} users`);
@@ -90,6 +130,10 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
+      ying: users[2],
+      savannah: users[3],
+      maribel: users[4],
+      simon: users[5]
     },
   };
 }
