@@ -124,6 +124,26 @@ async function seed() {
     userId: users[5].dataValues.id
   });
 
+  Wishlist.create({
+    name: "Birthday List",
+    userId: users[2].id
+  });
+
+  Wishlist.create({
+    name: "Christmas Wishlist",
+    userId: users[3].id
+  });
+
+  Wishlist.create({
+    name: "Anniversary Ideas",
+    userId: users[4].id
+  });
+
+  Wishlist.create({
+    name: "Graduation gifts",
+    userId: users[5].id
+  });
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {

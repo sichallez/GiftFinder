@@ -25,7 +25,7 @@ const Account = ({ auth }) => {
         <AccountSidePanel />
         <Switch>
           <Route path="/account/profile" component={UserProfile} />
-          <Route path="/account/wishlist" component={Wishlists} />
+          <Route path="/wishlist" component={Wishlists} />
           <Route path="/account/group" component={MyGroups} />
           <Route path="/account/gift" component={GiftFor} />
           <Route path="/account/notification" component={Notification} />
