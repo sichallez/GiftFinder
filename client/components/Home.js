@@ -60,14 +60,14 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           isLoading: false,
-          giftSearch: "",                               
+          giftSearch: "",
           products: res.data.results,
           filteredProducts: res.data.results,
         });
       })
       .catch((err) => console.log(err));
   };
-                                
+
   handlePrice = (value) => {
     let minPrice;
     let maxPrice;
@@ -103,7 +103,7 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
-  handleMostViews = () => {
+  handleMostViews = (foo) => {
     if(!this.state.isMostViews) {
       let sortProducts = this.state.products.sort((a, b) => {
         let key1 = a.views
@@ -111,20 +111,21 @@ class Home extends Component {
         if(key1 < key2) return 1
         if(key1 > key2) return -1
       })
-      this.setState({ isLoading: true, products: [], filteredProducts: [], isMostViews: true });
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews, sortProducts)
-        .then((res) => {
-          this.setState({
-            isLoading: false,
-            giftSearch: "",
-            products: res.data.results,
-            filteredProducts: res.data.results,
-          });
-        })
-        .catch((err) => console.log(err));
+      this.setState({ isLoading: true, products: sortProducts, filteredProducts: [], isMostViews: true });
+      //this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews, sortProducts)
+      //  .then((res) => {
+      //    this.setState({
+      //      isLoading: false,
+      //      giftSearch: "",
+      //      products: res.data.results,
+      //      filteredProducts: res.data.results,
+      //    });
+      //  })
+      //  .catch((err) => console.log(err));
      
     }
   }
+  
 
   handleBookmark = (id) => {  
       console.log('here')
@@ -176,13 +177,9 @@ class Home extends Component {
   };
 
   onClick = (product)=>{
-    try{
-      this.props.addToWishlist(product);
-    }
-    catch(err){
-      console.log('HOME ERR')
-    }
+    this.props.addToWishlist(product);
   };
+  
 
   render() {
     return (
@@ -192,7 +189,7 @@ class Home extends Component {
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
-            handleMostViews={this.handleMostViews}
+             handleMostViews={this.handleMostViews}
           />
         </Box>
         <FilterResults

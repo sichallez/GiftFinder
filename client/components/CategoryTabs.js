@@ -132,10 +132,14 @@ export function FilterResults({
   disabled,
   onClick,
   handlePrice,
-  isMostViews,
   handleMostViews,
   sortProducts
 }) {
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event);
+  };
   return (
     <Grid
       container
@@ -183,9 +187,15 @@ export function FilterResults({
             label="Most Views"
             control={
               <Checkbox
-                value={sortProducts}
-                checked={sortProducts}
-                onChange={(e) => handleMostViews(e.target.checked)}
+                value='foo'
+                checked={checked}
+                onChange={(event) =>{ 
+console.log('before',event)
+                    handleChange(event);
+console.log('after',event)
+                                  //handleMostViews(e.target.checked)
+                  }
+                }
               />
             }
             sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
