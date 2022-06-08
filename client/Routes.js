@@ -4,7 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Account from "./components/account/Account";
-import Wishlists from "./components/account/Wishlists";
+import Wishlist from "./components/account/Wishlist";
 import UserProfile from "./components/account/UserProfile";
 import MyGroups from "./components/account/MyGroups";
 import GiftFor from "./components/account/GiftFor";
@@ -28,7 +28,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/wishlist" component={Wishlists} />
+            <Route path="/wishlist" component={Wishlist} />
             <Route path="/account" component={Account} />
           </Switch>
         ) : (
