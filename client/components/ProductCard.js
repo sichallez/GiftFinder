@@ -23,7 +23,7 @@ const ProductCard = ({
   url,
   title,
   price,
-  views
+  views,
   product,
   onClick
 }) => {
