@@ -159,7 +159,7 @@ class Home extends Component {
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center" }}>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
