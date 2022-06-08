@@ -5,11 +5,17 @@ import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddItem from "./AddItem";
 import { getWishlist } from "../../store/wishlist";
+import { getAllLists } from "../../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    const { listId } = this.props.match.params;
-    // this.props.getWishlist(listId);
+    this.props.getWishlist(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id !== this.props.match.params.id){
+      this.props.getWishlist(this.props.match.params.id);
+    }
   }
 
   render() {
@@ -94,29 +100,30 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
-      <div>
-        {wishListGifts.map((gift) => {
-          console.log(gift);
+      <><h3>{this.props.wishlist.name}</h3>
+      <div>{wishListGifts.map(gift => {
 
-          return (
-            <div key={gift.id}>
-              {gift.name} <br />
-              <img src={gift.image_url} width="50%" /> <br />
-              {`$${gift.price}`}
-              <br />
-              <br />
-            </div>
-          );
-        })}
-      </div>
+        return (
+          <div key={gift.id}>
+            {gift.name} <br />
+            <img src={gift.image_url} width="50%" /> <br />
+            {`$${gift.price}`}
+            <br />
+            <br />
+          </div>
+        );
+      })}</div></>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getWishlist: function () {
-      dispatch(getWishlist());
+    getWishlist: function (id) {
+      dispatch(getWishlist(id));
+    },
+    getAllLists: function () {
+      dispatch(getAllLists());
     },
   };
 };
