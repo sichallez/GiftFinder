@@ -40,7 +40,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    console.log("BACKEND BACKEND", req.query);
+    //console.log("BACKEND BACKEND", req.query);
     const response = await axios.get(
       "https://openapi.etsy.com/v2/listings/active?keywords=" +
         req.query.q +
@@ -48,8 +48,6 @@ router.get("/", async (req, res, next) => {
         req.query.minPrice +
         "&max_price=" +
         req.query.maxPrice +
-        "&color" +
-        req.query.color +
         "&includes=Images&sort_on=score&api_key=dggfhwkwf5yl2hsyp2mhwn38"
     );
     const gifts = response.data;

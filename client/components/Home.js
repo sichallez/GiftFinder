@@ -105,7 +105,7 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
-  handleMostViews = async (query) => {
+  handleMostViews = () => {
     if(!this.state.isMostViews) {
       let sortProducts = this.state.products.sort((a, b) => {
         let key1 = a.views
