@@ -104,7 +104,7 @@ const CreateList = () => {
         Create A New List
       </Typography>
 
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <form noValidate autoComplete="on" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
           onChange={(e) => setTitle(e.target.value)}

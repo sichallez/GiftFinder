@@ -121,8 +121,8 @@ const AccountSidePanel = () => {
               </ListItemButton>
             </Link>
             <Divider />
-            {subWishList.map((item) => (
-              <Link to={item.url}>
+            {subWishList.map((item,index) => (
+              <Link to={item.url} key={index}>
                 <ListItemButton sx={{ pl: 4 }} selected={pathname === item.url}>
                   <ListItemText primary={item.name} />
                 </ListItemButton>
