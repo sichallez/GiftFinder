@@ -42,6 +42,7 @@ export const fetchProducts = (query, minPrice, maxPrice) => {
     dispatch(_fetchProducts(gifts));
   };
 };
+
 export const removeProducts = (id) => {
   return async (dispatch) => {
     const token = window.localStorage.getItem("token");
