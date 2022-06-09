@@ -36,7 +36,7 @@ const AddItem = () => {
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory] = useState("money");
-
+  
   const subWishList = [];
 
   const [selectedTab, setSelectedTab] = useState(0);

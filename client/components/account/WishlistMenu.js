@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { getWishlist } from "../../store/wishlist";
 
 const WishlistMenu = () => {
+
   const subWishList = [
     {
       name: "Birthday",
@@ -45,6 +46,7 @@ const WishlistMenu = () => {
       </Typography>
       <List>
         {subWishList.map((item) => (
+
           <Link to={item.url}>
             <ListItem>
               <ListItemText primary={item.name} />

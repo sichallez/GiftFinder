@@ -29,6 +29,7 @@ const AccountSidePanel = () => {
   };
 
   const subWishList = [
+
     {
       name: "Birthday",
       listId: "WKbna",
