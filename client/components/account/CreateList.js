@@ -68,7 +68,7 @@ const initialState = {
   FullstackAcademyFolks: false,
 }
 const CreateList = () => {
-  const [createValues, setCrateValues] = useState(initialState)
+  const [createValues, setCreateValues] = useState(initialState)
   const [subWishlist, setSubWishlist] = useState([])
   const classes = useStyles();
   //const history = useHistory();
@@ -85,9 +85,10 @@ const CreateList = () => {
   };
 
   const onChange = (e) => {
-    const change = {};
-    change[e.target.name] = e.target.value;
-    setCrateValues(change);
+    //const change = {};
+    //change[e.target.name] = e.target.value;
+    //setCrateValues(change);
+    setCreateValues({ ...createValues, [e.target.name]: e.target.value })
   };
 
   const handleSubmit = (e) => {
@@ -112,8 +113,10 @@ const CreateList = () => {
     setSubWishlist((prev) => {
       return [...prev, createValues]
     })
-    setCrateValues('')
+    setCreateValues('')
   };
+
+console.log(subWishlist)
 
   return (
     <Container maxWidth="md" sx={{marginTop: "30px"}}>
@@ -124,7 +127,8 @@ const CreateList = () => {
       <form noValidate autoComplete="on" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
-          value={createValues.title}
+          name='title'
+          value={createValues.title ?? ''}
           onChange={onChange}
           label="Name your list"
           variant="outlined"
@@ -135,7 +139,8 @@ const CreateList = () => {
         />
         <TextField
           className={classes.field}
-          value={createValues.details}
+          name='details'
+          value={createValues.details ?? ''}
           onChange={onChange}
           label="Add a note (optional)"
           variant="outlined"
@@ -180,7 +185,7 @@ const CreateList = () => {
                 value="team8project"
                 control={
                   <Checkbox
-                    checked="true"
+                    value="true"
                     onChange={onChange}
                     name="team8project"
                   />
@@ -191,7 +196,7 @@ const CreateList = () => {
                 value="WifeAndHusband"
                 control={
                   <Checkbox
-                    checked="true"
+                    value="true"
                     onChange={onChange}
                     name="WifeAndHusband"
                   />
@@ -202,7 +207,7 @@ const CreateList = () => {
                 value="RocAndRoll"
                 control={
                   <Checkbox
-                    checked="true"
+                    value="true"
                     onChange={onChange}
                     name="RocAndRoll"
                   />
@@ -210,10 +215,10 @@ const CreateList = () => {
                 label="Rock-and-Roll"
               />
               <FormControlLabel
-                value="FullstackAcademyFolks"
+                //value="FullstackAcademyFolks"
                 control={
                   <Checkbox
-                    checked="true"
+                    value="true"
                     onChange={onChange}
                     name="FullstackAcademyFolks"
                   />

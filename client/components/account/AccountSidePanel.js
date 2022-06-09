@@ -18,7 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 const drawerWidth = 240;
 
-const AccountSidePanel = () => {
+const AccountSidePanel = ({createValues, subWishlist}) => {
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -27,9 +27,7 @@ const AccountSidePanel = () => {
   const handleClick = () => {
     setOpen(!open);
   };
-
   const subWishList = [
-
     {
       name: "Birthday",
       listId: "1",
@@ -50,7 +48,7 @@ const AccountSidePanel = () => {
       get url() {
         return `/account/wishlist/${this.name}`;
       },
-    },
+    }
   ];
 
   return (
