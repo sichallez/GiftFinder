@@ -51,9 +51,6 @@ const User = db.define("user", {
   fullName: {
     type: STRING,
   },
-  email: {
-    type: STRING,
-  },
   token: {
     type: STRING,
   },
