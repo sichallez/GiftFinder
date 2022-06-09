@@ -11,7 +11,7 @@ import Category from "./components/Questions/Category";
 import Character from './components/Questions/Character';
 import Result from "./components/Questions/Result";
 import Account from "./components/account/Account";
-import Wishlist from "./components/account/Wishlist";
+import Wishlists from "./components/account/Wishlists";
 import UserProfile from "./components/account/UserProfile";
 import MyGroups from "./components/account/MyGroups";
 import GiftFor from "./components/account/GiftFor";
@@ -40,6 +40,7 @@ class Routes extends Component {
             <Route path='/questions/character' component={Character} />
             <Route path='/questions/category' component={Category} />
             <Route path='/questions/result' component={Result} />
+            {/* <Route path="/wishlist" component={Wishlists} /> */}
             <Route path="/account" component={Account} />
 
             <Redirect to="/home" />

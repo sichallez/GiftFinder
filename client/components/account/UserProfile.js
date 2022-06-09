@@ -21,7 +21,8 @@ const UserProfile = ({ auth }) => {
         sx={{
           width: "100%",
           border: 1,
-          borderColor: "white",
+          borderColor: "#f4eee0",
+          backgroundColor: "#f4eee0"
         }}
       >
         <Box

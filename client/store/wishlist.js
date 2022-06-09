@@ -11,12 +11,13 @@ const _getWishlist = (wishlist) => {
   };
 };
 
+
 /* Thunks */
 
-export const getWishlist = () => {
+export const getWishlist = (id) => {
   return async (dispatch) => {
     const wishlist = (
-      await axios.get("/api/wishlist/", {
+      await axios.get(`/api/wishlist/${id}`, {
         headers: {
           authorization: window.localStorage.token,
         },
@@ -27,19 +28,19 @@ export const getWishlist = () => {
   };
 };
 
+
 export const addToWishlist = (product) => {
   return async (dispatch) => {
     try{
       //get the wishlist id
       let wishlist = (
-        await axios.get("/api/wishlist/", {
+        await axios.get("/api/wishlist/default", {
           headers: {
             authorization: window.localStorage.token,
           },
         })
       ).data;
 
-      console.log(product)
       //create the gift with the wishlist id
       const gift = (await axios.post("/api/gifts/",{
         name: product.title, 

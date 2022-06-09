@@ -5,9 +5,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import gifts from "./gifts";
 import wishlist from "./wishlist";
-import questions from "./questions";
+import wishlists from "./wishlists";
 
-const reducer = combineReducers({ auth, gifts, wishlist, questions });
+const reducer = combineReducers({ auth, gifts, wishlist, wishlists });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

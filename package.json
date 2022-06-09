@@ -36,6 +36,7 @@
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.5.1",
+    "prop-types": "^15.8.1",
     "random-avatar-generator": "^2.0.0",
     "react-google-login": "^5.2.2",
     "react-social-login-buttons": "^3.6.0",
