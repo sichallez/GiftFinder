@@ -9,6 +9,7 @@ import Budget from './components/Questions/Budget';
 import Person from './components/Questions/Person';
 import Category from "./components/Questions/Category";
 import Character from './components/Questions/Character';
+import Result from "./components/Questions/Result";
 import Account from "./components/account/Account";
 import Wishlist from "./components/account/Wishlist";
 import UserProfile from "./components/account/UserProfile";
@@ -38,6 +39,7 @@ class Routes extends Component {
             <Route path='/questions' exact component={Questions} />
             <Route path='/questions/character' component={Character} />
             <Route path='/questions/category' component={Category} />
+            <Route path='/questions/result' component={Result} />
             <Route path="/account" component={Account} />
 
             <Redirect to="/home" />
@@ -52,6 +54,7 @@ class Routes extends Component {
             <Route path='/questions/person' component={Person} />
             <Route path='/questions/character' component={Character} />
             <Route path='/questions/category' component={Category} />
+            <Route path='/questions/result' component={Result} />
             <Route path='/questions' exact component={Questions} />
           </Switch>
         )}
