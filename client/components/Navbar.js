@@ -45,6 +45,12 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
                     </Link>
                   </li>
                   <li>
+                    <Link to="/account/wishlist">Wishlist</Link>
+                  </li>
+                  <li>
+                    <Link to="/account/group">Groups</Link>
+                  </li>
+                  <li>
                     <Link to="/account/gift">Shop For</Link>
                   </li>
                 </ul>
@@ -80,7 +86,7 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
         </div>
       )}
     </nav>
-    <hr />
+    <hr className='hr'/>
   </div>
 );
 

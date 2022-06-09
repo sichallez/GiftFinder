@@ -4,7 +4,6 @@ import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
 import { Typography, Box, Grid } from "@mui/material";
 import {addToWishlist} from '../store/wishlist'
-
 import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
 import axios from "axios"; // axios call should NOT appear here in component..
@@ -13,6 +12,7 @@ import axios from "axios"; // axios call should NOT appear here in component..
  * COMPONENT
  */
 class Home extends Component {
+
   state = {
     products: [],
     filteredProducts: [],
@@ -22,6 +22,8 @@ class Home extends Component {
     maxPrice: "50",
     PageType: "homepage",
     isLoading: true,
+    isMostViews: false,
+    isCustomizable: false
   };
 
   componentDidMount = () => {
@@ -33,6 +35,8 @@ class Home extends Component {
       params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
     });
   };
+
+
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -101,9 +105,44 @@ class Home extends Component {
       .catch((err) => console.log(err));
   };
 
+  handleMostViews = () => {
+    if(!this.state.isMostViews) {
+      let sortProducts = this.state.products.sort((a, b) => {
+        let key1 = a.views
+        let key2 = b.views
+        if(key1 < key2) return 1
+        if(key1 > key2) return -1
+      })
+      this.setState({isLoading: true, products: [], filteredProducts: [], isMostViews: true}); //set to original state
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews, sortProducts)
+        .then((res) => {
+          this.setState({
+            isLoading: false,
+            giftSearch: "",
+            products: sortProducts,
+            filteredProducts: sortProducts,
+          });
+        })
+        .catch((err) => console.log(err));
+    }  // in order to render the fliteredProduct so set up this condition
+    if (this.state.isMostViews){ // then when most view is false
+      this.setState({isLoading: true, products: [], filteredProducts: [], isMostViews: false}); //set filter products back to the original state
+      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews) // this one set query back to ann why?
+      .then((res) => {
+        this.setState({
+          isLoading: false,
+          giftSearch: "",
+          products: res.data.results,
+          filteredProducts: res.data.results,
+        });
+      })
+      .catch((err) => console.log(err)); 
+    } // re-render the data 
+  }
+  
+
   handleBookmark = (id) => {  
       console.log('here')
-
       const savedProduct = this.state.products.filter(
       (product) => product.listing_id === parseInt(id)
     );
@@ -163,6 +202,7 @@ class Home extends Component {
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
+            handleMostViews={this.handleMostViews}
           />
         </Box>
         <FilterResults
@@ -172,6 +212,7 @@ class Home extends Component {
           disabled={!this.state.giftSearch}
           onClick={this.handleFormSubmit}
           handlePrice={this.handlePrice}
+          handleMostViews={this.handleMostViews}
         />
         {this.displayErrorMessage()}
         {this.displayLoading()}
@@ -185,6 +226,7 @@ class Home extends Component {
                 image={product.Images[0].url_570xN}
                 url={product.url}
                 price={product.price}
+                views={product.views}
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
                 loggedIn={this.props.loggedIn}
@@ -210,7 +252,11 @@ const mapState = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
+    fetchProducts: () => {
+      dispatch(fetchProducts())
+    },
     addToWishlist: (product) => dispatch(addToWishlist(product)),
   };
 };

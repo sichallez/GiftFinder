@@ -17,3 +17,4 @@ export default store;
 export * from "./auth";
 export * from "./gifts";
 export * from "./wishlist";
+export * from './questions';

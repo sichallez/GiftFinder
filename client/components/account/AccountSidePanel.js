@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Box,
@@ -7,13 +7,50 @@ import {
   ListItemText,
   Divider,
   Drawer,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
 } from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import AddIcon from "@mui/icons-material/Add";
 
 const drawerWidth = 240;
 
 const AccountSidePanel = () => {
   const location = useLocation();
   const pathname = location.pathname;
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  const subWishList = [
+    {
+      name: "Birthday",
+      listId: "WKbna",
+      get url() {
+        return `/account/wishlist/${this.listId}`;
+      },
+    },
+    {
+      name: "Travel",
+      listId: "WAWrX",
+      get url() {
+        return `/account/wishlist/${this.listId}`;
+      },
+    },
+    {
+      name: "Graduation",
+      listId: "lddsX",
+      get url() {
+        return `/account/wishlist/${this.listId}`;
+      },
+    },
+  ];
 
   return (
     // <Drawer
@@ -33,7 +70,7 @@ const AccountSidePanel = () => {
         backgroundColor: "red",
         marginLeft: "25px",
         marginTop: "25px",
-        width: "150px",
+        width: "200px",
 
         backgroundColor: "secondary",
       }}
@@ -63,10 +100,35 @@ const AccountSidePanel = () => {
               padding: "10px",
             }}
             selected={pathname === "/account/wishlist"}
+            onClick={handleClick}
           >
             <ListItemText>Wish List</ListItemText>
+            {open ? <ExpandLess /> : <ExpandMore />}
           </MenuItem>
         </Link>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <Link to="/account/wishlist/new">
+              <ListItemButton
+                sx={{ pl: 4 }}
+                selected={pathname === "/account/wishlist/new"}
+              >
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary="new list" />
+              </ListItemButton>
+            </Link>
+            <Divider />
+            {subWishList.map((item) => (
+              <Link to={item.url}>
+                <ListItemButton sx={{ pl: 4 }} selected={pathname === item.url}>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </Link>
+            ))}
+          </List>
+        </Collapse>
         <Link to="/account/group">
           <MenuItem
             sx={{
@@ -85,6 +147,16 @@ const AccountSidePanel = () => {
             selected={pathname === "/account/gift"}
           >
             <ListItemText>Shop For</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to="/account/favlist">
+          <MenuItem
+            sx={{
+              padding: "10px",
+            }}
+            selected={pathname === "/account/favlist"}
+          >
+            <ListItemText>Favorite List</ListItemText>
           </MenuItem>
         </Link>
         <Link to="/account/notification">
