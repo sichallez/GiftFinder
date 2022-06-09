@@ -124,6 +124,7 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
+
   return {
     users: {
       cody: users[0],
