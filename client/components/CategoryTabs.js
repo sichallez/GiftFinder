@@ -49,7 +49,7 @@ export function Category(props) {
   return (
     <Grid>
       <Tabs
-        value={1}
+        value={selectedTab}
         indicatorColor="secondary"
         onChange={handleChange}
         aria-label="icon label tabs"
@@ -150,7 +150,7 @@ export function FilterResults({
           <FormControl sx={{ width: "25ch" }}>
             <OutlinedInput
               name={name}
-              value={1}
+              value={value}
               onChange={onChange}
               placeholder="Filter your results"
             />

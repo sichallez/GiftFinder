@@ -20,21 +20,21 @@ const WishlistMenu = () => {
       name: "Birthday",
       listId: "1",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Travel",
       listId: "2",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Graduation",
-      listId: "2",
+      listId: "3",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
   ];
@@ -42,11 +42,10 @@ const WishlistMenu = () => {
   return (
     <Container maxWidth="sm" sx={{marginTop: "30px"}}>
       <Typography variant="h6" component="h2" gutterBottom>
-        You have {subWishList.length} Wishlist avaible:
+        You have {subWishList.length} Wishlist available:
       </Typography>
       <List>
         {subWishList.map((item) => (
-
           <Link to={item.url}>
             <ListItem>
               <ListItemText primary={item.name} />

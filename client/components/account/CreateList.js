@@ -83,17 +83,17 @@ const CreateList = () => {
     setTitleError(false);
     setDetailsError(false);
 
-    if (title == "") {
+    if (title === "") {
       setTitleError(true);
     }
-    if (details == "") {
+    if (details === "") {
       setDetailsError(true);
     }
     if (title && details) {
-      fetch("http://localhost:8000/notes", {
+      fetch("http://localhost:8080/subwishlist", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ title, details, category }),
+        body: JSON.stringify({ title, details, category:{name} }),
       }).then(() => history.push("/"));
     }
   };

@@ -34,21 +34,21 @@ const AccountSidePanel = () => {
       name: "Birthday",
       listId: "1",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Travel",
       listId: "2",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Graduation",
       listId: "3",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
   ];
