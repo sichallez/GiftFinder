@@ -18,21 +18,21 @@ const WishlistMenu = () => {
   const subWishList = [
     {
       name: "Birthday",
-      listId: "WKbna",
+      listId: "1",
       get url() {
         return `/account/wishlist/${this.listId}`;
       },
     },
     {
       name: "Travel",
-      listId: "WAWrX",
+      listId: "2",
       get url() {
         return `/account/wishlist/${this.listId}`;
       },
     },
     {
       name: "Graduation",
-      listId: "lddsX",
+      listId: "2",
       get url() {
         return `/account/wishlist/${this.listId}`;
       },
