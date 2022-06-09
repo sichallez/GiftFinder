@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setPerson } from '/client/store';
+import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+
+
+//https://leahschlackman.medium.com/creating-an-auto-complete-search-bar-in-react-with-redux-9171fcf0898a
 
 class Person extends Component {
     constructor(props) {
@@ -40,6 +44,12 @@ class Person extends Component {
                 <h1>Who are you shopping for?</h1>
                 <input name='person' value={search} onChange={personChange} >
                 </input>
+
+                <ReturnAndContinue
+                returnPath={'/questions/budget'}
+                continuePath={'/questions/character'}
+                // onContinueClick = {() => setBudget(value)}
+            />
             </div>
         )
     }

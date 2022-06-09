@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const { STRING, BOOLEAN, INTEGER, DATE, ARRAY } = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -8,12 +8,57 @@ const SALT_ROUNDS = 5;
 
 const User = db.define("user", {
   username: {
-    type: Sequelize.STRING,
+    type: STRING,
     unique: true,
-    allowNull: false,
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
+  },
+  email: {
+    type: STRING,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
+    allowNull: false,
+  },
+  DOB:{
+    type: DATE,
+    validate:{
+      isDate: true
+    }
+  },
+  isAdmin: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
+  avatar: {
+    type: STRING(1000)
+  },
+  status: {
+    type: STRING,
+    defaultValue: "active",
+  },
+  address:{
+    type:STRING
+  },
+  firstName: {
+    type: STRING,
+  },
+  lastName: {
+    type: STRING,
+  },
+  fullName: {
+    type: STRING,
+  },
+  email: {
+    type: STRING,
+  },
+  token: {
+    type: STRING,
+  },
+  passportId: {
+    type: STRING,
   },
 });
 
@@ -72,3 +117,17 @@ const hashPassword = async (user) => {
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
+
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT);
+};
+
+User.authenticateViaSocial = async function (passportId) {
+  const user = await this.findOne({ where: { passportId } });
+  if (!user) {
+    const error = Error("No user exists");
+    error.status = 401;
+    throw error;
+  }
+  return user.generateToken();
+};
