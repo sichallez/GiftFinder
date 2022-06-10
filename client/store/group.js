@@ -48,7 +48,6 @@ export const getAllGroups = (userId) => {
 
 export const createGroup = (newGroup, userId) => {
   return async (dispatch) => {
-    console.log("STORE STORE STORE USERID", userId);
     const group = (
       await axios.post("/api/group", newGroup, {
         headers: {
@@ -73,8 +72,6 @@ export const getAllMembers = (groupRouteId) => {
         },
       })
     ).data;
-
-    console.log('all MEMBERS IN STORE??', members)
 
     dispatch(_getAllMembers(members));
   };

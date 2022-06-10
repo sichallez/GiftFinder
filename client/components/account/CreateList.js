@@ -161,7 +161,7 @@ const CreateList = () => {
                 value="team-8-project"
                 control={
                   <Checkbox
-                    checked="true"
+                    checked={true}
                     onChange={handleCheckboxChange}
                     name="team-8-project"
                   />
@@ -172,7 +172,7 @@ const CreateList = () => {
                 value="Wife-and-Husband"
                 control={
                   <Checkbox
-                    checked="true"
+                    checked={true}
                     onChange={handleCheckboxChange}
                     name="Wife-and-Husband"
                   />
@@ -183,7 +183,7 @@ const CreateList = () => {
                 value="Rock-and-Roll"
                 control={
                   <Checkbox
-                    checked="true"
+                    checked={true}
                     onChange={handleCheckboxChange}
                     name="Rock-and-Roll"
                   />
@@ -194,7 +194,7 @@ const CreateList = () => {
                 value="Fullstack Academy Folks"
                 control={
                   <Checkbox
-                    checked="true"
+                    checked={true}
                     onChange={handleCheckboxChange}
                     name="Fullstack Academy Folks"
                   />

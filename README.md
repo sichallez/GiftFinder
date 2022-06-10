@@ -1,6 +1,6 @@
 # FS-App-Template
 
-This is our team 8 Capstone project while attending Fullstack Academy. It is a web app developed using React, Node.js, PostgreSQL and MUI. Wanna discover what is it? Clone it and try it out!
+This is our team 8 Capstone project while attending Fullstack Academy. It is a PERN stack - a web app developed using PostgreSQL, Express, React, Node.js and MUI. Wanna discover what is it? Clone it and try it out!
 
 ## Setup
 

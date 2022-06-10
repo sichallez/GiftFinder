@@ -44,8 +44,8 @@ const WishlistMenu = () => {
         You have {dummyData.length} Wishlist avaible:
       </Typography>
       <List>
-        {dummyData.map((item) => (
-          <Link to={item.url}>
+        {dummyData.map((item, index) => (
+          <Link to={item.url} key={index}>
             <ListItem>
               <ListItemText primary={item.name} />
               <Button

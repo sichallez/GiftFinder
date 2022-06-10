@@ -50,7 +50,7 @@ export function Category(props) {
   return (
     <Grid>
       <Tabs
-        value={1}
+        value={selectedTab}
         indicatorColor="secondary"
         onChange={handleChange}
         aria-label="icon label tabs"
@@ -172,6 +172,7 @@ export function FilterResults({
         <Select
           labelId="priceGroup"
           id="priceGroup"
+          value="1"
           label="Price"
           onChange={(event) => handlePrice(event.target.value)}
         >

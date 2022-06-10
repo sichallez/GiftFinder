@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   MenuList,
@@ -15,12 +16,14 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
+import { getAllMembers } from "../../store/group";
 
 const drawerWidth = 240;
 
 const AccountSidePanel = () => {
   const location = useLocation();
   const pathname = location.pathname;
+  const history = useHistory();
 
   const [openWishListMenu, setOpenWishListMenu] = React.useState(true);
   const [OpenGroupMenu, setOpenGroupMenu] = React.useState(true);
@@ -32,6 +35,16 @@ const AccountSidePanel = () => {
   const handleClickGroupMenu = () => {
     setOpenGroupMenu(!OpenGroupMenu);
   };
+
+  const group = useSelector((state) => state.group);
+  // the group object in the redux store is { group: [], member: [] }
+  const allGroup = group.group;
+
+  // below it's not necessary, don't know why
+  // if (!allGroup.length) {
+  //   return null;
+  // }
+  const dispatch = useDispatch();
 
   const dummyData = [
     {
@@ -118,15 +131,15 @@ const AccountSidePanel = () => {
                 sx={{ pl: 4 }}
                 selected={pathname === "/account/wishlist/new"}
               >
-                <ListItemIcon sx={{minWidth: 30}}>
+                <ListItemIcon sx={{ minWidth: 30 }}>
                   <AddIcon />
                 </ListItemIcon>
                 <ListItemText primary="new list" />
               </ListItemButton>
             </Link>
             <Divider />
-            {dummyData.map((item) => (
-              <Link to={item.url}>
+            {dummyData.map((item, index) => (
+              <Link to={item.url} key={index}>
                 <ListItemButton sx={{ pl: 4 }} selected={pathname === item.url}>
                   <ListItemText primary={item.name} />
                 </ListItemButton>
@@ -153,12 +166,24 @@ const AccountSidePanel = () => {
                 sx={{ pl: 4 }}
                 selected={pathname === "/account/group/new"}
               >
-                <ListItemIcon sx={{minWidth: 30}}>
+                <ListItemIcon sx={{ minWidth: 30 }}>
                   <AddIcon />
                 </ListItemIcon>
                 <ListItemText primary="create group" />
               </ListItemButton>
             </Link>
+            <Divider />
+            {allGroup.map((group, index) => (
+              <Link to={"/account/group/" + group.groupRouteId} key={index}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  selected={pathname === `/account/group/${group.groupRouteId}`}
+                  onClick={() => dispatch(getAllMembers(group.groupRouteId))}
+                >
+                  <ListItemText primary={group.name} />
+                </ListItemButton>
+              </Link>
+            ))}
           </List>
         </Collapse>
         <Link to="/account/gift">
