@@ -36,7 +36,6 @@ class AccountSidePanel extends Component {
   componentDidMount() {
     this.props.getAllLists();
   }
-
   // componentDidUpdate(prevProps){
   //   console.log(prevProps)
   // }
@@ -171,5 +170,6 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
+
 
 export default connect((state) => state, mapDispatchToProps)(AccountSidePanel);

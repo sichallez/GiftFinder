@@ -56,7 +56,7 @@ const User = db.define("user", {
   },
   passportId: {
     type: STRING,
-  },
+  }
 });
 
 module.exports = User;

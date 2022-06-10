@@ -139,8 +139,6 @@ class Home extends Component {
       .catch((err) => console.log(err)); 
     } // re-render the data 
   }
- 
-
   handleBookmark = (id) => {  
       console.log('here')
       const savedProduct = this.state.products.filter(

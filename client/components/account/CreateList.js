@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
 import {
   Typography,
   Button,
@@ -21,6 +21,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PublicIcon from "@mui/icons-material/Public";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
+import {createWishlist} from '../../store/wishlists'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,16 +60,23 @@ const useStyles = makeStyles({
   },
 });
 
-const CreateList = () => {
+const initialState = {
+  name: "",
+  details: "",
+  team8project: false,
+  WifeAndHusband: false,
+  RocAndRoll: false,
+  FullstackAcademyFolks: false,
+}
+const CreateList = ({ userId }) => {
+  const [createValues, setCreateValues] = useState(initialState)
   const classes = useStyles();
-  const history = useHistory();
-  const [title, setTitle] = useState("");
-  const [details, setDetails] = useState("");
+  //const history = useHistory();
+  ///const [title, setTitle] = useState("");
+  ///const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  const [category, setCategory] = useState("money");
-
-  const dummyData = [];
+  ////const [category, setCategory] = useState("money");
 
   const [selectedTab, setSelectedTab] = React.useState(0);
 
@@ -76,27 +84,28 @@ const CreateList = () => {
     setSelectedTab(newValue);
   };
 
-  const handleCheckboxChange = () => {};
+  const onChange = (e) => {
+    const change = {};
+    change[e.target.name] = e.target.value;
+    setCreateValues(change);
+  };
 
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
+    const {
+      name,
+      details,
+      team8project,
+      WifeAndHusband,
+      RocAndRoll,
+      FullstackAcademyFolks,
+    } = createValues;
 
-    if (title == "") {
-      setTitleError(true);
-    }
-    if (details == "") {
-      setDetailsError(true);
-    }
-    if (title && details) {
-      fetch("http://localhost:8000/notes", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ title, details, category }),
-      }).then(() => history.push("/"));
-    }
+    dispatch(createWishlist({...createValues, userId}))
+    setCreateValues('')
   };
+
 
   return (
     <Container maxWidth="md" sx={{marginTop: "30px"}}>
@@ -107,7 +116,9 @@ const CreateList = () => {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          name='name'
+          value={createValues.name ?? ''}
+          onChange={onChange}
           label="Name your list"
           variant="outlined"
           color="secondary"
@@ -117,7 +128,9 @@ const CreateList = () => {
         />
         <TextField
           className={classes.field}
-          onChange={(e) => setDetails(e.target.value)}
+          name='details'
+          value={createValues.details ?? ''}
+          onChange={onChange}
           label="Add a note (optional)"
           variant="outlined"
           color="secondary"
@@ -158,45 +171,45 @@ const CreateList = () => {
             <FormLabel>Select Groups to Share With</FormLabel>
             <FormGroup>
               <FormControlLabel
-                value="team-8-project"
+                value="team8project"
                 control={
                   <Checkbox
-                    checked="true"
-                    onChange={handleCheckboxChange}
-                    name="team-8-project"
+                    value="true"
+                    onChange={onChange}
+                    name="team8project"
                   />
                 }
                 label="Team-8-Project"
               />
               <FormControlLabel
-                value="Wife-and-Husband"
+                value="WifeAndHusband"
                 control={
                   <Checkbox
-                    checked="true"
-                    onChange={handleCheckboxChange}
-                    name="Wife-and-Husband"
+                    value="true"
+                    onChange={onChange}
+                    name="WifeAndHusband"
                   />
                 }
                 label="Wife-and-Husband"
               />
               <FormControlLabel
-                value="Rock-and-Roll"
+                value="RocAndRoll"
                 control={
                   <Checkbox
-                    checked="true"
-                    onChange={handleCheckboxChange}
-                    name="Rock-and-Roll"
+                    value="true"
+                    onChange={onChange}
+                    name="RocAndRoll"
                   />
                 }
                 label="Rock-and-Roll"
               />
               <FormControlLabel
-                value="Fullstack Academy Folks"
+                //value="FullstackAcademyFolks"
                 control={
                   <Checkbox
-                    checked="true"
-                    onChange={handleCheckboxChange}
-                    name="Fullstack Academy Folks"
+                    value="true"
+                    onChange={onChange}
+                    name="FullstackAcademyFolks"
                   />
                 }
                 label="Fullstack Academy Folks"
@@ -222,4 +235,19 @@ const CreateList = () => {
   );
 };
 
-export default CreateList;
+const mapState = ({auth}) => {
+  return {
+    userId: auth.id
+  }
+}
+
+const mapDispatch = (dispatch)=> {
+  return {
+    createWishlist: (wishlist) => {
+      dispatch(createWishlist(wishlist))
+    } 
+  }
+}
+
+
+export default connect(mapState, mapDispatch)(CreateList);

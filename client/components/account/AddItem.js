@@ -36,8 +36,8 @@ const AddItem = () => {
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory] = useState("money");
-
-  const dummyData = [];
+  
+  const subWishList = [];
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -64,22 +64,7 @@ const AddItem = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
-
-    if (title == "") {
-      setTitleError(true);
-    }
-    if (details == "") {
-      setDetailsError(true);
-    }
-    if (title && details) {
-      fetch("http://localhost:8000/notes", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ title, details, category }),
-      }).then(() => history.push("/"));
-    }
+   
   };
 
   return (
