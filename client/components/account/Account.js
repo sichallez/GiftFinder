@@ -34,10 +34,9 @@ const Account = ({ auth }) => {
         {pathname === "/account" ? <UserProfile /> : null}
         <Switch>
           <Route path="/account/profile" component={UserProfile} />
-          {/* <Route exact path="/account/wishlist" component={WishlistMenu} /> */}
           <Route exact path="/account/wishlist/new" component={CreateList} />
           <Route path="/account/wishlist/:listId" component={Wishlist} />
-          <Route path="/account/wishlist" component={Wishlists} />
+          {/* <Route path="/account/wishlist" component={Wishlists} /> */}
           <Route exact path="/account/group/new" component={CreateGroup} />
           <Route path="/account/group/:groupRouteId" component={SingleGroup} />
           <Route path="/account/group" component={MyGroups} />

@@ -18,7 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
-import Wishlist from "./Wishlist";
+import Wishlists from "./Wishlists";
 import wishlist from "../../store/wishlist";
 
 
@@ -105,13 +105,19 @@ class AccountSidePanel extends Component {
               </ListItemButton>
             </Link>
             <Divider />
-            {this.props.wishlists.map(wishlist=>{
+            <BrowserRouter>
+            {this.props.wishlists.map(list=>{
               return(
-                <div key={wishlist.id}>
-                  {wishlist.name}
+                <div key={list.id}>
+                   <ListItemButton sx={{ pl: 4 }} selected={this.state.pathname === `/account/wishlist/${list.id}`}>
+                    <ListItemText primary={list.name} />
+                  </ListItemButton>
+                   {/* <Link to={`/account/wishlist/${list.id}`}>{list.name}</Link> */}
+                   
                 </div>
               )
             })}
+            </BrowserRouter>
           </List>
         </Collapse>
         <Link to="/account/group">

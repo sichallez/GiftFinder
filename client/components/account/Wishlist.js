@@ -9,10 +9,13 @@ import { getAllLists } from "../../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
+    console.log(this.props)
     this.props.getWishlist(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps){
+    console.log('UPDATE')
+    console.log(this.props)
     if(prevProps.match.params.id !== this.props.match.params.id){
       this.props.getWishlist(this.props.match.params.id);
     }
