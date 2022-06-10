@@ -44,7 +44,7 @@ router.get("/", async (req, res, next) => {
     const response = await axios.get(
       "https://openapi.etsy.com/v2/listings/active?keywords=" +
         req.query.q +
-        "&limit=300&min_price=" +
+        "&limit=50&min_price=" +
         req.query.minPrice +
         "&max_price=" +
         req.query.maxPrice +
