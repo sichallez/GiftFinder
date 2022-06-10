@@ -10,7 +10,7 @@ class Category extends Component {
 
                 <ReturnAndContinue
                 returnPath={'/questions/character'}
-                continuePath={'/home'}
+                continuePath={'/questions/result'}
                 // onContinueClick = {() => setBudget(value)}
             />
             </div>
@@ -20,7 +20,7 @@ class Category extends Component {
 
 const mapState = (state) => {
     return {
-       state
+       category: state.questions.category
     }
 }
 
