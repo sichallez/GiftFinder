@@ -6,13 +6,10 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Grid } from "@mui/material";
-import { Divider } from "@mui/material";
 import AccountSidePanel from "./AccountSidePanel";
 import UserProfile from "./UserProfile";
-import WishlistMenu from "./WishlistMenu";
 import Wishlist from "./Wishlist";
-import Wishlists from "./Wishlists";
-import MyGroups, { CreateGroup, SingleGroup, JoinGroup } from "./MyGroups";
+import MyGroups, { CreateGroup, SingleGroup } from "./MyGroups";
 import GiftFor from "./GiftFor";
 import Notification from "./Notification";
 import CreateList from "./CreateList";
@@ -35,8 +32,7 @@ const Account = ({ auth }) => {
         <Switch>
           <Route path="/account/profile" component={UserProfile} />
           <Route exact path="/account/wishlist/new" component={CreateList} />
-          <Route path="/account/wishlist/:listId" component={Wishlist} />
-          {/* <Route path="/account/wishlist" component={Wishlists} /> */}
+          <Route path="/account/wishlist/:id" component={Wishlist} />
           <Route exact path="/account/group/new" component={CreateGroup} />
           <Route path="/account/group/:groupRouteId" component={SingleGroup} />
           <Route path="/account/group" component={MyGroups} />

@@ -105,19 +105,17 @@ class AccountSidePanel extends Component {
               </ListItemButton>
             </Link>
             <Divider />
-            <BrowserRouter>
             {this.props.wishlists.map(list=>{
               return(
                 <div key={list.id}>
+                  <Link to={`/account/wishlist/${list.id}`}>
                    <ListItemButton sx={{ pl: 4 }} selected={this.state.pathname === `/account/wishlist/${list.id}`}>
-                    <ListItemText primary={list.name} />
+                   <ListItemText primary={list.name} />
                   </ListItemButton>
-                   {/* <Link to={`/account/wishlist/${list.id}`}>{list.name}</Link> */}
-                   
+                  </Link>
                 </div>
               )
             })}
-            </BrowserRouter>
           </List>
         </Collapse>
         <Link to="/account/group">

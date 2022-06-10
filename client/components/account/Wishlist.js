@@ -22,8 +22,6 @@ class Wishlist extends Component {
   }
 
   render() {
-    const { listId } = this.props.match.params;
-
     if (!this.props.wishlist) {
       return null;
     }
