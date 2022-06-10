@@ -70,7 +70,6 @@ const initialState = {
 }
 const CreateList = () => {
   const [createValues, setCreateValues] = useState(initialState)
-  const [subWishlist, setSubWishlist] = useState([])
   const classes = useStyles();
   //const history = useHistory();
   ///const [title, setTitle] = useState("");
@@ -114,7 +113,7 @@ const CreateList = () => {
         Create A New List
       </Typography>
 
-      <form noValidate autoComplete="on" onSubmit={handleSubmit}>
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
           name='name'

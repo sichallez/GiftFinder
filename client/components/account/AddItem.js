@@ -64,22 +64,7 @@ const AddItem = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
-
-    if (title == "") {
-      setTitleError(true);
-    }
-    if (details == "") {
-      setDetailsError(true);
-    }
-    if (title && details) {
-      fetch("http://localhost:8000/notes", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ title, details, category }),
-      }).then(() => history.push("/"));
-    }
+   
   };
 
   return (
