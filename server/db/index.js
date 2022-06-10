@@ -15,7 +15,7 @@ const Gift = require("./models/Gift");
 //gifts can belong to many wishlist
 
 Wishlist.belongsTo(User);
-User.hasOne(Wishlist);
+User.hasOne(Wishlist); //hasMany
 
 Wishlist.hasMany(Gift);
 Gift.belongsTo(Wishlist);

@@ -65,10 +65,10 @@ const initialState = {
   details: "",
   team8project: false,
   WifeAndHusband: false,
-  RocAndRoll:false,
+  RocAndRoll: false,
   FullstackAcademyFolks: false,
 }
-const CreateList = () => {
+const CreateList = ({ userId }) => {
   const [createValues, setCreateValues] = useState(initialState)
   const classes = useStyles();
   //const history = useHistory();
@@ -102,7 +102,7 @@ const CreateList = () => {
       FullstackAcademyFolks,
     } = createValues;
 
-    dispatch(createWishlist(createValues))
+    dispatch(createWishlist({...createValues, userId}))
     setCreateValues('')
   };
 
@@ -235,6 +235,12 @@ const CreateList = () => {
   );
 };
 
+const mapState = ({auth}) => {
+  return {
+    userId: auth.id
+  }
+}
+
 const mapDispatch = (dispatch)=> {
   return {
     createWishlist: (wishlist) => {
@@ -244,4 +250,4 @@ const mapDispatch = (dispatch)=> {
 }
 
 
-export default connect(mapDispatch)(CreateList);
+export default connect(mapState, mapDispatch)(CreateList);

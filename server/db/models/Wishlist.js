@@ -1,4 +1,4 @@
-const { STRING, BOOLEAN } = require("sequelize");
+const { STRING, BOOLEAN, INTEGER } = require("sequelize");
 const db = require("../db");
 
 const Wishlist = db.define("wishlist", {
@@ -9,6 +9,9 @@ const Wishlist = db.define("wishlist", {
   default:{
     type: BOOLEAN,
     default: false
+  },
+  userId: {
+    type: INTEGER,
   }
 });
 
