@@ -31,6 +31,7 @@ class AccountSidePanel extends Component {
       pathname: ''
     }
   }
+  
   componentDidMount() {
     this.props.getAllLists();
   }
