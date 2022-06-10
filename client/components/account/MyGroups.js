@@ -47,7 +47,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
 
   const allGroup = group.group;
 
-  console.log("NOW GROUPS FETCHED?", group);
+  // console.log("NOW GROUPS FETCHED?", group);
 
   const history = useHistory();
 
@@ -134,17 +134,17 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
 };
 
 const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
-  console.log("Single single here here", group, match);
+  // console.log("Single single here here", group, match);
   const allGroup = group.group;
   const groupRouteId = match.params.groupRouteId;
   const currentGroup = allGroup.filter(item => item.groupRouteId === groupRouteId)[0];
-  console.log("CURRENT GROUP", currentGroup);
+  // console.log("CURRENT GROUP", currentGroup);
 
   useEffect(() => {
     getAllMembers(groupRouteId);
   }, []);
 
-  console.log("ALL MEMBERS!!", group.member)
+  // console.log("ALL MEMBERS!!", group.member)
   const allMembers = group.member;
 
   const handleInviteMembers = () => {
@@ -229,7 +229,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
     if (name) {
       const groupRouteId = generateString(5);
       const newGroup = { name, groupRouteId };
-      console.log("USERID USERID??", auth.id, typeof auth.id);
+      // console.log("USERID USERID??", auth.id, typeof auth.id);
       createGroup(newGroup, auth.id);
     }
   };
@@ -330,7 +330,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
 export const JoinGroup = () => {};
 
 const mapState = ({ auth, group }, { match }) => {
-  console.log("GROUP HEER", auth, group, match);
+  // console.log("GROUP HEER", auth, group, match);
   return { auth, group };
 };
 
