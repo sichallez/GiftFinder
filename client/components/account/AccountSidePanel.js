@@ -22,10 +22,15 @@ const AccountSidePanel = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [open, setOpen] = React.useState(true);
+  const [openWishListMenu, setOpenWishListMenu] = React.useState(true);
+  const [OpenGroupMenu, setOpenGroupMenu] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleClickWishListMenu = () => {
+    setOpenWishListMenu(!openWishListMenu);
+  };
+
+  const handleClickGroupMenu = () => {
+    setOpenGroupMenu(!OpenGroupMenu);
   };
 
   const dummyData = [
@@ -100,20 +105,20 @@ const AccountSidePanel = () => {
               padding: "10px",
             }}
             selected={pathname === "/account/wishlist"}
-            onClick={handleClick}
+            onClick={handleClickWishListMenu}
           >
             <ListItemText>Wish List</ListItemText>
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {openWishListMenu ? <ExpandLess /> : <ExpandMore />}
           </MenuItem>
         </Link>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={openWishListMenu} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <Link to="/account/wishlist/new">
               <ListItemButton
                 sx={{ pl: 4 }}
                 selected={pathname === "/account/wishlist/new"}
               >
-                <ListItemIcon>
+                <ListItemIcon sx={{minWidth: 30}}>
                   <AddIcon />
                 </ListItemIcon>
                 <ListItemText primary="new list" />
@@ -135,10 +140,27 @@ const AccountSidePanel = () => {
               padding: "10px",
             }}
             selected={pathname === "/account/group"}
+            onClick={handleClickGroupMenu}
           >
             <ListItemText>My Groups</ListItemText>
+            {OpenGroupMenu ? <ExpandLess /> : <ExpandMore />}
           </MenuItem>
         </Link>
+        <Collapse in={OpenGroupMenu} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <Link to="/account/group/new">
+              <ListItemButton
+                sx={{ pl: 4 }}
+                selected={pathname === "/account/group/new"}
+              >
+                <ListItemIcon sx={{minWidth: 30}}>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary="create group" />
+              </ListItemButton>
+            </Link>
+          </List>
+        </Collapse>
         <Link to="/account/gift">
           <MenuItem
             sx={{

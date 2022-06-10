@@ -12,7 +12,7 @@ import UserProfile from "./UserProfile";
 import WishlistMenu from "./WishlistMenu";
 import Wishlist from "./Wishlist";
 import Wishlists from "./Wishlists";
-import MyGroups from "./MyGroups";
+import MyGroups, { CreateGroup, SingleGroup, JoinGroup } from "./MyGroups";
 import GiftFor from "./GiftFor";
 import Notification from "./Notification";
 import CreateList from "./CreateList";
@@ -38,6 +38,8 @@ const Account = ({ auth }) => {
           <Route exact path="/account/wishlist/new" component={CreateList} />
           <Route path="/account/wishlist/:listId" component={Wishlist} />
           <Route path="/account/wishlist" component={Wishlists} />
+          <Route exact path="/account/group/new" component={CreateGroup} />
+          <Route path="/account/group/:groupRouteId" component={SingleGroup} />
           <Route path="/account/group" component={MyGroups} />
           <Route path="/account/gift" component={GiftFor} />
           <Route path="/account/favlist" component={FavoriteList} />
