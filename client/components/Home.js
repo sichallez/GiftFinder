@@ -62,14 +62,14 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           isLoading: false,
-          giftSearch: "",
+          giftSearch: "",                               
           products: res.data.results,
           filteredProducts: res.data.results,
         });
       })
       .catch((err) => console.log(err));
   };
-
+                                
   handlePrice = (value) => {
     let minPrice;
     let maxPrice;
@@ -139,7 +139,7 @@ class Home extends Component {
       .catch((err) => console.log(err)); 
     } // re-render the data 
   }
-  
+ 
 
   handleBookmark = (id) => {  
       console.log('here')
@@ -222,8 +222,8 @@ class Home extends Component {
                 <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
-                title={product.title.slice(0, 25)}
-                image={product.Images[0].url_570xN}
+                { ...product.title?.length > 50 ? `title=${product.title.slice(0, 25)}` : `title=${product.title}`}
+                image={product.Images?.[0].url_570xN}
                 url={product.url}
                 price={product.price}
                 views={product.views}
