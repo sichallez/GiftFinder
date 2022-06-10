@@ -74,10 +74,10 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
               <li>
                 <ul className="nav-top-level">
                   <li>
-                    <Link to="login">Login</Link>
+                    <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <Link to="signup">Sign Up</Link>
+                    <Link to="/signup">Sign Up</Link>
                   </li>
                 </ul>
               </li>

@@ -33,16 +33,13 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/wishlist" component={Wishlist} />
             <Route path='/questions/budget' component={Budget} />
             <Route path='/questions/person' component={Person} />
             <Route path='/questions' exact component={Questions} />
             <Route path='/questions/character' component={Character} />
             <Route path='/questions/category' component={Category} />
             <Route path='/questions/result' component={Result} />
-            {/* <Route path="/wishlist" component={Wishlists} /> */}
             <Route path="/account" component={Account} />
-
             <Redirect to="/home" />
           </Switch>
         ) : (
