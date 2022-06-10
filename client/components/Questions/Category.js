@@ -6,7 +6,7 @@ class Category extends Component {
     render() {
         return (
             <div>
-                <h1>Choose a category</h1>
+                <h1 className='questionsH1'> Choose a category</h1>
 
                 <ReturnAndContinue
                 returnPath={'/questions/character'}

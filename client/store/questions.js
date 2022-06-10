@@ -7,8 +7,8 @@ const RESET_STATE = 'RESET_STATE';
 
 export const setBudget = (budget) => {return { type: SET_BUDGET, budget }}
 export const setPerson = (person) => {return { type: SET_PERSON, person}}
-export const setCategory = (category) => {return { type: SET_CATEGORY, category}}
 export const setCharacter = (character) => {return { type: SET_CHARACTER, character}}
+export const setCategory = (category) => {return { type: SET_CATEGORY, category}}
 export const resetState = () => { return { type: RESET_STATE }}
 
 const initialState = {
@@ -39,10 +39,18 @@ const initialState = {
     'nephew',
     'aunt',
     'uncle'],
-    category: [
-      ''
+    character: [
+      {id: 1, name: 'Fitness Enthusiast'},
+      {id: 2, name: 'Artist'},
+      {id: 3, name: 'Traveller'},
+      {id: 4, name: 'Techie'},
+      {id: 5, name: 'Foodie'},
+      {id: 6, name: 'Influencer'},
+      {id: 7, name: 'Spiritualist'},
+      {id: 8, name: 'None'}
     ],
-    character: null
+    category: null,
+
 }
 
 export default function (state = initialState, action) {
@@ -51,10 +59,10 @@ export default function (state = initialState, action) {
       return {...state, budget: action.budget}
     case SET_PERSON: 
       return {...state, person: action.person}
-    case SET_CATEGORY: 
-      return {...state, category: action.category}
     case SET_CHARACTER: 
       return {...state, character: action.character}
+    case SET_CATEGORY: 
+      return {...state, category: action.category}
     case RESET_STATE:
       return initialState
     default:
