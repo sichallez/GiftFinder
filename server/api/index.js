@@ -4,6 +4,7 @@ module.exports = router;
 // API routes "/api"
 
 router.use("/users", require("./users"));
+router.use("/group", require("./group"));
 router.use("/gifts", require("./gifts"));
 router.use("/wishlist", require("./wishlist"));
 

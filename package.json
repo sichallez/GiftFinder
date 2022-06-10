@@ -40,7 +40,8 @@
     "random-avatar-generator": "^2.0.0",
     "react-google-login": "^5.2.2",
     "react-social-login-buttons": "^3.6.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "uninstall": "^0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Box,
@@ -16,58 +15,37 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
-import { getWishlist } from "../../store/wishlist";
+import { connect } from "react-redux";
+import {HashRouter, BrowserRouter, Route} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
+import Wishlists from "./Wishlists";
+import wishlist from "../../store/wishlist";
+
 
 const drawerWidth = 240;
 
-const AccountSidePanel = (props) => {
-
-  const location = useLocation();
-  const pathname = location.pathname;
-
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-  const subWishList = [
-    {
-      name: "Birthday",
-      listId: "1",
-      get url() {
-        return `/account/wishlist/${this.name}`;
-      },
-    },
-    {
-      name: "Travel",
-      listId: "2",
-      get url() {
-        return `/account/wishlist/${this.name}`;
-      },
-    },
-    {
-      name: "Graduation",
-      listId: "3",
-      get url() {
-        return `/account/wishlist/${this.name}`;
-      },
+class AccountSidePanel extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      open: false,
+      pathname: ''
     }
-  ];
+  }
 
+  componentDidMount() {
+    this.props.getAllLists();
+  }
+  // componentDidUpdate(prevProps){
+  //   console.log(prevProps)
+  // }
+
+  handleClick (){
+    this.setState({open: !open});
+  };
+
+  render() {
   return (
-    // <Drawer
-    //     sx={{
-    //       width: drawerWidth,
-    //       flexShrink: 0,
-    //       '& .MuiDrawer-paper': {
-    //         width: drawerWidth,
-    //         boxSizing: 'border-box',
-    //       },
-    //     }}
-    //     variant="permanent"
-    //     anchor="left"
-    //   ></Drawer>
     <Box
       sx={{
         backgroundColor: "red",
@@ -92,7 +70,7 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/profile"}
+            selected={this.state.pathname === "/account/profile"}
           >
             <ListItemText>Account Profile</ListItemText>
           </MenuItem>
@@ -102,19 +80,22 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/wishlist"}
-            onClick={handleClick}
+            selected={this.state.pathname === "/account/wishlist"}
+            onClick={()=>{
+              this.setState({open: !this.state.open})
+              this.props.getAllLists()
+            }}
           >
             <ListItemText>Wish List</ListItemText>
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </MenuItem>
         </Link>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <Link to="/account/wishlist/new">
               <ListItemButton
                 sx={{ pl: 4 }}
-                selected={pathname === "/account/wishlist/new"}
+                selected={this.state.pathname === "/account/wishlist/new"}
               >
                 <ListItemIcon>
                   <AddIcon />
@@ -123,13 +104,17 @@ const AccountSidePanel = (props) => {
               </ListItemButton>
             </Link>
             <Divider />
-            {subWishList.map((item,index) => (
-              <Link to={item.url} key={index}>
-                <ListItemButton sx={{ pl: 4 }} selected={pathname === item.url}>
-                  <ListItemText primary={item.name} />
-                </ListItemButton>
-              </Link>
-            ))}
+            {this.props.wishlists.map(list=>{
+              return(
+                <div key={list.id}>
+                  <Link to={`/account/wishlist/${list.id}`}>
+                   <ListItemButton sx={{ pl: 4 }} selected={this.state.pathname === `/account/wishlist/${list.id}`}>
+                   <ListItemText primary={list.name} />
+                  </ListItemButton>
+                  </Link>
+                </div>
+              )
+            })}
           </List>
         </Collapse>
         <Link to="/account/group">
@@ -137,7 +122,7 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/group"}
+            selected={this.state.pathname === "/account/group"}
           >
             <ListItemText>My Groups</ListItemText>
           </MenuItem>
@@ -147,7 +132,7 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/gift"}
+            selected={this.state.pathname === "/account/gift"}
           >
             <ListItemText>Shop For</ListItemText>
           </MenuItem>
@@ -157,7 +142,7 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/favlist"}
+            selected={this.state.pathname === "/account/favlist"}
           >
             <ListItemText>Favorite List</ListItemText>
           </MenuItem>
@@ -167,7 +152,7 @@ const AccountSidePanel = (props) => {
             sx={{
               padding: "10px",
             }}
-            selected={pathname === "/account/notification"}
+            selected={this.state.pathname === "/account/notification"}
           >
             <ListItemText>Notification</ListItemText>
           </MenuItem>
@@ -175,18 +160,16 @@ const AccountSidePanel = (props) => {
       </MenuList>
     </Box>
   );
+}
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getWishlist: function () {
-      dispatch(getWishlist());
+    getAllLists: function () {
+      dispatch(getAllLists());
     },
-    getAllLists(){
-      dispatch(getAllLists())
-    }
   };
 };
 
 
-export default connect(state => state, mapDispatch)(AccountSidePanel);
+export default connect((state) => state, mapDispatchToProps)(AccountSidePanel);

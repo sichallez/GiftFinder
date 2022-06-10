@@ -21,16 +21,15 @@ class Wishlists extends Component {
     return (
       <>
       <BrowserRouter>
-        <h3>Your Lists</h3>
-
-        <div>
-          {lists.map(list=>{
-            return(
-              <div key = {list.id}><Link to={`/wishlist/${list.id}`}>{list.name}</Link></div>
-            )
-          })}
-          <Route path = "/wishlist/:id" component={Wishlist}/>
-        </div>
+            {this.props.wishlists.map(list=>{
+              return(
+                <div key={list.id}>
+                   
+                   <Link to={`/wishlist/${list.id}`}>{list.name}</Link>
+                   
+                </div>
+              )
+            })}
       </BrowserRouter>
       </>
     )

@@ -9,11 +9,10 @@ const Budget = ({ budget, setBudget }) => {
 
     function onBudgetChange(ev) {
         setValue(ev.target.value)
-        console.log(ev.target.value, 'value')
     }
     return (
         <div>
-            <h1>What is your budget?</h1>
+            <h1 className='questionsH1'>What is your budget?</h1>
             <div className='budget-label'>
                 $10
                 <input type='range' min="10" max="100"step="5" defaultValue={value} onChange={onBudgetChange} className='sliderBudget'>

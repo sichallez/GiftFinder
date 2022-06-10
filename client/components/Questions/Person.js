@@ -3,52 +3,82 @@ import { connect } from 'react-redux';
 import { setPerson } from '/client/store';
 import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
 
-
-//https://leahschlackman.medium.com/creating-an-auto-complete-search-bar-in-react-with-redux-9171fcf0898a
-
 class Person extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            search: '',
-            results: []
+            suggestions: [],
+            text: ''
         }
-        this.personChange = this.personChange.bind(this)
-        this.getResults = this.getResults.bind(this)
+        this.onTextChange = this.onTextChange.bind(this)
+        this.selectedText = this.selectedText.bind(this)
+        this.renderSuggestions = this.renderSuggestions.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.clearForm = this.clearForm.bind(this)
     }
-    personChange(ev) {
-        this.setState({
-            ...this.state,
-            search: ev.target.value
-        })
-        , () => {
-            if (this.state.search && this.state.search.length >=1 ) {
-                this.getResults()
-            }
+    onTextChange(ev) {
+        const value = ev.target.value;
+        const { person } = this.props;
+        let suggestions = [];
+        if (value.length > 0) {
+            const regex = new RegExp(`^${value}`, 'i');
+            suggestions = person.filter(p => regex.test(p))
         }
+        this.setState(() => ({
+            suggestions,
+            text: value
+        }))
     }
-    getResults(props) {
-        let m = this.state.search.substring(0,1)
-        console.log(m, 'm1')
-        console.log(props, 'm')
-        this.setState({
-            ...this.state,
-            results: this.props.person.filter(c => c.name.startsWith(m))
-        })
+    selectedText(value) {
+        this.setState(() => ({
+            text: value,
+            suggestions: []
+        }))
+        this.props.dispatch(setPerson(this.state.suggestions))
+    }
+    renderSuggestions() {
+        const { suggestions } = this.state;
+        if (suggestions.length === 0) {
+            return null;
+        }
+        return (
+            <ul className='person-suggestions'>
+                {
+                    suggestions.map((item, index) => (
+                        <li key={index} onClick={() => this.selectedText(item) }>
+                            {item}
+                        </li>
+                    ))
+                }
+            </ul>
+        )
+    }
+    // clearForm() {
+    //     this.setState(() => ({
+    //         text: '',
+    //         suggestions: []
+    //     }))
+    // }
+    handleSubmit(ev) {
+        ev.preventDefault()
+        this.props.dispatch(setPerson(this.state.suggestions))
     }
     render() {
-        const { search, results } = this.state
-        const { personChange, getResults } = this;
+        const { text, suggestions } = this.state;
+        const { onTextChange, handleSubmit } = this;
+        // console.log(handleSubmit, 'handle')
         return (
-            <div>
-                <h1>Who are you shopping for?</h1>
-                <input name='person' value={search} onChange={personChange} >
-                </input>
-
+            <div className='person-div'>
+                <h1 className='questionsH1'>Who are you shopping for?</h1>
+                <form onSubmit={handleSubmit} className='person-form'>
+                    <input className='query' type='text' onChange={onTextChange} value={text} placeholder='mom, sibling, coworker...' />
+                    {this.renderSuggestions()}
+                    <span></span>
+                </form>
                 <ReturnAndContinue
                 returnPath={'/questions/budget'}
                 continuePath={'/questions/character'}
-                // onContinueClick = {() => setBudget(value)}
+                // onContinueClick = {() => setPerson(text)}
             />
             </div>
         )
@@ -60,5 +90,11 @@ const mapState = (state) => {
         person: state.questions.person
     }
 }
+
+// const mapDispatch = (dispatch) => {
+//     return {
+//         setPerson: suggestions => dispatch((setPerson(suggestions)))
+//     }
+// }
 
 export default connect(mapState)(Person)

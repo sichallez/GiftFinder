@@ -23,6 +23,9 @@ const ProductCard = ({
   url,
   title,
   price,
+  views,
+  product,
+  onClick
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -81,6 +84,9 @@ const ProductCard = ({
                 <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
                   ${price}
                 </Typography>
+                <Typography sx={{ fontSize: "12px", fontWeight: "normal", color: 'rgba(0, 0, 0, 0.55)' }}>
+                  Views: {views}
+                </Typography>
               </CardContent>
             </Box>
           </a>
@@ -94,6 +100,8 @@ const ProductCard = ({
                 backgroundColor: "white",
               }}
               aria-label="add to favorites"
+
+              onClick={onClick.bind(this,product)}
             >
               <FavoriteBorderIcon />
             </IconButton>

@@ -2,11 +2,12 @@
 
 const {
   db,
-  models: { User, Wishlist, Gift },
+  models: { User, Group, UserGroup, Wishlist, Gift },
 } = require("../server/db");
+const { generateString } = require("../utils");
+
 // a generator that generates random avatar images
 const { AvatarGenerator } = require("random-avatar-generator");
- 
 const generator = new AvatarGenerator();
 
 /**
@@ -23,7 +24,7 @@ async function seed() {
       username: "cody",
       password: "123",
       email: "cody@fsa.com",
-      DOB:'1995-01-02',
+      DOB: "1995-01-02",
       isAdmin: true,
       avatar: generator.generateRandomAvatar(),
     }),
@@ -31,35 +32,35 @@ async function seed() {
       username: "murphy",
       password: "123",
       email: "murphy@fsa.com",
-      DOB:'1998-02-02',
+      DOB: "1998-02-02",
       avatar: generator.generateRandomAvatar(),
     }),
     await User.create({
       username: "ying",
       password: "123",
       email: "ying@fsa.com",
-      DOB:'1998-08-08',
+      DOB: "1998-08-08",
       avatar: generator.generateRandomAvatar(),
     }),
     await User.create({
       username: "savannah",
       password: "123",
       email: "savannah@fsa.com",
-      DOB:'1995-07-10',
+      DOB: "1995-07-10",
       avatar: generator.generateRandomAvatar(),
     }),
     await User.create({
       username: "maribel",
       password: "123",
       email: "maribel@fsa.com",
-      DOB:'1995-09-12',
+      DOB: "1995-09-12",
       avatar: generator.generateRandomAvatar(),
     }),
     await User.create({
       username: "simon",
       password: "123",
       email: "simon@fsa.com",
-      DOB:'1985-05-11',
+      DOB: "1985-05-11",
       avatar: generator.generateRandomAvatar(),
     }),
   ]);
@@ -68,62 +69,117 @@ async function seed() {
   await Wishlist.create({
     userId: users[0].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
   await Wishlist.create({
     userId: users[1].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
   await Wishlist.create({
     userId: users[2].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
   await Wishlist.create({
     userId: users[3].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
   await Wishlist.create({
     userId: users[4].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
   await Wishlist.create({
     userId: users[5].dataValues.id,
     default: true,
-    name: "Default Wishlist"
+    name: "Default Wishlist",
   });
 
   //additional list for each user
   await Wishlist.create({
     name: "Birthday Wishlist",
-    userId: users[0].dataValues.id
+    userId: users[0].dataValues.id,
   });
   await Wishlist.create({
     name: "Valentine's Day Ideas",
-    userId: users[1].dataValues.id
+    userId: users[1].dataValues.id,
   });
   await Wishlist.create({
     name: "Birthday Ideas",
-    userId: users[2].dataValues.id
+    userId: users[2].dataValues.id,
   });
   await Wishlist.create({
     name: "Graduation Gifts",
-    userId: users[3].dataValues.id
+    userId: users[3].dataValues.id,
   });
   await Wishlist.create({
     name: "Anniversary Gifts",
-    userId: users[4].dataValues.id
+    userId: users[4].dataValues.id,
   });
   await Wishlist.create({
     name: "Mother's Day",
-    userId: users[5].dataValues.id
+    userId: users[5].dataValues.id,
+  });
+
+  // pre-Creating a few groups
+  const groups = await Promise.all([
+    await Group.create({
+      name: "Team-8-Project",
+      groupRouteId: generateString(5),
+    }),
+    await Group.create({
+      name: "Fullstack Academy Folks",
+      groupRouteId: generateString(5),
+    }),
+    await Group.create({
+      name: "Wife-and-Husband",
+      groupRouteId: generateString(5),
+    }),
+    await Group.create({
+      name: "Rock-and-Roll",
+      groupRouteId: generateString(5),
+    }),
+  ]);
+
+  // pre-Creating a few user-group relationships
+  await UserGroup.create({
+    userId: users[5].id,
+    groupId: groups[0].id,
+  });
+  await UserGroup.create({
+    userId: users[5].id,
+    groupId: groups[1].id,
+  });
+  await UserGroup.create({
+    userId: users[2].id,
+    groupId: groups[1].id,
+  });
+  await UserGroup.create({
+    userId: users[3].id,
+    groupId: groups[1].id,
+  });
+  await UserGroup.create({
+    userId: users[4].id,
+    groupId: groups[1].id,
+  });
+  await UserGroup.create({
+    userId: users[1].id,
+    groupId: groups[3].id,
+  });
+  await UserGroup.create({
+    userId: users[2].id,
+    groupId: groups[3].id,
+  });
+  await UserGroup.create({
+    userId: users[1].id,
+    groupId: groups[2].id,
   });
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
+
   return {
     users: {
       cody: users[0],
@@ -131,7 +187,7 @@ async function seed() {
       ying: users[2],
       savannah: users[3],
       maribel: users[4],
-      simon: users[5]
+      simon: users[5],
     },
   };
 }
