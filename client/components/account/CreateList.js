@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
 import {
   Typography,
   Button,
@@ -21,6 +21,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PublicIcon from "@mui/icons-material/Public";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
+import {createWishlist} from '../../store/wishlists'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
 });
 
 const initialState = {
-  title: "",
+  name: "",
   details: "",
   team8project: false,
   WifeAndHusband: false,
@@ -85,38 +86,27 @@ const CreateList = () => {
   };
 
   const onChange = (e) => {
-    //const change = {};
-    //change[e.target.name] = e.target.value;
-    //setCrateValues(change);
-    setCreateValues({ ...createValues, [e.target.name]: e.target.value })
+    const change = {};
+    change[e.target.name] = e.target.value;
+    setCreateValues(change);
   };
 
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
-      title,
+      name,
       details,
       team8project,
       WifeAndHusband,
       RocAndRoll,
       FullstackAcademyFolks,
     } = createValues;
-  
-    //if (title && details) { //if want to do all in front end side, why do we need to fetch api
-    //  fetch("http://localhost:8080/subwishlist", {
-    //    method: "POST",
-    //    headers: { "Content-type": "application/json" },
-    //    body: JSON.stringify({ title, details, category:{name} }),
-    //  }).then(() => history.push("/"));
-    //}
 
-    setSubWishlist((prev) => {
-      return [...prev, createValues]
-    })
+    dispatch(createWishlist(createValues))
     setCreateValues('')
   };
 
-console.log(subWishlist)
 
   return (
     <Container maxWidth="md" sx={{marginTop: "30px"}}>
@@ -127,8 +117,8 @@ console.log(subWishlist)
       <form noValidate autoComplete="on" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
-          name='title'
-          value={createValues.title ?? ''}
+          name='name'
+          value={createValues.name ?? ''}
           onChange={onChange}
           label="Name your list"
           variant="outlined"
@@ -246,4 +236,13 @@ console.log(subWishlist)
   );
 };
 
-export default CreateList;
+const mapDispatch = (dispatch)=> {
+  return {
+    createWishlist: (wishlist) => {
+      dispatch(createWishlist(wishlist))
+    } 
+  }
+}
+
+
+export default connect(mapDispatch)(CreateList);

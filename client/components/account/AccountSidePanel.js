@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
   Box,
@@ -15,10 +16,13 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
+import { getWishlist } from "../../store/wishlist";
+import { getAllLists } from "../../store/wishlists";
 
 const drawerWidth = 240;
 
-const AccountSidePanel = ({createValues, subWishlist}) => {
+const AccountSidePanel = (props) => {
+
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -173,4 +177,16 @@ const AccountSidePanel = ({createValues, subWishlist}) => {
   );
 };
 
-export default AccountSidePanel;
+const mapDispatch = (dispatch) => {
+  return {
+    getWishlist: function () {
+      dispatch(getWishlist());
+    },
+    getAllLists(){
+      dispatch(getAllLists())
+    }
+  };
+};
+
+
+export default connect(state => state, mapDispatch)(AccountSidePanel);

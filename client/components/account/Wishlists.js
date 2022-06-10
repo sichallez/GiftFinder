@@ -13,6 +13,7 @@ class Wishlists extends Component {
     
     const lists = this.props.wishlists;
 
+
     if(!lists || lists.length === 0){
       return null;
     }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -11,10 +10,9 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { getWishlist } from "../../store/wishlist";
+
 
 const WishlistMenu = () => {
-
   const subWishList = [
     {
       name: "Birthday",
@@ -67,12 +65,6 @@ const WishlistMenu = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getWishlist: function () {
-      dispatch(getWishlist());
-    },
-  };
-};
 
-export default connect((state) => state, mapDispatchToProps)(WishlistMenu);
+
+export default WishlistMenu;
