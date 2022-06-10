@@ -40,7 +40,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    // console.log("BACKEND BACKEND", req.query);
+    //console.log("BACKEND BACKEND", req.query);
     const response = await axios.get(
       "https://openapi.etsy.com/v2/listings/active?keywords=" +
         req.query.q +

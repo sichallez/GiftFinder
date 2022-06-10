@@ -1,13 +1,13 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   background-color: #faf7f0;
 }
 
-#app {
-  margin-left: 250px;
-  margin-right: 250px;
-  padding-left: 1rem;
-  padding-right: 1rem;
+#app {  
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 
 a {
@@ -28,11 +28,25 @@ form div {
   display: inline-block;
 }
 
+.button {
+  text-decoration: none;
+}
+
+.button:hover {
+  text-decoration: none;
+
+}
+
+.hr {
+  border: 10px;
+  border-top: 1px solid;
+  margin: -10px -100px 10px -100px;
+}
+
 /** Navbar **/
 nav {
   text-decoration: none;
-  /* width: 1300px; */
-  margin: auto;
+
 }
 
 nav a, nav li {
@@ -68,4 +82,159 @@ nav a, nav li {
   padding: 10px;
   vertical-align: middle;
   cursor: pointer;
+}
+
+.questionsH1 {
+  text-align: center;
+}
+
+/** Search Bar **/
+.searchbar-btn a {
+  text-decoration: none;
+  color: white;
+  padding: 2rem;
+}
+
+/** Budget **/
+.sliderBudget {
+  height: 2rem;
+  cursor: pointer;
+  width: 75%;
+  -webkit-appearance: none;
+	background-image: linear-gradient(#a0a0a0, #a0a0a0);
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+
+.sliderBudget::-webkit-slider-thumb {
+  -webkit-appearance: none;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: #d46a6a;
+	cursor: pointer;
+	box-shadow: 0 0 2px 0 #555;
+  transition: 0.2s ease-in-out;
+
+}
+
+.sliderBudget::-webkit-slider-thumb:hover {
+  box-shadow: #d46a6a50 0px 0px 0px 8px;
+}
+
+.sliderBudget::-webkit-slider-thumb:active {
+  box-shadow: #d46a6a50 0px 0px 0px 11px;
+  transition: box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, left 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, bottom 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.sliderBudget::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
+
+.budget-value {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: auto;
+}
+
+.budget-label {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 25px;
+  text-align: center;
+}
+
+/** Person Suggestions **/
+.person-div {
+ margin: 0 231.9px;
+}
+
+.query {
+  width: 400px;
+  box-sizing: border-box;
+  font-size: 19px;
+  padding: 5px 5px 5px 15px;
+  font-family: 'Quicksand', sans-serif;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.person-suggestions {
+    margin: 0;
+    font-size: 17px;
+    width: 385px;
+    list-style-type: none;
+    text-decoration: underline;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 6px 5px 9px 10px;
+    border-left: none;
+    border-right: none;
+    background: white;
+}
+
+.person-suggestions li {
+  padding: 5px 5px 7.5px 5px;
+}
+
+.person-div span {
+  display: block;
+  position: absolute;
+  background: #FFD32E;
+  bottom: -35px;
+  left: -1px;
+  width: 360px;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/** Character Questionnaire **/
+.character-div {
+  margin: 0 15rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: Quicksand;
+}
+
+.character-btn {
+  padding: 0 25px;
+  width: 130px;
+  height: 100px;
+  margin: 15px 20px 30px 20px; 
+  cursor: pointer;
+  background: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0));
+  border: .5px solid lightgray;
+  border-radius: 10%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgb(53, 53, 53);
+}
+
+.character-btn:hover {
+  border: 2px solid #91a4d9;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  color: #91a4d9;
+}
+
+.character-btn:active {
+  border: 2px solid hsl(224, 49%, 71%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #91a4d9;
+  color: white;
+}
+
+.character-btn:focus {
+  border: 2px solid hsl(224, 49%, 71%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #91a4d9;
+  color: white;
 }

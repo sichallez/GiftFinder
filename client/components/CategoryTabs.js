@@ -30,7 +30,6 @@ import "./CategoryTabs.css";
 
 export function Category(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
-
   function handleChange(event, newValue) {
     setSelectedTab(newValue);
   }
@@ -51,7 +50,7 @@ export function Category(props) {
   return (
     <Grid>
       <Tabs
-        value={selectedTab}
+        value={1}
         indicatorColor="secondary"
         onChange={handleChange}
         aria-label="icon label tabs"
@@ -132,10 +131,13 @@ export function FilterResults({
   disabled,
   onClick,
   handlePrice,
-  isMostViews,
-  handleMostViews,
-  sortProducts
+  handleMostViews
 }) {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+  };
   return (
     <Grid
       container
@@ -155,7 +157,7 @@ export function FilterResults({
           <FormControl sx={{ width: "25ch" }}>
             <OutlinedInput
               name={name}
-              value={value}
+              value={1}
               onChange={onChange}
               placeholder="Filter your results"
             />
@@ -183,13 +185,16 @@ export function FilterResults({
             label="Most Views"
             control={
               <Checkbox
-                value={sortProducts}
-                checked={sortProducts}
-                onChange={(e) => handleMostViews(e.target.checked)}
+                checked={checked}
+                onChange={(e) =>{ 
+                  handleChange(e);
+                  handleMostViews(e)
+                  }
+                }
               />
             }
             sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
-          />
+        />
     </Grid>
   );
 }
