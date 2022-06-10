@@ -15,7 +15,7 @@ const UserGroup = require("./models/UserGroup");
 //a user can have one wishlist --- can have many if time to implement
 
 Wishlist.belongsTo(User);
-User.hasOne(Wishlist);
+User.hasOne(Wishlist); //hasMany
 
 //a wishlist has many gifts
 //gifts can belong to many wishlist

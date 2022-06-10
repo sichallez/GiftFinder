@@ -3,6 +3,7 @@ const {
   models: { Wishlist, User, Gift },
 } = require("../db");
 
+
 //return default wishlist of the user
 router.get("/default", async (req, res, next) => {
   try {
@@ -62,6 +63,17 @@ router.get("/:id", async (req, res, next) => {
     });
 
     res.send(wishlist);
+  } catch (err) {
+    if (err.status === 401) {
+      res.sendStatus(401);
+    } else next(err);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const wishlist = await Wishlist.create(req.body);
+    res.status(201).json(wishlist);
   } catch (err) {
     if (err.status === 401) {
       res.sendStatus(401);

@@ -47,7 +47,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
 
   const allGroup = group.group;
 
-  console.log("NOW GROUPS FETCHED?", group);
+  // console.log("NOW GROUPS FETCHED?", group);
 
   const history = useHistory();
 

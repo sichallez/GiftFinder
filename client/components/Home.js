@@ -4,9 +4,12 @@ import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
 import { Typography, Box, Grid } from "@mui/material";
 import {addToWishlist} from '../store/wishlist'
+import { fetchProducts } from "../store";
 import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
 import axios from "axios"; // axios call should NOT appear here in component..
+import Pagination from '@mui/material/Pagination';
+
 
 /**
  * COMPONENT
@@ -23,7 +26,9 @@ class Home extends Component {
     PageType: "homepage",
     isLoading: true,
     isMostViews: false,
-    isCustomizable: false
+    isCustomizable: false,
+    page: 1,
+    amountPerPage: 10
   };
 
   componentDidMount = () => {
@@ -35,8 +40,6 @@ class Home extends Component {
       params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
     });
   };
-
-
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -62,14 +65,14 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           isLoading: false,
-          giftSearch: "",
+          giftSearch: "",                               
           products: res.data.results,
           filteredProducts: res.data.results,
         });
       })
       .catch((err) => console.log(err));
   };
-
+                                
   handlePrice = (value) => {
     let minPrice;
     let maxPrice;
@@ -139,8 +142,6 @@ class Home extends Component {
       .catch((err) => console.log(err)); 
     } // re-render the data 
   }
-  
-
   handleBookmark = (id) => {  
       console.log('here')
       const savedProduct = this.state.products.filter(
@@ -195,6 +196,10 @@ class Home extends Component {
   
 
   render() {
+    const {page, amountPerPage, filteredProducts} = this.state
+    const indexOfLastProduct = page * amountPerPage
+    const indexOfFirstProduct = indexOfLastProduct - amountPerPage
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center" }}>
@@ -217,13 +222,13 @@ class Home extends Component {
         {this.displayErrorMessage()}
         {this.displayLoading()}
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
-          {this.state.filteredProducts.map((product) => {
+          {currentProducts.map((product) => {
             return (
                 <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
-                image={product.Images[0].url_570xN}
+                image={product.Images?.[0].url_570xN}
                 url={product.url}
                 price={product.price}
                 views={product.views}
@@ -236,6 +241,7 @@ class Home extends Component {
             );
           })}
         </Grid>
+        <Pagination sx={{ display: 'flex', justifyContent: 'center'}} count={Math.ceil(filteredProducts.length / amountPerPage)} onChange={(ev, page) => this.setState({ page })} />
       </div>
     );
   }
@@ -252,7 +258,6 @@ const mapState = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-
   return {
     fetchProducts: () => {
       dispatch(fetchProducts())

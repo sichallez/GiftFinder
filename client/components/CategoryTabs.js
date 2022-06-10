@@ -157,7 +157,7 @@ export function FilterResults({
           <FormControl sx={{ width: "25ch" }}>
             <OutlinedInput
               name={name}
-              value={1}
+              value={value}
               onChange={onChange}
               placeholder="Filter your results"
             />

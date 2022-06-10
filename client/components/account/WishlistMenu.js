@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -11,29 +10,29 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { getWishlist } from "../../store/wishlist";
+
 
 const WishlistMenu = () => {
-  const dummyData = [
+  const subWishList = [
     {
       name: "Birthday",
-      listId: "WKbna",
+      listId: "1",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Travel",
-      listId: "WAWrX",
+      listId: "2",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
     {
       name: "Graduation",
-      listId: "lddsX",
+      listId: "3",
       get url() {
-        return `/account/wishlist/${this.listId}`;
+        return `/account/wishlist/${this.name}`;
       },
     },
   ];
@@ -41,10 +40,10 @@ const WishlistMenu = () => {
   return (
     <Container maxWidth="sm" sx={{marginTop: "30px"}}>
       <Typography variant="h6" component="h2" gutterBottom>
-        You have {dummyData.length} Wishlist avaible:
+        You have {subWishList.length} Wishlist available:
       </Typography>
       <List>
-        {dummyData.map((item, index) => (
+        {subWishList.map((item, index) => (
           <Link to={item.url} key={index}>
             <ListItem>
               <ListItemText primary={item.name} />
@@ -66,12 +65,6 @@ const WishlistMenu = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getWishlist: function () {
-      dispatch(getWishlist());
-    },
-  };
-};
 
-export default connect((state) => state, mapDispatchToProps)(WishlistMenu);
+
+export default WishlistMenu;

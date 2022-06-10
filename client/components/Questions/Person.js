@@ -68,10 +68,10 @@ class Person extends Component {
         const { onTextChange, handleSubmit } = this;
         // console.log(handleSubmit, 'handle')
         return (
-            <div id='person-div'>
-                <h1>Who are you shopping for?</h1>
-                <form onSubmit={handleSubmit}>
-                    <input id='query' type='text' onChange={onTextChange} value={text} placeholder='mom, sibling, coworker...' />
+            <div className='person-div'>
+                <h1 className='questionsH1'>Who are you shopping for?</h1>
+                <form onSubmit={handleSubmit} className='person-form'>
+                    <input className='query' type='text' onChange={onTextChange} value={text} placeholder='mom, sibling, coworker...' />
                     {this.renderSuggestions()}
                     <span></span>
                 </form>
