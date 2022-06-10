@@ -6,8 +6,9 @@ import auth from "./auth";
 import gifts from "./gifts";
 import wishlist from "./wishlist";
 import wishlists from "./wishlists";
+import questions from './questions';
 
-const reducer = combineReducers({ auth, gifts, wishlist, wishlists });
+const reducer = combineReducers({ auth, gifts, wishlist, wishlists, questions });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

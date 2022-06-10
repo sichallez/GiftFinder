@@ -31,6 +31,7 @@ const Budget = ({ budget, setBudget }) => {
 }
 
 const mapState = (state) => {
+    console.log(state)
     return {
         budget: state.questions.budget
     }
