@@ -35,7 +35,7 @@ const SearchBar = () => {
       <form>
         <Grid
           item
-          direction="row"
+          flexDirection="row"
           display="flex"
           justifyContent="center"
           sx={{
@@ -69,7 +69,7 @@ const SearchBar = () => {
       >
         <h5>OR</h5>
       </Grid>
-      <Grid item direction="column" display="flex" justifyContent="center">
+      <Grid item flexDirection="column" display="flex" justifyContent="center">
         <Button variant="contained" color="primary">
           Need Guidence?
         </Button>

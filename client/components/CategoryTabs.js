@@ -172,6 +172,7 @@ export function FilterResults({
         <Select
           labelId="priceGroup"
           id="priceGroup"
+          value="1"
           label="Price"
           onChange={(event) => handlePrice(event.target.value)}
         >

@@ -16,8 +16,7 @@ const UserProfile = ({ auth }) => {
       }}
     >
       <Paper
-        elevation={12}
-        variant="outlined"
+        elevation={5}
         sx={{
           width: "100%",
           border: 1,

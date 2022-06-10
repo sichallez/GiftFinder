@@ -40,10 +40,10 @@ const useStyles = makeStyles({
 });
 
 const MyGroups = ({ auth, group, getAllGroups }) => {
-  const userId = auth.id;
-  useEffect(() => {
-    getAllGroups(userId);
-  }, []);
+  // const userId = auth.id;
+  // useEffect(() => {
+  //   getAllGroups(userId);
+  // }, []);
 
   const allGroup = group.group;
 
@@ -104,8 +104,9 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
         Create A New Group
       </Button>
       <List>
-        {allGroup.map((item) => (
+        {allGroup.map((item, index) => (
           <Link
+            key={index}
             to={"/account/group/" + item.groupRouteId}
             onClick={() => handleRouteChange4SingelGroup(item.groupRouteId)}
           >
@@ -134,22 +135,24 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
 };
 
 const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
-  // console.log("Single single here here", group, match);
   const allGroup = group.group;
+
+  // buys time for the component to update its state from redux store
+  if (!allGroup.length) {
+    return null;
+  }
   const groupRouteId = match.params.groupRouteId;
-  const currentGroup = allGroup.filter(item => item.groupRouteId === groupRouteId)[0];
-  // console.log("CURRENT GROUP", currentGroup);
+  const currentGroup = allGroup.filter(
+    (item) => item.groupRouteId === groupRouteId
+  )[0];
 
   useEffect(() => {
     getAllMembers(groupRouteId);
   }, []);
 
-  // console.log("ALL MEMBERS!!", group.member)
   const allMembers = group.member;
 
-  const handleInviteMembers = () => {
-    
-  };
+  const handleInviteMembers = () => {};
 
   return (
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
@@ -168,36 +171,36 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
       </Typography>
       <Divider />
       <List>
-        {allMembers.map((item) => (
+        {allMembers.map((item, index) => (
           // <Link
           //   to={"/account/" + item.groupRouteId}
           //   onClick={() => handleRouteChange4SingelGroup(item.groupRouteId)}
           // >
-            <ListItem>
-              <ListItemText
-                primary={item.username}
-                primaryTypographyProps={{
-                  fontSize: 30,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                }}
-              />
-              <ListItemText
-                primary={item.email}
-                primaryTypographyProps={{
-                  fontSize: 30,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                }}
-              />
-              <Button
-                variant="contained"
-                startIcon={<SettingsIcon />}
-                color="error"
-              >
-                Settings
-              </Button>
-            </ListItem>
+          <ListItem key={index}>
+            <ListItemText
+              primary={item.username}
+              primaryTypographyProps={{
+                fontSize: 30,
+                fontWeight: "medium",
+                letterSpacing: 0,
+              }}
+            />
+            <ListItemText
+              primary={item.email}
+              primaryTypographyProps={{
+                fontSize: 30,
+                fontWeight: "medium",
+                letterSpacing: 0,
+              }}
+            />
+            <Button
+              variant="contained"
+              startIcon={<SettingsIcon />}
+              color="error"
+            >
+              Settings
+            </Button>
+          </ListItem>
           // </Link>
         ))}
       </List>
@@ -229,7 +232,6 @@ const _CreateGroup = ({ auth, createGroup }) => {
     if (name) {
       const groupRouteId = generateString(5);
       const newGroup = { name, groupRouteId };
-      // console.log("USERID USERID??", auth.id, typeof auth.id);
       createGroup(newGroup, auth.id);
     }
   };
@@ -330,7 +332,6 @@ const _CreateGroup = ({ auth, createGroup }) => {
 export const JoinGroup = () => {};
 
 const mapState = ({ auth, group }, { match }) => {
-  // console.log("GROUP HEER", auth, group, match);
   return { auth, group };
 };
 

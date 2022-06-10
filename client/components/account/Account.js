@@ -1,10 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  Route,
-  Switch,
-  useLocation,
-} from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import AccountSidePanel from "./AccountSidePanel";
 import UserProfile from "./UserProfile";
@@ -25,9 +21,9 @@ const Account = ({ auth }) => {
       display="flex"
       justifyContent="start"
       alignItems="top"
-      wrap='nowrap'
+      wrap="nowrap"
     >
-        <AccountSidePanel />
+        <AccountSidePanel pathname={pathname}/>
         {pathname === "/account" ? <UserProfile /> : null}
         <Switch>
           <Route path="/account/profile" component={UserProfile} />

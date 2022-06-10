@@ -91,6 +91,10 @@ const CreateList = ({ userId }) => {
     setCreateValues(change);
   };
 
+  const handleCheckboxChange = () => {
+
+  };
+
   const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -175,9 +179,9 @@ const CreateList = ({ userId }) => {
                 value="team8project"
                 control={
                   <Checkbox
-                    value="true"
-                    onChange={onChange}
-                    name="team8project"
+                    checked={true}
+                    onChange={handleCheckboxChange}
+                    name="team-8-project"
                   />
                 }
                 label="Team-8-Project"
@@ -186,8 +190,8 @@ const CreateList = ({ userId }) => {
                 value="WifeAndHusband"
                 control={
                   <Checkbox
-                    value="true"
-                    onChange={onChange}
+                    checked={true}
+                    onChange={handleCheckboxChange}
                     name="WifeAndHusband"
                   />
                 }
@@ -197,9 +201,9 @@ const CreateList = ({ userId }) => {
                 value="RocAndRoll"
                 control={
                   <Checkbox
-                    value="true"
-                    onChange={onChange}
-                    name="RocAndRoll"
+                    checked={true}
+                    onChange={handleCheckboxChange}
+                    name="RockAndRoll"
                   />
                 }
                 label="Rock-and-Roll"
@@ -208,8 +212,8 @@ const CreateList = ({ userId }) => {
                 //value="FullstackAcademyFolks"
                 control={
                   <Checkbox
-                    value="true"
-                    onChange={onChange}
+                    checked={true}
+                    onChange={handleCheckboxChange}
                     name="FullstackAcademyFolks"
                   />
                 }

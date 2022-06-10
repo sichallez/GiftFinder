@@ -37,7 +37,6 @@ class Wishlist extends Component {
         >
           <Paper
             elevation={12}
-            variant="outlined"
             sx={{
               border: 1,
               borderColor: "#f4eee0",
