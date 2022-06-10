@@ -57,7 +57,7 @@ const AddItem = () => {
       setSelectedFile([reader.result]);
     };
 
-    console.log(url); // Would see a path?
+    // console.log(url); // Would see a path?
 
     setSelectedFile(event.target.files[0]);
   };

@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
 import Wishlist from "./Wishlist";
+import wishlist from "../../store/wishlist";
 
 
 const drawerWidth = 240;
@@ -31,10 +32,14 @@ class AccountSidePanel extends Component {
       pathname: ''
     }
   }
-  
+
   componentDidMount() {
     this.props.getAllLists();
   }
+
+  // componentDidUpdate(prevProps){
+  //   console.log(prevProps)
+  // }
 
   handleClick (){
     this.setState({open: !open});
@@ -79,6 +84,7 @@ class AccountSidePanel extends Component {
             selected={this.state.pathname === "/account/wishlist"}
             onClick={()=>{
               this.setState({open: !this.state.open})
+              this.props.getAllLists()
             }}
           >
             <ListItemText>Wish List</ListItemText>
@@ -99,6 +105,13 @@ class AccountSidePanel extends Component {
               </ListItemButton>
             </Link>
             <Divider />
+            {this.props.wishlists.map(wishlist=>{
+              return(
+                <div key={wishlist.id}>
+                  {wishlist.name}
+                </div>
+              )
+            })}
           </List>
         </Collapse>
         <Link to="/account/group">
