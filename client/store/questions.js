@@ -15,7 +15,7 @@ const initialState = {
     budget: 20,
     person: ['sister',
     'brother',
-    'sibiling',
+    'sibling',
     'mom',
     'dad',
     'parent',
@@ -39,7 +39,9 @@ const initialState = {
     'nephew',
     'aunt',
     'uncle'],
-    category: [],
+    category: [
+      ''
+    ],
     character: null
 }
 
