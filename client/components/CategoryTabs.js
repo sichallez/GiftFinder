@@ -3,6 +3,7 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  FormControlLabel,
   Select,
   Tabs,
   Tab,
@@ -11,6 +12,7 @@ import {
   Box,
   Typography,
   Button,
+  Checkbox,
 } from "@mui/material";
 import {
   WeddingGift,
@@ -28,7 +30,6 @@ import "./CategoryTabs.css";
 
 export function Category(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
-
   function handleChange(event, newValue) {
     setSelectedTab(newValue);
   }
@@ -49,7 +50,7 @@ export function Category(props) {
   return (
     <Grid>
       <Tabs
-        value={selectedTab}
+        value={1}
         indicatorColor="secondary"
         onChange={handleChange}
         aria-label="icon label tabs"
@@ -130,7 +131,13 @@ export function FilterResults({
   disabled,
   onClick,
   handlePrice,
+  handleMostViews
 }) {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+  };
   return (
     <Grid
       container
@@ -150,7 +157,7 @@ export function FilterResults({
           <FormControl sx={{ width: "25ch" }}>
             <OutlinedInput
               name={name}
-              value={value}
+              value={1}
               onChange={onChange}
               placeholder="Filter your results"
             />
@@ -174,6 +181,20 @@ export function FilterResults({
           <MenuItem value="4">Over $250</MenuItem>
         </Select>
       </FormControl>
+      <FormControlLabel
+            label="Most Views"
+            control={
+              <Checkbox
+                checked={checked}
+                onChange={(e) =>{ 
+                  handleChange(e);
+                  handleMostViews(e)
+                  }
+                }
+              />
+            }
+            sx={{ marginTop: "8px", marginBottom: "8px", marginLeft: "-3px" }}
+        />
     </Grid>
   );
 }

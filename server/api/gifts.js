@@ -20,7 +20,7 @@ router.delete("/:id", requireAdmin, async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     console.log(req.body);
-    const gift = await Gift.create({...req.body});
+    const gift = await Gift.create({ ...req.body });
     console.log(gift);
     res.send(gift).sendStatus(201);
   } catch (err) {
@@ -40,7 +40,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    // console.log("BACKEND BACKEND", req.query);
+    //console.log("BACKEND BACKEND", req.query);
     const response = await axios.get(
       "https://openapi.etsy.com/v2/listings/active?keywords=" +
         req.query.q +
