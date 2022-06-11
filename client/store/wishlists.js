@@ -41,6 +41,7 @@ export const createWishlist = (wishlist) => {
     const token = window.localStorage.getItem("token");
     if(token) {
       const created = (await axios.post('/api/wishlist', wishlist)).data
+      
       dispatch(_createWishlist, created)
     }
   }

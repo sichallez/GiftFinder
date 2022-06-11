@@ -43,9 +43,6 @@ class AccountSidePanel extends Component {
   componentDidMount() {
     this.props.getAllLists();
   }
-  // componentDidUpdate(prevProps){
-  //   console.log(prevProps)
-  // }
 
   render() {
     const { openWishListMenu, OpenGroupMenu } = this.state;

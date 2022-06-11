@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Box, Paper, Button } from "@mui/material";
+import { Box, Paper, Button, Grid, Item, Typography} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddItem from "./AddItem";
@@ -53,66 +53,45 @@ class Wishlist extends Component {
           </Paper>
         </Box>
       );
-      // return (
-      //   <div className="productList">
-      //     <Box
-      //       sx={{
-      //         display: "flex",
-      //         justifyContent: "space-between",
-      //         alignItems: "center",
-      //       }}
-      //       direction="row"
-      //       spacing={5}
-      //     >
-      //       <Link to="/account/wishlist/addItem">
-      //         <Box sx={{ "& > :not(style)": { m: 1 } }}>
-      //           <Fab
-      //             variant="extended"
-      //             size="medium"
-      //             color="primary"
-      //             aria-label="add"
-      //           >
-      //             <AddIcon sx={{ mr: 1 }} />
-      //             Add Item
-      //           </Fab>
-      //         </Box>
-      //       </Link>
-      //     </Box>
-
-      //     <div style={{ height: "87%", width: "100%" }}>
-      //       <DataGrid
-      //         sx={{
-      //           boxShadow: 2,
-      //           backgroundColor: "white",
-      //         }}
-      //         rowHeight={85}
-      //         headerHeight={40}
-      //         rows={flowersToRender}
-      //         columns={columns}
-      //         pageSize={6}
-      //         disableSelectionOnClick
-      //       />
-      //     </div>
-      //   </div>
-      // );
     }
 
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
-      <><h3>{this.props.wishlist.name}</h3>
-      <div>{wishListGifts.map(gift => {
+      <div><h1>{this.props.wishlist.name}</h1>
+      {wishListGifts.map(gift => {
 
         return (
           <div key={gift.id}>
-            {gift.name} <br />
-            <img src={gift.image_url} width="50%" /> <br />
-            {`$${gift.price}`}
+            <Grid container spacing={2}>
+              <Grid item sx={{ width: 500, height: 500 }}>
+                  <img src={gift.image_url} width="90%" />
+              </Grid>
+
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                  <Typography gutterBottom variant="subtitle1" component="div">
+                     {gift.name}
+                  </Typography>
+                  <Typography variant="body2" gutterBottom>
+                     {`$${gift.price}`}
+                  </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+            {/* <img src={gift.image_url} width="20%" />
+              {gift.name}
+              {`$${gift.price}`} */}
+
+
+            </Grid>
             <br />
             <br />
           </div>
         );
-      })}</div></>
+      })}</div>
     );
   }
 }
