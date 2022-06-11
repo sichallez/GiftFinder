@@ -244,8 +244,8 @@ class Home extends Component {
         </Grid>
         <Pagination sx={{ display: 'flex', justifyContent: 'center'}} 
           count={Math.ceil(filteredProducts.length / amountPerPage)} 
-          page={this.state.page} //which is page where we are 
-          onChange={(ev, page) => {this.setState({ page })}} /> //change to other pages
+          page={this.state.page}  
+          onChange={(ev, page) => {this.setState({ page })}} />
       </div>
     );
   }
