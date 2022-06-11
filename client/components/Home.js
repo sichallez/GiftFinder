@@ -169,8 +169,8 @@ class Home extends Component {
     }
   };
 
-  onClick = (product)=>{
-    this.props.addToWishlist(product);
+  onClick = (product,id)=>{
+    this.props.addToWishlist(product,id);
   };
   
 
@@ -242,8 +242,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchProducts: () => {
       dispatch(fetchProducts())
     },
-    addToWishlist: function () {
-      dispatch(addToWishlist(product));
+    addToWishlist: function (product,id) {
+      dispatch(addToWishlist(product,id));
     },
     getAllLists: function () {
       dispatch(getAllLists());

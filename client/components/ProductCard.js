@@ -83,7 +83,7 @@ const ProductCard = ({
 
               onClick={(event)=>{
                 handleClick(event)
-                onClick.bind(this,product)}}
+              }}
             >
               <AddIcon />
             </IconButton>
@@ -95,7 +95,10 @@ const ProductCard = ({
             >
               {wishlists.map(list=>{
                 return (
-                <MenuItem key = {list.id} onClick={handleClose}>
+                <MenuItem key = {list.id} onClick={()=>{
+                  onClick(product,list.id)
+                  handleClose()
+                  }}>
                   {list.name}
                 </MenuItem>)
               })}
