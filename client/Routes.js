@@ -2,26 +2,29 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
-import { me } from "./store";
+import { getAllGroups, me } from "./store";
 import Home from "./components/Home";
 import Questions from "./components/Questions";
-import Budget from './components/Questions/Budget';
-import Person from './components/Questions/Person';
+import Budget from "./components/Questions/Budget";
+import Person from "./components/Questions/Person";
 import Category from "./components/Questions/Category";
-import Character from './components/Questions/Character';
+import Character from "./components/Questions/Character";
 import Result from "./components/Questions/Result";
 import Account from "./components/account/Account";
-import Wishlist from "./components/account/Wishlist";
-import UserProfile from "./components/account/UserProfile";
-import MyGroups from "./components/account/MyGroups";
-import GiftFor from "./components/account/GiftFor";
-
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+  }
+
+  componentDidUpdate() {
+    if (this.props.isLoggedIn) {
+      // fetch all the groups that a user belongs to
+      // if she is logged in
+      this.props.fetchAllGroups(this.props.userId);
+    }
   }
 
   render() {
@@ -33,14 +36,13 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
-            <Route path='/questions/budget' component={Budget} />
-            <Route path='/questions/person' component={Person} />
-            <Route path='/questions' exact component={Questions} />
-            <Route path='/questions/character' component={Character} />
-            <Route path='/questions/category' component={Category} />
-            <Route path='/questions/result' component={Result} />
+            <Route path="/questions/budget" component={Budget} />
+            <Route path="/questions/person" component={Person} />
+            <Route path="/questions" exact component={Questions} />
+            <Route path="/questions/character" component={Character} />
+            <Route path="/questions/category" component={Category} />
+            <Route path="/questions/result" component={Result} />
             <Route path="/account" component={Account} />
-
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -49,12 +51,12 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
-            <Route path='/questions/budget' component={Budget} />
-            <Route path='/questions/person' component={Person} />
-            <Route path='/questions/character' component={Character} />
-            <Route path='/questions/category' component={Category} />
-            <Route path='/questions/result' component={Result} />
-            <Route path='/questions' exact component={Questions} />
+            <Route path="/questions/budget" component={Budget} />
+            <Route path="/questions/person" component={Person} />
+            <Route path="/questions/character" component={Character} />
+            <Route path="/questions/category" component={Category} />
+            <Route path="/questions/result" component={Result} />
+            <Route path="/questions" exact component={Questions} />
           </Switch>
         )}
       </div>
@@ -70,6 +72,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    userId: state.auth.id,
   };
 };
 
@@ -78,6 +81,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(me());
     },
+    fetchAllGroups: (userId) => dispatch(getAllGroups(userId)),
   };
 };
 

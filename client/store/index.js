@@ -4,11 +4,19 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import gifts from "./gifts";
+import group from "./group";
 import wishlist from "./wishlist";
 import wishlists from "./wishlists";
-import questions from './questions';
+import questions from "./questions";
 
-const reducer = combineReducers({ auth, gifts, wishlist, wishlists, questions });
+const reducer = combineReducers({
+  auth,
+  gifts,
+  group,
+  wishlist,
+  wishlists,
+  questions,
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
@@ -18,4 +26,5 @@ export default store;
 export * from "./auth";
 export * from "./gifts";
 export * from "./wishlist";
-export * from './questions';
+export * from "./questions";
+export * from "./group";
