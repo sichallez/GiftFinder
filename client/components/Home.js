@@ -2,21 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
-import { Typography, Box, Grid } from "@mui/material";
-import {addToWishlist} from '../store/wishlist'
+import { Box, Grid } from "@mui/material";
+import wishlist, {addToWishlist} from '../store/wishlist'
 import { fetchProducts } from "../store";
-import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
 import axios from "axios"; // axios call should NOT appear here in component..
 import Pagination from '@mui/material/Pagination';
+import {getAllLists} from '../store/wishlists'
 
 
 /**
  * COMPONENT
  */
 class Home extends Component {
-
-  state = {
+  state={
     products: [],
     filteredProducts: [],
     giftSearch: "",
@@ -28,11 +27,12 @@ class Home extends Component {
     isMostViews: false,
     isCustomizable: false,
     page: 1,
-    amountPerPage: 10
-  };
+    amountPerPage: 10,
+  }
 
   componentDidMount = () => {
     this.handleFilter(this.state.giftOccasion);
+    this.props.getAllLists();
   };
 
   fetchProducts = (query, minPrice, maxPrice) => {
@@ -142,27 +142,6 @@ class Home extends Component {
       .catch((err) => console.log(err)); 
     } // re-render the data 
   }
-  // handleBookmark = (id) => {  
-  //     console.log('here')
-  //     const savedProduct = this.state.products.filter(
-  //     (product) => product.listing_id === parseInt(id)
-  //   );
-
-  //   const productTobeSaved = {
-  //     title: savedProduct[0].title,
-  //     image: savedProduct[0].Images[0].url_570xN,
-  //     url: savedProduct[0].url,
-  //     price: savedProduct[0].price,
-  //     listing_id: savedProduct[0].listing_id,
-  //   };
-
-  //   API.saveProducts(productTobeSaved).then((result) => {
-  //     const nosaved = this.state.products.filter(
-  //       (product) => product.listing_id !== result.data.listing_id
-  //     );
-  //     this.setState({ books: nosaved });
-  //   });
-  // };
 
   displayErrorMessage = () => {
     if (this.state.filteredProducts.length === 0 && !this.state.isLoading) {
@@ -237,6 +216,7 @@ class Home extends Component {
                 loggedIn={this.props.loggedIn}
                 product = {product}
                 onClick = {this.onClick}
+                wishlists = {this.props.wishlists}
                 />
             );
           })}
@@ -262,7 +242,12 @@ const mapDispatchToProps = (dispatch) => {
     fetchProducts: () => {
       dispatch(fetchProducts())
     },
-    addToWishlist: (product) => dispatch(addToWishlist(product)),
+    addToWishlist: function () {
+      dispatch(addToWishlist(product));
+    },
+    getAllLists: function () {
+      dispatch(getAllLists());
+    },
   };
 };
 

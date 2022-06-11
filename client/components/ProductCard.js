@@ -12,29 +12,22 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useDispatch } from "react-redux";
-// import "./ProductCard.css";
+import { useDispatch, connect } from "react-redux";
 
 const ProductCard = ({
-  loggedIn,
-  page_type,
-  handleBookmark,
   id,
-  handleDelete,
   image,
   url,
   title,
   price,
   views,
   product,
-  onClick
+  onClick,
+  wishlists,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const dispatch = useDispatch();
-
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -100,14 +93,13 @@ const ProductCard = ({
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
-                Test
-              </MenuItem>
+              {wishlists.map(list=>{
+                return (
+                <MenuItem key = {list.id} onClick={handleClose}>
+                  {list.name}
+                </MenuItem>)
+              })}
             </Menu>
-           
-            {/* <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton> */}
           </CardActions>
         </Box>
       </Card>
@@ -115,4 +107,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default connect(state=>state)(ProductCard);
