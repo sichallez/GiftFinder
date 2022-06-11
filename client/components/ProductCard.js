@@ -10,6 +10,9 @@ import {
   IconButton,
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useDispatch } from "react-redux";
 // import "./ProductCard.css";
 
 const ProductCard = ({
@@ -27,34 +30,17 @@ const ProductCard = ({
   onClick
 }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
-  // const showIcon = () => {
-  //   if (loggedIn) {
-  //     if (page_type === "homepage") {
-  //       return (
-  //         <i
-  //           className={
-  //             isClicked
-  //               ? "fa fa-bookmark fa-lg circle-icon"
-  //               : "far fa-bookmark fa-lg circle-icon"
-  //           }
-  //           onClick={() => {
-  //             handleBookmark(id);
-  //             setIsClicked(true);
-  //           }}
-  //         ></i>
-  //       );
-  //     } else {
-  //       return (
-  //         <i
-  //           className="fa fa-trash fa-lg circle-icon"
-  //           aria-hidden="true"
-  //           onClick={() => handleDelete(id)}
-  //         ></i>
-  //       );
-  //     }
-  //   }
-  // };
+  const open = Boolean(anchorEl);
+  
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Grid key={id} item xs={3}>
@@ -99,11 +85,26 @@ const ProductCard = ({
                 backgroundColor: "white",
               }}
               aria-label="add to favorites"
+              aria-controls="list-menu"
+              aria-haspopup="true"
 
-              onClick={onClick.bind(this,product)}
+              onClick={(event)=>{
+                handleClick(event)
+                onClick.bind(this,product)}}
             >
               <AddIcon />
             </IconButton>
+            <Menu
+              id="list-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                Test
+              </MenuItem>
+            </Menu>
+           
             {/* <IconButton aria-label="share">
               <ShareIcon />
             </IconButton> */}
