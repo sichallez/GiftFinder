@@ -18,7 +18,7 @@ const initialState = {
     'sibling',
     'mom',
     'dad',
-    'parent',
+    'parents',
     'grandma',
     'grandpa',
     'grandparent',
@@ -60,6 +60,7 @@ const initialState = {
       {id: 8, name: 'Kitchen & Bar'},
       {id: 9, name: 'Jewelry & Accessories'},
       {id: 10, name: 'Anniversary'},
+      {id: 11, name: 'All'}
     ],
 
 }
