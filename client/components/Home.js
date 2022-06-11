@@ -10,12 +10,11 @@ import axios from "axios"; // axios call should NOT appear here in component..
 import Pagination from '@mui/material/Pagination';
 import {getAllLists} from '../store/wishlists'
 
-
 /**
  * COMPONENT
  */
 class Home extends Component {
-  state={
+  state = {
     products: [],
     filteredProducts: [],
     giftSearch: "",
@@ -25,7 +24,6 @@ class Home extends Component {
     PageType: "homepage",
     isLoading: true,
     isMostViews: false,
-    isCustomizable: false,
     page: 1,
     amountPerPage: 10,
   }
@@ -173,6 +171,9 @@ class Home extends Component {
     this.props.addToWishlist(product,id);
   };
   
+  resetPage = () => {
+    this.setState({ page:1 })
+  }  
 
   render() {
     const {page, amountPerPage, filteredProducts} = this.state
@@ -187,6 +188,7 @@ class Home extends Component {
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
             handleMostViews={this.handleMostViews}
+            resetPage = {this.resetPage}
           />
         </Box>
         <FilterResults
@@ -221,7 +223,10 @@ class Home extends Component {
             );
           })}
         </Grid>
-        <Pagination sx={{ display: 'flex', justifyContent: 'center'}} count={Math.ceil(filteredProducts.length / amountPerPage)} onChange={(ev, page) => this.setState({ page })} />
+        <Pagination sx={{ display: 'flex', justifyContent: 'center'}} 
+          count={Math.ceil(filteredProducts.length / amountPerPage)} 
+          page={this.state.page}  
+          onChange={(ev, page) => {this.setState({ page })}} />
       </div>
     );
   }
