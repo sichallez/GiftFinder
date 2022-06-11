@@ -9,8 +9,7 @@ import {
   CardActions,
   IconButton,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShareIcon from "@mui/icons-material/Share";
+import AddIcon from '@mui/icons-material/Add';
 // import "./ProductCard.css";
 
 const ProductCard = ({
@@ -29,33 +28,33 @@ const ProductCard = ({
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  const showIcon = () => {
-    if (loggedIn) {
-      if (page_type === "homepage") {
-        return (
-          <i
-            className={
-              isClicked
-                ? "fa fa-bookmark fa-lg circle-icon"
-                : "far fa-bookmark fa-lg circle-icon"
-            }
-            onClick={() => {
-              handleBookmark(id);
-              setIsClicked(true);
-            }}
-          ></i>
-        );
-      } else {
-        return (
-          <i
-            className="fa fa-trash fa-lg circle-icon"
-            aria-hidden="true"
-            onClick={() => handleDelete(id)}
-          ></i>
-        );
-      }
-    }
-  };
+  // const showIcon = () => {
+  //   if (loggedIn) {
+  //     if (page_type === "homepage") {
+  //       return (
+  //         <i
+  //           className={
+  //             isClicked
+  //               ? "fa fa-bookmark fa-lg circle-icon"
+  //               : "far fa-bookmark fa-lg circle-icon"
+  //           }
+  //           onClick={() => {
+  //             handleBookmark(id);
+  //             setIsClicked(true);
+  //           }}
+  //         ></i>
+  //       );
+  //     } else {
+  //       return (
+  //         <i
+  //           className="fa fa-trash fa-lg circle-icon"
+  //           aria-hidden="true"
+  //           onClick={() => handleDelete(id)}
+  //         ></i>
+  //       );
+  //     }
+  //   }
+  // };
 
   return (
     <Grid key={id} item xs={3}>
@@ -103,7 +102,7 @@ const ProductCard = ({
 
               onClick={onClick.bind(this,product)}
             >
-              <FavoriteBorderIcon />
+              <AddIcon />
             </IconButton>
             {/* <IconButton aria-label="share">
               <ShareIcon />

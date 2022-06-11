@@ -142,27 +142,27 @@ class Home extends Component {
       .catch((err) => console.log(err)); 
     } // re-render the data 
   }
-  handleBookmark = (id) => {  
-      console.log('here')
-      const savedProduct = this.state.products.filter(
-      (product) => product.listing_id === parseInt(id)
-    );
+  // handleBookmark = (id) => {  
+  //     console.log('here')
+  //     const savedProduct = this.state.products.filter(
+  //     (product) => product.listing_id === parseInt(id)
+  //   );
 
-    const productTobeSaved = {
-      title: savedProduct[0].title,
-      image: savedProduct[0].Images[0].url_570xN,
-      url: savedProduct[0].url,
-      price: savedProduct[0].price,
-      listing_id: savedProduct[0].listing_id,
-    };
+  //   const productTobeSaved = {
+  //     title: savedProduct[0].title,
+  //     image: savedProduct[0].Images[0].url_570xN,
+  //     url: savedProduct[0].url,
+  //     price: savedProduct[0].price,
+  //     listing_id: savedProduct[0].listing_id,
+  //   };
 
-    API.saveProducts(productTobeSaved).then((result) => {
-      const nosaved = this.state.products.filter(
-        (product) => product.listing_id !== result.data.listing_id
-      );
-      this.setState({ books: nosaved });
-    });
-  };
+  //   API.saveProducts(productTobeSaved).then((result) => {
+  //     const nosaved = this.state.products.filter(
+  //       (product) => product.listing_id !== result.data.listing_id
+  //     );
+  //     this.setState({ books: nosaved });
+  //   });
+  // };
 
   displayErrorMessage = () => {
     if (this.state.filteredProducts.length === 0 && !this.state.isLoading) {
