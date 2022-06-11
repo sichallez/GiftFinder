@@ -49,19 +49,6 @@ const initialState = {
       {id: 7, name: 'Spiritualist'},
       {id: 8, name: 'None'}
     ],
-    // category: [
-    //   {id: 1, name: 'Clothes'},
-    //   {id: 2, name: 'Electronics'},
-    //   {id: 3, name: 'Home & Living'},
-    //   {id: 4, name: 'Sports & Outdoors'},
-    //   {id: 5, name: 'Games'},
-    //   {id: 6, name: 'Craft Supplies'},
-    //   {id: 7, name: 'Books'},
-    //   {id: 8, name: 'Kitchen & Bar'},
-    //   {id: 9, name: 'Jewelry & Accessories'},
-    //   {id: 10, name: 'Anniversary'},
-    //   {id: 11, name: 'All'}
-    // ],
     category: []
 
 }

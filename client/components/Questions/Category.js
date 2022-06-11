@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setCategory } from '/client/store';
 import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
 
-const Category = ({ category }) => {
+const Category = ({ category, setCategory }) => {
     const categories = [
-    //     'Clothes',
-    //     'Electronics',
-    //     'Home & Living',
-    //     'Sports & Outdoors',
-    //     'Games',
-    //     'Craft Supplies',
-    //     'Books',
-    //     'Kitchen & Bar',
-    //     'Jewelry & Accessories',
-    //     'Anniversary',
-    //     'All'
-    // ]
       {id: 1, name: 'Clothes'},
       {id: 2, name: 'Electronics'},
       {id: 3, name: 'Home & Living'},
@@ -35,22 +23,31 @@ const Category = ({ category }) => {
 
     function toggleSelected(key) {
         if (selectedCategory.includes(key)) {
-            const updatedSelection = [...selectedCategory]
-            updatedSelection.splice(updatedSelection.indexOf(key), 1)
-            setSelectedCategory(updatedSelection)
+            const updatedSelected = [...selectedCategory];
+            updatedSelected.splice(updatedSelected.indexOf(key), 1)
+            setSelectedCategory(updatedSelected)
         } else {
             setSelectedCategory([...selectedCategory, key])
         }
     }
-    console.log(selectedCategory, 'selected', categories, 'cat')
+
+    const selectedStyle = {
+        border: '2px solid hsl(224, 49%, 71%)',
+        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
+        backgroundColor: '#91a4d9',
+        color: 'white'
+      };
+
     return (
         <div>
             <h1 className='questionsH1'> Choose a category</h1>
             <div className='category-div'>
                 {categories.map((cat) => {
+                    const addSelectedStyle = selectedCategory.includes(cat.name)
                     return (
                         <button
-                            className={cat.id === cat.id ? 'category-btn' : 'category-btnActive'}
+                            style={addSelectedStyle ? selectedStyle : {}}
+                            className='category-btn'
                             key={cat.id}
                             value={cat.name}
                             onClick={() => {
