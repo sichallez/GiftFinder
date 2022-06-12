@@ -112,7 +112,9 @@ class Wishlist extends Component {
             <br />
           </div>
         );
-      })}</div></>
+      })}</div>
+       <AddItem />
+      </>
     );
   }
 }
