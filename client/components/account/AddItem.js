@@ -36,6 +36,7 @@ const AddItem = () => {
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory] = useState("money");
+  const [urlData, setUrlData] = useState()
   
   const subWishList = [];
 
@@ -45,6 +46,7 @@ const AddItem = () => {
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+`
 
   const handleCheckboxChange = () => {};
 

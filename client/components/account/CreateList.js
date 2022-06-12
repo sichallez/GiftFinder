@@ -72,13 +72,8 @@ const initialState = {
 const CreateList = ({ userId }) => {
   const [createValues, setCreateValues] = useState(initialState)
   const classes = useStyles();
-  //const history = useHistory();
-  ///const [title, setTitle] = useState("");
-  ///const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  ////const [category, setCategory] = useState("money");
-
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -89,10 +84,6 @@ const CreateList = ({ userId }) => {
     const change = {};
     change[e.target.name] = e.target.value;
     setCreateValues(change);
-  };
-
-  const handleCheckboxChange = () => {
-
   };
 
   const dispatch = useDispatch()
