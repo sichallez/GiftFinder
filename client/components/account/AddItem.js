@@ -148,7 +148,7 @@ const AddItem = () => {
           variant="contained"
           endIcon={<KeyboardArrowRightIcon />}
         >
-          Add
+          Save
         </Button>
       </form>
     </Container>

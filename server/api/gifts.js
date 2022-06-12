@@ -19,7 +19,7 @@ router.delete("/:id", requireAdmin, async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log('req', req.body);
     const gift = await Gift.create({ ...req.body });
     console.log(gift);
     res.send(gift).sendStatus(201);

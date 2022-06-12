@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import ProductCard from "./ProductCard";
 import { Category, FilterResults } from "./CategoryTabs";
 import { Typography, Box, Grid } from "@mui/material";
-import {addToWishlist} from '../store/wishlist'
+import { addToWishlist } from "../store/wishlist";
 import { fetchProducts } from "../store";
 import SearchBar from "./SearchBar";
 // import { fetchProducts } from "../store/gifts";
 import axios from "axios"; // axios call should NOT appear here in component..
-import Pagination from '@mui/material/Pagination';
+import Pagination from "@mui/material/Pagination";
 
 /**
  * COMPONENT
@@ -25,7 +25,7 @@ class Home extends Component {
     isLoading: true,
     isMostViews: false,
     page: 1,
-    amountPerPage: 10
+    amountPerPage: 10,
   };
 
   componentDidMount = () => {
@@ -62,14 +62,14 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           isLoading: false,
-          giftSearch: "",                               
+          giftSearch: "",
           products: res.data.results,
           filteredProducts: res.data.results,
         });
       })
       .catch((err) => console.log(err));
   };
-                                
+
   handlePrice = (value) => {
     let minPrice;
     let maxPrice;
@@ -106,15 +106,26 @@ class Home extends Component {
   };
 
   handleMostViews = () => {
-    if(!this.state.isMostViews) {
+    if (!this.state.isMostViews) {
       let sortProducts = this.state.products.sort((a, b) => {
-        let key1 = a.views
-        let key2 = b.views
-        if(key1 < key2) return 1
-        if(key1 > key2) return -1
-      })
-      this.setState({isLoading: true, products: [], filteredProducts: [], isMostViews: true}); //set to original state
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews, sortProducts)
+        let key1 = a.views;
+        let key2 = b.views;
+        if (key1 < key2) return 1;
+        if (key1 > key2) return -1;
+      });
+      this.setState({
+        isLoading: true,
+        products: [],
+        filteredProducts: [],
+        isMostViews: true,
+      }); //set to original state
+      this.fetchProducts(
+        this.state.giftOccasion,
+        this.state.minPrice,
+        this.state.maxPrice,
+        this.state.isMostViews,
+        sortProducts
+      )
         .then((res) => {
           this.setState({
             isLoading: false,
@@ -124,24 +135,35 @@ class Home extends Component {
           });
         })
         .catch((err) => console.log(err));
-    }  // in order to render the fliteredProduct so set up this condition
-    if (this.state.isMostViews){ // then when most view is false
-      this.setState({isLoading: true, products: [], filteredProducts: [], isMostViews: false}); //set filter products back to the original state
-      this.fetchProducts(this.state.giftOccasion, this.state.minPrice, this.state.maxPrice, this.state.isMostViews) // this one set query back to ann why?
-      .then((res) => {
-        this.setState({
-          isLoading: false,
-          giftSearch: "",
-          products: res.data.results,
-          filteredProducts: res.data.results,
-        });
-      })
-      .catch((err) => console.log(err)); 
-    } // re-render the data 
-  }
-  handleBookmark = (id) => {  
-      console.log('here')
-      const savedProduct = this.state.products.filter(
+    } // in order to render the fliteredProduct so set up this condition
+    if (this.state.isMostViews) {
+      // then when most view is false
+      this.setState({
+        isLoading: true,
+        products: [],
+        filteredProducts: [],
+        isMostViews: false,
+      }); //set filter products back to the original state
+      this.fetchProducts(
+        this.state.giftOccasion,
+        this.state.minPrice,
+        this.state.maxPrice,
+        this.state.isMostViews
+      ) // this one set query back to ann why?
+        .then((res) => {
+          this.setState({
+            isLoading: false,
+            giftSearch: "",
+            products: res.data.results,
+            filteredProducts: res.data.results,
+          });
+        })
+        .catch((err) => console.log(err));
+    } // re-render the data
+  };
+  handleBookmark = (id) => {
+    console.log("here");
+    const savedProduct = this.state.products.filter(
       (product) => product.listing_id === parseInt(id)
     );
 
@@ -187,19 +209,22 @@ class Home extends Component {
     }
   };
 
-  onClick = (product)=>{
+  onClick = (product) => {
     this.props.addToWishlist(product);
   };
-  
+
   resetPage = () => {
-    this.setState({ page:1 })
-  }  
+    this.setState({ page: 1 });
+  };
 
   render() {
-    const {page, amountPerPage, filteredProducts} = this.state
-    const indexOfLastProduct = page * amountPerPage
-    const indexOfFirstProduct = indexOfLastProduct - amountPerPage
-    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+    const { page, amountPerPage, filteredProducts } = this.state;
+    const indexOfLastProduct = page * amountPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - amountPerPage;
+    const currentProducts = filteredProducts.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center" }}>
@@ -208,7 +233,7 @@ class Home extends Component {
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
             handleMostViews={this.handleMostViews}
-            resetPage = {this.resetPage}
+            resetPage={this.resetPage}
           />
         </Box>
         <FilterResults
@@ -225,7 +250,7 @@ class Home extends Component {
         <Grid container spacing={3} sx={{ padding: "2rem" }}>
           {currentProducts.map((product) => {
             return (
-                <ProductCard
+              <ProductCard
                 key={product.listing_id}
                 id={product.listing_id}
                 title={product.title.slice(0, 25)}
@@ -236,16 +261,20 @@ class Home extends Component {
                 handleBookmark={this.handleBookmark}
                 page_type={this.state.PageType}
                 loggedIn={this.props.loggedIn}
-                product = {product}
-                onClick = {this.onClick}
-                />
+                product={product}
+                onClick={this.onClick}
+              />
             );
           })}
         </Grid>
-        <Pagination sx={{ display: 'flex', justifyContent: 'center'}} 
-          count={Math.ceil(filteredProducts.length / amountPerPage)} 
-          page={this.state.page}  
-          onChange={(ev, page) => {this.setState({ page })}} />
+        <Pagination
+          sx={{ display: "flex", justifyContent: "center" }}
+          count={Math.ceil(filteredProducts.length / amountPerPage)}
+          page={this.state.page}
+          onChange={(ev, page) => {
+            this.setState({ page });
+          }}
+        />
       </div>
     );
   }
@@ -264,10 +293,10 @@ const mapState = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => {
-      dispatch(fetchProducts())
+      dispatch(fetchProducts());
     },
     addToWishlist: (product) => dispatch(addToWishlist(product)),
   };
 };
 
-export default connect(mapState,mapDispatchToProps)(Home);
+export default connect(mapState, mapDispatchToProps)(Home);
