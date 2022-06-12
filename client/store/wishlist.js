@@ -29,12 +29,12 @@ export const getWishlist = (id) => {
 };
 
 
-export const addToWishlist = (product) => {
+export const addToWishlist = (product,id) => {
   return async (dispatch) => {
     try{
       //get the wishlist id
-      let wishlist = (
-        await axios.get("/api/wishlist/default", {
+      const wishlist = (
+        await axios.get(`/api/wishlist/${id}`, {
           headers: {
             authorization: window.localStorage.token,
           },
