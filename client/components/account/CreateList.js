@@ -21,7 +21,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PublicIcon from "@mui/icons-material/Public";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import {createWishlist} from '../../store/wishlists'
+import { createWishlist } from "../../store/wishlists";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +58,6 @@ const useStyles = makeStyles({
     marginBottom: 20,
     display: "block",
   },
-  
 });
 
 const initialState = {
@@ -68,9 +67,9 @@ const initialState = {
   WifeAndHusband: false,
   RocAndRoll: false,
   FullstackAcademyFolks: false,
-}
+};
 const CreateList = ({ userId }) => {
-  const [createValues, setCreateValues] = useState(initialState)
+  const [createValues, setCreateValues] = useState(initialState);
   const classes = useStyles();
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
@@ -86,7 +85,7 @@ const CreateList = ({ userId }) => {
     setCreateValues(change);
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -98,13 +97,12 @@ const CreateList = ({ userId }) => {
       FullstackAcademyFolks,
     } = createValues;
 
-    dispatch(createWishlist({...createValues, userId}))
-    setCreateValues('')
+    dispatch(createWishlist({ ...createValues, userId }));
+    setCreateValues("");
   };
 
-
   return (
-    <Container maxWidth="md" sx={{marginTop: "30px"}}>
+    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
       <Typography variant="h5" component="h2" gutterBottom>
         Create A New List
       </Typography>
@@ -112,8 +110,8 @@ const CreateList = ({ userId }) => {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
-          name='name'
-          value={createValues.name ?? ''}
+          name="name"
+          value={createValues.name ?? ""}
           onChange={onChange}
           label="Name your list"
           variant="outlined"
@@ -124,8 +122,8 @@ const CreateList = ({ userId }) => {
         />
         <TextField
           className={classes.field}
-          name='details'
-          value={createValues.details ?? ''}
+          name="details"
+          value={createValues.details ?? ""}
           onChange={onChange}
           label="Add a note (optional)"
           variant="outlined"
@@ -231,19 +229,18 @@ const CreateList = ({ userId }) => {
   );
 };
 
-const mapState = ({auth}) => {
+const mapState = ({ auth }) => {
   return {
-    userId: auth.id
-  }
-}
+    userId: auth.id,
+  };
+};
 
-const mapDispatch = (dispatch)=> {
+const mapDispatch = (dispatch) => {
   return {
     createWishlist: (wishlist) => {
-      dispatch(createWishlist(wishlist))
-    } 
-  }
-}
-
+      dispatch(createWishlist(wishlist));
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(CreateList);
