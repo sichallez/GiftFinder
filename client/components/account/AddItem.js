@@ -46,7 +46,6 @@ const AddItem = () => {
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
-`
 
   const handleCheckboxChange = () => {};
 
