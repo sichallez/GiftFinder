@@ -39,15 +39,20 @@ export const getAllLists = () => {
 export const createWishlist = (wishlist, sharedGroups = []) => {
   return async (dispatch) => {
     const token = window.localStorage.getItem("token");
-    if (token) {
-      const created = (
-        await axios.post("/api/wishlist", wishlist, {
-          params: {
-            sharedGroups,
-          },
-        })
-      ).data;
-      dispatch(_createWishlist, created);
+    if(token) {
+      const created = (await axios.post('/api/wishlist', wishlist, {
+        params: {
+          sharedGroups,
+        },})).data
+      const wishlists = (
+      await axios.get("/api/wishlist/", {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+      dispatch(_getAllWishlists(wishlists));
+      dispatch(_createWishlist, created)
     }
   };
 };

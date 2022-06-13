@@ -31,6 +31,7 @@ import "./CategoryTabs.css";
 export function Category(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
   function handleChange(event, newValue) {
+    props.resetPage()
     setSelectedTab(newValue);
   }
 

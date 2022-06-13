@@ -43,12 +43,15 @@ class AccountSidePanel extends Component {
   componentDidMount() {
     this.props.getAllLists();
   }
+
   // componentDidUpdate(prevProps){
-  //   console.log(prevProps)
+  //   if(!prevProps.wishlists && this.props.wishlists) {
+  //    this.setState({wishlists: this.props.wishlists})
+  //  }
   // }
 
   render() {
-    const { openWishListMenu, openGroupMenu } = this.state;
+    const { openWishListMenu, openGroupMenu, wishlists } = this.state;
     const { pathname, group, getAllMembers } = this.props;
     // the group object in the redux store is { group: [], member: [] }
     const allGroup = group.group;

@@ -9,52 +9,30 @@ import {
   CardActions,
   IconButton,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShareIcon from "@mui/icons-material/Share";
-// import "./ProductCard.css";
+import AddIcon from '@mui/icons-material/Add';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useDispatch, connect } from "react-redux";
 
 const ProductCard = ({
-  loggedIn,
-  page_type,
-  handleBookmark,
   id,
-  handleDelete,
   image,
   url,
   title,
   price,
   views,
   product,
-  onClick
+  onClick,
+  wishlists,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-  const showIcon = () => {
-    if (loggedIn) {
-      if (page_type === "homepage") {
-        return (
-          <i
-            className={
-              isClicked
-                ? "fa fa-bookmark fa-lg circle-icon"
-                : "far fa-bookmark fa-lg circle-icon"
-            }
-            onClick={() => {
-              handleBookmark(id);
-              setIsClicked(true);
-            }}
-          ></i>
-        );
-      } else {
-        return (
-          <i
-            className="fa fa-trash fa-lg circle-icon"
-            aria-hidden="true"
-            onClick={() => handleDelete(id)}
-          ></i>
-        );
-      }
-    }
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -100,14 +78,31 @@ const ProductCard = ({
                 backgroundColor: "white",
               }}
               aria-label="add to favorites"
+              aria-controls="list-menu"
+              aria-haspopup="true"
 
-              onClick={onClick.bind(this,product)}
+              onClick={(event)=>{
+                handleClick(event)
+              }}
             >
-              <FavoriteBorderIcon />
+              <AddIcon />
             </IconButton>
-            {/* <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton> */}
+            <Menu
+              id="list-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+            >
+              {wishlists.map(list=>{
+                return (
+                <MenuItem key = {list.id} onClick={()=>{
+                  onClick(product,list.id)
+                  handleClose()
+                  }}>
+                  {list.name}
+                </MenuItem>)
+              })}
+            </Menu>
           </CardActions>
         </Box>
       </Card>
@@ -115,4 +110,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default connect(state=>state)(ProductCard);

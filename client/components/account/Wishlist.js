@@ -101,7 +101,8 @@ class Wishlist extends Component {
 
     return (
       <><h3>{this.props.wishlist.name}</h3>
-      <div>{wishListGifts.map(gift => {
+      <div>
+        {wishListGifts.map(gift => {
 
         return (
           <div key={gift.id}>
@@ -112,7 +113,9 @@ class Wishlist extends Component {
             <br />
           </div>
         );
-      })}</div></>
+      })}
+      </div>
+      </>
     );
   }
 }

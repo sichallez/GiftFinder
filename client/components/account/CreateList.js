@@ -75,12 +75,8 @@ const initialState = {
 const CreateList = ({ userId, group }) => {
   const [createValues, setCreateValues] = useState(initialState);
   const classes = useStyles();
-  //const history = useHistory();
-  ///const [title, setTitle] = useState("");
-  ///const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  ////const [category, setCategory] = useState("money");
 
   const [selectedTab, setSelectedTab] = useState(0);
 
