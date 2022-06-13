@@ -9,13 +9,13 @@ import { getAllLists } from "../../store/wishlists";
 
 class Wishlist extends Component {
   componentDidMount() {
-    console.log(this.props)
+    //console.log(this.props)
     this.props.getWishlist(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps){
-    console.log('UPDATE')
-    console.log(this.props)
+    //console.log('UPDATE')
+    //console.log(this.props)
     if(prevProps.match.params.id !== this.props.match.params.id){
       this.props.getWishlist(this.props.match.params.id);
     }
@@ -98,7 +98,7 @@ class Wishlist extends Component {
     }
 
     const wishListGifts = this.props.wishlist.gifts;
-
+console.log(this.props.wishlist)
     return (
       <><h3>{this.props.wishlist.name}</h3>
       <div>

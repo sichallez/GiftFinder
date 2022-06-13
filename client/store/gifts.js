@@ -5,6 +5,7 @@ const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 const ADD_PRODUCT = "ADD_PRODUCT";
 /* Action Creators */
+
 const _fetchProducts = (gifts) => {
   return {
     type: SET_PRODUCTS,
@@ -74,7 +75,7 @@ export const createProducts = (_newFlower, history) => {
   };
 };
 
-/* Flower Reducer */
+/* Reducer */
 export default function (state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:

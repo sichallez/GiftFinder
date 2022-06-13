@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import {
   Fab,
   Button,
@@ -19,6 +20,10 @@ import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import {addToWishlist} from '../../store/wishlist'
+import axios from 'axios'
+import {fetchProducts} from "../../store";
+import cheerio from 'cheerio'
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -34,26 +39,31 @@ const AddItem = () => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
-  const [detailsError, setDetailsError] = useState(false);
-  const [category, setCategory] = useState("money");
-  const [urlData, setUrlData] = useState()
-  
-  const subWishList = [];
-
+  const [detailsError, setDetailsError] = useState(false)
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
 
-  const handleCheckboxChange = () => {};
+  async function handleUrl() {
+   const url = title
+console.log(url)
+    fetch(url)
+    .then(response => {
+      const html = response.data;
+console.log(html)
+      const $ = cheerio.load(html)
+      const salePrice = $('.sale-price').text()
+      console.log(salePrice);
+    })
+    .catch(console.error);
+  }
+
+handleUrl()
 
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
     const reader = new FileReader();
     let url = reader.readAsDataURL(file);
-
     reader.onloadend = function (e) {
       setSelectedFile([reader.result]);
     };
@@ -72,6 +82,7 @@ const AddItem = () => {
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
+          id="externalUrl"
           onChange={(e) => setTitle(e.target.value)}
           label="Web link"
           variant="outlined"
@@ -156,4 +167,12 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+const mapDispatch = dispatch => {
+  return {
+      addToWishlist: function (product,id) {
+        dispatch(addToWishlist(product,id));
+    },
+  }
+}
+
+export default connect(null, mapDispatch)(AddItem);
