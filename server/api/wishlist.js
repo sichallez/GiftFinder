@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const {
-  models: { Wishlist, User, Gift },
+  models: { Wishlist, User, Gift, Group, WishlistGroup },
 } = require("../db");
 
+// Base route "/api/wishlist"
 
 //return default wishlist of the user
 router.get("/default", async (req, res, next) => {
@@ -11,11 +12,9 @@ router.get("/default", async (req, res, next) => {
     const wishlist = await Wishlist.findOne({
       where: {
         userId: user.id,
-        default: true
+        default: true,
       },
-      include:[
-        { model: Gift}
-      ],
+      include: [{ model: Gift }],
     });
 
     res.send(wishlist);
@@ -26,18 +25,15 @@ router.get("/default", async (req, res, next) => {
   }
 });
 
-
 //return all wishlists of the user
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
     const wishlists = await Wishlist.findAll({
       where: {
-        userId: user.id
+        userId: user.id,
       },
-      include:[
-        { model: Gift}
-      ],
+      include: [{ model: Gift }],
     });
 
     res.send(wishlists);
@@ -55,11 +51,9 @@ router.get("/:id", async (req, res, next) => {
     const wishlist = await Wishlist.findOne({
       where: {
         id: req.params.id,
-        userId: user.id
+        userId: user.id,
       },
-      include:[
-        { model: Gift}
-      ],
+      include: [{ model: Gift }],
     });
 
     res.send(wishlist);
@@ -72,7 +66,31 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    const sharedGroups = req.query.sharedGroups;
     const wishlist = await Wishlist.create(req.body);
+    console.log(
+      "BACKEND WISHLIST",
+      wishlist.isPrivate,
+      wishlist.isShared,
+      wishlist.isPublic,
+      sharedGroups
+    );
+    console.log("COUNT", await Wishlist.count(), await Group.count());
+    if (wishlist.isPublic && wishlist.isShared) {
+      // if the wishlist is set to be visible to public
+      const totalGroups = await Group.count();
+      for (let i = 1; i <= totalGroups; i++) {
+        await WishlistGroup.create({ wishlistId: wishlist.id, groupId: i });
+      }
+    } else if (wishlist.isShared && sharedGroups.length) {
+      for (let i = 0; i < sharedGroups.length; i++) {
+        await WishlistGroup.create({
+          wishlistId: wishlist.id,
+          groupId: sharedGroups[i],
+        });
+      }
+    }
+
     res.status(201).json(wishlist);
   } catch (err) {
     if (err.status === 401) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
   Typography,
@@ -63,41 +63,84 @@ const useStyles = makeStyles({
 const initialState = {
   name: "",
   details: "",
+  isPrivate: true,
+  isShared: false,
+  isPublic: false,
   team8project: false,
   WifeAndHusband: false,
   RocAndRoll: false,
   FullstackAcademyFolks: false,
 };
-const CreateList = ({ userId }) => {
+
+const CreateList = ({ userId, group }) => {
   const [createValues, setCreateValues] = useState(initialState);
   const classes = useStyles();
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     const change = {};
     change[e.target.name] = e.target.value;
-    setCreateValues(change);
+    setCreateValues({ ...createValues, ...change });
   };
+
+  const allGroup = group.group;
+  console.log("ISTHERGROUP", allGroup);
+
+  const [checkboxState, setCheckboxState] = useState({});
+
+  useEffect(() => {
+    setCheckboxState(allGroup.reduce((acc, currentGroup) => {
+      const id = currentGroup.id;
+      return { ...acc, [id]: false };
+    }, {}));
+  }, [allGroup]);
+
+  const handleCheckboxChange = (e) => {
+    setCheckboxState({...checkboxState, [e.target.name]: e.target.checked});
+  };
+  console.log("After", checkboxState);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      name,
-      details,
-      team8project,
-      WifeAndHusband,
-      RocAndRoll,
-      FullstackAcademyFolks,
-    } = createValues;
+    let { name, details, isPrivate, isShared, isPublic } = createValues;
 
-    dispatch(createWishlist({ ...createValues, userId }));
+    switch (selectedTab) {
+      case 0:
+        isPrivate = true;
+        break;
+      case 1:
+        isPrivate = false;
+        isShared = true;
+        break;
+      case 2:
+        isPrivate = false;
+        isShared = true;
+        isPublic = true;
+        break;
+      default:
+        return;
+    }
+
+    if (!name) {
+      setTitleError(!titleError);
+    }
+
+    // get the groups' id, for which the user selected in checkbox for sharing
+    let sharedGroups = Object.keys(checkboxState).filter(key => checkboxState[key] === true);
+    sharedGroups = sharedGroups.map(Number);
+    console.log("SHAREDGROUPS", sharedGroups);
+
+    dispatch(
+      createWishlist({ ...createValues, isPrivate, isShared, isPublic, userId }, sharedGroups)
+    );
     setCreateValues("");
   };
 
@@ -112,7 +155,7 @@ const CreateList = ({ userId }) => {
           className={classes.field}
           name="name"
           value={createValues.name ?? ""}
-          onChange={onChange}
+          onChange={handleChange}
           label="Name your list"
           variant="outlined"
           color="secondary"
@@ -124,7 +167,7 @@ const CreateList = ({ userId }) => {
           className={classes.field}
           name="details"
           value={createValues.details ?? ""}
-          onChange={onChange}
+          onChange={handleChange}
           label="Add a note (optional)"
           variant="outlined"
           color="secondary"
@@ -164,55 +207,25 @@ const CreateList = ({ userId }) => {
           <FormControl className={classes.field}>
             <FormLabel>Select Groups to Share With</FormLabel>
             <FormGroup>
-              <FormControlLabel
-                value="team8project"
+              {allGroup.map((group, index) => (
+                <FormControlLabel
+                key={index}
+                value={group.name}
                 control={
                   <Checkbox
-                    checked={true}
+                    checked={checkboxState[group.id]}
                     onChange={handleCheckboxChange}
-                    name="team-8-project"
+                    name={group.id.toString()}
                   />
                 }
-                label="Team-8-Project"
+                label={group.name}
               />
-              <FormControlLabel
-                value="WifeAndHusband"
-                control={
-                  <Checkbox
-                    checked={true}
-                    onChange={handleCheckboxChange}
-                    name="WifeAndHusband"
-                  />
-                }
-                label="Wife-and-Husband"
-              />
-              <FormControlLabel
-                value="RocAndRoll"
-                control={
-                  <Checkbox
-                    checked={true}
-                    onChange={handleCheckboxChange}
-                    name="RockAndRoll"
-                  />
-                }
-                label="Rock-and-Roll"
-              />
-              <FormControlLabel
-                //value="FullstackAcademyFolks"
-                control={
-                  <Checkbox
-                    checked={true}
-                    onChange={handleCheckboxChange}
-                    name="FullstackAcademyFolks"
-                  />
-                }
-                label="Fullstack Academy Folks"
-              />
+              ))}
             </FormGroup>
           </FormControl>
         </TabPanel>
         <TabPanel value={selectedTab} index={2}>
-          Anyone can shop your list – no account required. Choose this option
+          Anyone can shop your list - no account required. Choose this option
           for baby & wedding registries.
         </TabPanel>
 
@@ -229,9 +242,10 @@ const CreateList = ({ userId }) => {
   );
 };
 
-const mapState = ({ auth }) => {
+const mapState = ({ auth, group }) => {
   return {
     userId: auth.id,
+    group,
   };
 };
 

@@ -1,4 +1,4 @@
-const { STRING } = require("sequelize");
+const { STRING, INTEGER } = require("sequelize");
 const db = require("../db");
 const { generateString } = require("../../../utils");
 
@@ -10,6 +10,9 @@ const Group = db.define("group", {
   groupRouteId: {
     type: STRING,
     unique: true,
+  },
+  ownerId: {
+    type: INTEGER,
   },
   avatar: {
     type: STRING(1000)
