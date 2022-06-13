@@ -128,18 +128,22 @@ async function seed() {
     await Group.create({
       name: "Team-8-Project",
       groupRouteId: generateString(5),
+      ownerId: 6,
     }),
     await Group.create({
       name: "Fullstack Academy Folks",
       groupRouteId: generateString(5),
+      ownerId: 3,
     }),
     await Group.create({
       name: "Wife-and-Husband",
       groupRouteId: generateString(5),
+      ownerId: 2,
     }),
     await Group.create({
       name: "Rock-and-Roll",
       groupRouteId: generateString(5),
+      ownerId: 3,
     }),
   ]);
 

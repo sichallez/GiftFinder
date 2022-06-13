@@ -77,7 +77,7 @@ export const getAllMembers = (groupRouteId) => {
   };
 };
 
-export const addToGroup = (product) => {
+export const inviteToGroup = (product) => {
   return async (dispatch) => {
     try {
       //get the group id

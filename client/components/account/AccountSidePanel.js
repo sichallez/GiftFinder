@@ -36,7 +36,7 @@ class AccountSidePanel extends Component {
     super(props);
     this.state = {
       openWishListMenu: false,
-      OpenGroupMenu: true,
+      openGroupMenu: true,
     };
   }
 
@@ -48,7 +48,7 @@ class AccountSidePanel extends Component {
   // }
 
   render() {
-    const { openWishListMenu, OpenGroupMenu } = this.state;
+    const { openWishListMenu, openGroupMenu } = this.state;
     const { pathname, group, getAllMembers } = this.props;
     // the group object in the redux store is { group: [], member: [] }
     const allGroup = group.group;
@@ -134,13 +134,13 @@ class AccountSidePanel extends Component {
                 padding: "10px",
               }}
               selected={pathname === "/account/group"}
-              onClick={() => this.setState({ OpenGroupMenu: !OpenGroupMenu })}
+              onClick={() => this.setState({ openGroupMenu: !openGroupMenu })}
             >
               <ListItemText>My Groups</ListItemText>
-              {OpenGroupMenu ? <ExpandLess /> : <ExpandMore />}
+              {openGroupMenu ? <ExpandLess /> : <ExpandMore />}
             </MenuItem>
           </Link>
-          <Collapse in={OpenGroupMenu} timeout="auto" unmountOnExit>
+          <Collapse in={openGroupMenu} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <Link to="/account/group/new">
                 <ListItemButton
