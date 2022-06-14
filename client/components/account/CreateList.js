@@ -91,7 +91,6 @@ const CreateList = ({ userId, group }) => {
   };
 
   const allGroup = group.group;
-  console.log("ISTHERGROUP", allGroup);
 
   const [checkboxState, setCheckboxState] = useState({});
 
@@ -105,7 +104,6 @@ const CreateList = ({ userId, group }) => {
   const handleCheckboxChange = (e) => {
     setCheckboxState({...checkboxState, [e.target.name]: e.target.checked});
   };
-  console.log("After", checkboxState);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
