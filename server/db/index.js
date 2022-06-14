@@ -7,6 +7,7 @@ const Wishlist = require("./models/Wishlist");
 const Gift = require("./models/Gift");
 const Group = require("./models/Group");
 const UserGroup = require("./models/UserGroup");
+const WishlistGroup = require("./models/WishlistGroup")
 
 //associations could go here!
 
@@ -27,6 +28,11 @@ Gift.belongsTo(Wishlist);
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
 
+// A wishlist may belong to many groups
+// A group may have many wishlists
+Wishlist.belongsToMany(Group, { through: WishlistGroup });
+Group.belongsToMany(Wishlist, { through: WishlistGroup });
+
 module.exports = {
   db,
   models: {
@@ -34,6 +40,7 @@ module.exports = {
     Group,
     UserGroup,
     Wishlist,
-    Gift
+    Gift,
+    WishlistGroup,
   },
 };

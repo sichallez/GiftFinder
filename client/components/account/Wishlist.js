@@ -84,12 +84,6 @@ class Wishlist extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-
-            {/* <img src={gift.image_url} width="20%" />
-              {gift.name}
-              {`$${gift.price}`} */}
-
-
             </Grid>
             <br />
             <br />

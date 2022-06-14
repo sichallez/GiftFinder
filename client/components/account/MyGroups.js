@@ -4,8 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import {
   Typography,
   Button,
+  IconButton,
   Container,
   TextField,
+  Menu,
+  MenuItem,
   Checkbox,
   FormGroup,
   FormControlLabel,
@@ -27,6 +30,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { makeStyles } from "@mui/styles";
 import { createGroup, getAllGroups, getAllMembers } from "../../store/group";
 import { generateString } from "../../../utils";
@@ -36,6 +40,9 @@ const useStyles = makeStyles({
     marginTop: 20,
     marginBottom: 20,
     display: "block",
+  },
+  menuItemText: {
+    fontWeight: "600",
   },
 });
 
@@ -152,6 +159,17 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
 
   const allMembers = group.member;
 
+  const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleButtonMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleInviteMembers = () => {};
 
   return (
@@ -171,38 +189,101 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
       </Typography>
       <Divider />
       <List>
-        {allMembers.map((item, index) => (
-          // <Link
-          //   to={"/account/" + item.groupRouteId}
-          //   onClick={() => handleRouteChange4SingelGroup(item.groupRouteId)}
-          // >
-          <ListItem key={index}>
-            <ListItemText
-              primary={item.username}
-              primaryTypographyProps={{
-                fontSize: 30,
-                fontWeight: "medium",
-                letterSpacing: 0,
-              }}
-            />
-            <ListItemText
-              primary={item.email}
-              primaryTypographyProps={{
-                fontSize: 30,
-                fontWeight: "medium",
-                letterSpacing: 0,
-              }}
-            />
-            <Button
-              variant="contained"
-              startIcon={<SettingsIcon />}
-              color="error"
-            >
-              Settings
-            </Button>
-          </ListItem>
-          // </Link>
-        ))}
+        {allMembers.map((item, index) =>
+          currentGroup.ownerId === auth.id ? (
+            <ListItem key={index}>
+              <ListItemText
+                primary={item.username}
+                primaryTypographyProps={{
+                  fontSize: 30,
+                  fontWeight: "medium",
+                  letterSpacing: 0,
+                }}
+              />
+              <ListItemText
+                primary={item.email}
+                primaryTypographyProps={{
+                  fontSize: 30,
+                  fontWeight: "medium",
+                  letterSpacing: 0,
+                }}
+              />
+              {item.id === auth.id ? (
+                <ListItemText
+                  primary="group owner"
+                  primaryTypographyProps={{
+                    fontSize: 20,
+                    color: "gray",
+                    fontWeight: "medium",
+                    letterSpacing: 0,
+                  }}
+                />
+              ) : (
+                <>
+                  <IconButton
+                    aria-label="more"
+                    color="error"
+                    onClick={handleButtonMenuClick}
+                  >
+                    <MoreHorizIcon />
+                  </IconButton>
+                  <Menu
+                    id="long-menu"
+                    MenuListProps={{
+                      "aria-labelledby": "long-button",
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    PaperProps={{
+                      style: {
+                        maxHeight: 48 * 4.5,
+                        width: "20ch",
+                      },
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>Message member</MenuItem>
+                    <MenuItem sx={{ color: "#c74152", fontWeight: "550" }} onClick={handleClose}>
+                      Remove from group
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
+            </ListItem>
+          ) : (
+            <ListItem key={index}>
+              <ListItemText
+                primary={item.username}
+                primaryTypographyProps={{
+                  fontSize: 30,
+                  fontWeight: "medium",
+                  letterSpacing: 0,
+                }}
+              />
+              <ListItemText
+                primary={item.email}
+                primaryTypographyProps={{
+                  fontSize: 30,
+                  fontWeight: "medium",
+                  letterSpacing: 0,
+                }}
+              />
+              {item.id === currentGroup.ownerId ? (
+                <ListItemText
+                  primary="group owner"
+                  primaryTypographyProps={{
+                    fontSize: 20,
+                    color: "gray",
+                    fontWeight: "medium",
+                    letterSpacing: 0,
+                  }}
+                />
+              ) : (
+                <></>
+              )}
+            </ListItem>
+          )
+        )}
       </List>
     </Container>
   );
@@ -210,13 +291,15 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
 
 const _CreateGroup = ({ auth, createGroup }) => {
   const classes = useStyles();
-  const [name, setName] = useState("");
+  const [groupName, setGroupName] = useState("");
+  const [userName1, setUserName1] = useState("");
+  const [email1, setEmail1] = useState("");
+  const [userName2, setUserName2] = useState("");
+  const [email2, setEmail2] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory] = useState("money");
-
-  const dummyData = [];
 
   const [selectedTab, setSelectedTab] = React.useState(0);
 
@@ -225,13 +308,13 @@ const _CreateGroup = ({ auth, createGroup }) => {
     setTitleError(false);
     setDetailsError(false);
 
-    if (name == "") {
+    if (groupName == "") {
       setTitleError(true);
     }
 
-    if (name) {
+    if (groupName) {
       const groupRouteId = generateString(5);
-      const newGroup = { name, groupRouteId };
+      const newGroup = { groupName, groupRouteId, ownerId: auth.id };
       createGroup(newGroup, auth.id);
     }
   };
@@ -245,7 +328,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           className={classes.field}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setGroupName(e.target.value)}
           label="Name your group"
           variant="outlined"
           color="secondary"
@@ -274,7 +357,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
           <Grid item xs={6}>
             <TextField
               className={classes.field}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setUserName1(e.target.value)}
               variant="outlined"
               color="secondary"
               fullWidth
@@ -285,7 +368,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
           <Grid item xs={6}>
             <TextField
               className={classes.field}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setEmail1(e.target.value)}
               variant="outlined"
               color="secondary"
               fullWidth
@@ -296,7 +379,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
           <Grid item xs={6}>
             <TextField
               className={classes.field}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setUserName2(e.target.value)}
               variant="outlined"
               color="secondary"
               fullWidth
@@ -307,7 +390,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
           <Grid item xs={6}>
             <TextField
               className={classes.field}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setEmail2(e.target.value)}
               variant="outlined"
               color="secondary"
               fullWidth
