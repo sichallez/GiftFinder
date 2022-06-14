@@ -141,10 +141,10 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
   );
 };
 
-const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
+const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
   const allGroup = group.group;
 
-  // buys time for the component to update its state from redux store
+  // // buys time for the component to update its state from redux store
   if (!allGroup.length) {
     return null;
   }
@@ -192,34 +192,53 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
         {allMembers.map((item, index) =>
           currentGroup.ownerId === auth.id ? (
             <ListItem key={index}>
-              <ListItemText
-                primary={item.username}
-                primaryTypographyProps={{
-                  fontSize: 30,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                }}
-              />
-              <ListItemText
-                primary={item.email}
-                primaryTypographyProps={{
-                  fontSize: 30,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                }}
-              />
               {item.id === auth.id ? (
-                <ListItemText
-                  primary="group owner"
-                  primaryTypographyProps={{
-                    fontSize: 20,
-                    color: "gray",
-                    fontWeight: "medium",
-                    letterSpacing: 0,
-                  }}
-                />
+                <>
+                  <ListItemText
+                    primary={`${item.username} (YOU)`}
+                    primaryTypographyProps={{
+                      fontSize: 30,
+                      fontWeight: "medium",
+                      letterSpacing: 0,
+                    }}
+                  />
+                  <ListItemText
+                    primary={item.email}
+                    primaryTypographyProps={{
+                      fontSize: 30,
+                      fontWeight: "medium",
+                      letterSpacing: 0,
+                    }}
+                  />
+
+                  <ListItemText
+                    primary="group owner"
+                    primaryTypographyProps={{
+                      fontSize: 20,
+                      color: "gray",
+                      fontWeight: "medium",
+                      letterSpacing: 0,
+                    }}
+                  />
+                </>
               ) : (
                 <>
+                  <ListItemText
+                    primary={item.username}
+                    primaryTypographyProps={{
+                      fontSize: 30,
+                      fontWeight: "medium",
+                      letterSpacing: 0,
+                    }}
+                  />
+                  <ListItemText
+                    primary={item.email}
+                    primaryTypographyProps={{
+                      fontSize: 30,
+                      fontWeight: "medium",
+                      letterSpacing: 0,
+                    }}
+                  />
                   <IconButton
                     aria-label="more"
                     color="error"
@@ -243,7 +262,10 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
                     }}
                   >
                     <MenuItem onClick={handleClose}>Message member</MenuItem>
-                    <MenuItem sx={{ color: "#c74152", fontWeight: "550" }} onClick={handleClose}>
+                    <MenuItem
+                      sx={{ color: "#c74152", fontWeight: "550" }}
+                      onClick={handleClose}
+                    >
                       Remove from group
                     </MenuItem>
                   </Menu>
@@ -252,14 +274,25 @@ const _SingleGroup = ({ auth, group, getAllMembers, match }) => {
             </ListItem>
           ) : (
             <ListItem key={index}>
-              <ListItemText
-                primary={item.username}
-                primaryTypographyProps={{
-                  fontSize: 30,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                }}
-              />
+              {item.id === auth.id ? (
+                <ListItemText
+                  primary={`${item.username} (YOU)`}
+                  primaryTypographyProps={{
+                    fontSize: 30,
+                    fontWeight: "medium",
+                    letterSpacing: 0,
+                  }}
+                />
+              ) : (
+                <ListItemText
+                  primary={item.username}
+                  primaryTypographyProps={{
+                    fontSize: 30,
+                    fontWeight: "medium",
+                    letterSpacing: 0,
+                  }}
+                />
+              )}
               <ListItemText
                 primary={item.email}
                 primaryTypographyProps={{
@@ -303,19 +336,24 @@ const _CreateGroup = ({ auth, createGroup }) => {
 
   const [selectedTab, setSelectedTab] = React.useState(0);
 
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setTitleError(false);
     setDetailsError(false);
 
-    if (groupName == "") {
+    if (groupName === "") {
       setTitleError(true);
     }
 
     if (groupName) {
       const groupRouteId = generateString(5);
-      const newGroup = { groupName, groupRouteId, ownerId: auth.id };
+      const newGroup = { name: groupName, groupRouteId, ownerId: auth.id };
       createGroup(newGroup, auth.id);
+      // after it is created, redirect it to the url of the newly created group
+      // const newGroupPath = `/account/group/${groupRouteId}`;
+      // history.push(newGroupPath);
     }
   };
 

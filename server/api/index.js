@@ -7,6 +7,7 @@ router.use("/users", require("./users"));
 router.use("/group", require("./group"));
 router.use("/gifts", require("./gifts"));
 router.use("/wishlist", require("./wishlist"));
+router.use("/giftlist", require("./giftlist"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

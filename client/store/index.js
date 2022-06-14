@@ -8,6 +8,7 @@ import group from "./group";
 import wishlist from "./wishlist";
 import wishlists from "./wishlists";
 import questions from "./questions";
+import giftlist from "./giftlist";
 
 const reducer = combineReducers({
   auth,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   wishlist,
   wishlists,
   questions,
+  giftlist,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -28,3 +30,4 @@ export * from "./gifts";
 export * from "./wishlist";
 export * from "./questions";
 export * from "./group";
+export * from "./giftlist";
