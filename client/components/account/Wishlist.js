@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Box, Paper, Button, Grid, Item, Typography} from "@mui/material";
+import { Box, Paper, Button, Grid, Item, Typography, IconButton} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddItem from "./AddItem";
 import { getWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 class Wishlist extends Component {
   componentDidMount() {
@@ -58,9 +59,9 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
+      <Grid container m='50px'>
       <div><h1>{this.props.wishlist.name}</h1>
       {wishListGifts.map(gift => {
-
         return (
           <div key={gift.id}>
             <Grid container spacing={2}>
@@ -71,12 +72,15 @@ class Wishlist extends Component {
               <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1" component="div">
-                     {gift.name}
+                  <Typography gutterBottom variant="subtitle1" fontSize = "30px" component="div">
+                     <a href={gift.url}>{gift.name}</a>
                   </Typography>
-                  <Typography variant="body2" gutterBottom>
+                  <Typography variant="body2" gutterBottom fontSize = "28px">
                      {`$${gift.price}`}
                   </Typography>
+                    <Button color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
+                      Delete
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -91,7 +95,7 @@ class Wishlist extends Component {
             <br />
           </div>
         );
-      })}</div>
+      })}</div></Grid>
     );
   }
 }
