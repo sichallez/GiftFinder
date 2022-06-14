@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route, Link} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
-import Wishlist from "./Wishlist";
+import CreateList from "./CreateList";
 
 class Wishlists extends Component {
   componentDidMount() {
@@ -15,22 +15,22 @@ class Wishlists extends Component {
 
 
     if(!lists || lists.length === 0){
-      return null;
+      return <CreateList/>;
     }
 
     return (
       <>
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
             {this.props.wishlists.map(list=>{
               return(
                 <div key={list.id}>
                    
-                   <Link to={`/wishlist/${list.id}`}>{list.name}</Link>
+                   <Link to={`/account/wishlist/${list.id}`}>{list.name}</Link>
                    
                 </div>
               )
             })}
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
       </>
     )
   }
