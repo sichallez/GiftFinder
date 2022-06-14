@@ -3,6 +3,28 @@ import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route, Link} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
 import CreateList from "./CreateList";
+import {
+  Typography,
+  Button,
+  IconButton,
+  Container,
+  TextField,
+  Menu,
+  MenuItem,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Box,
+  CssBaseline,
+  Divider,
+} from "@mui/material";
 
 class Wishlists extends Component {
   componentDidMount() {
@@ -19,9 +41,13 @@ class Wishlists extends Component {
     }
 
     return (
-      <>
-      {/* <BrowserRouter> */}
-            {this.props.wishlists.map(list=>{
+      <div>
+        <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            You have {this.props.wishlists.length} wishlists.
+          </Typography>
+            
+            {/* {this.props.wishlists.map(list=>{
               return(
                 <div key={list.id}>
                    
@@ -29,9 +55,29 @@ class Wishlists extends Component {
                    
                 </div>
               )
-            })}
-      {/* </BrowserRouter> */}
-      </>
+            })} */}
+
+            <List>
+              {this.props.wishlists.map(list => (
+                <Link
+                  key={list.id}
+                  to={`/account/wishlist/${list.id}`}
+                >
+                  <ListItem>
+                    <ListItemText
+                      primary={`${list.name} (${list.gifts.length} items)`}
+                      primaryTypographyProps={{
+                        fontSize: 30,
+                        fontWeight: "medium",
+                        letterSpacing: 0,
+                      }}
+                    />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+        </Container>
+      </div>
     )
   }
 }
