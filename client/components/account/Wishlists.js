@@ -2,7 +2,29 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {HashRouter, BrowserRouter, Route, Link} from 'react-router-dom';
 import { getAllLists } from "../../store/wishlists";
-import Wishlist from "./Wishlist";
+import CreateList from "./CreateList";
+import {
+  Typography,
+  Button,
+  IconButton,
+  Container,
+  TextField,
+  Menu,
+  MenuItem,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Box,
+  CssBaseline,
+  Divider,
+} from "@mui/material";
 
 class Wishlists extends Component {
   componentDidMount() {
@@ -15,23 +37,41 @@ class Wishlists extends Component {
 
 
     if(!lists || lists.length === 0){
-      return null;
+      return <CreateList/>;
     }
 
     return (
-      <>
-      <BrowserRouter>
-            {this.props.wishlists.map(list=>{
-              return(
-                <div key={list.id}>
-                   
-                   <Link to={`/wishlist/${list.id}`}>{list.name}</Link>
-                   
-                </div>
-              )
-            })}
-      </BrowserRouter>
-      </>
+      <div style={
+        {marginLeft: 650,
+         marginTop: 30
+        }
+      }>
+        <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            You have {this.props.wishlists.length} wishlists.
+          </Typography>
+            
+            <List>
+              {this.props.wishlists.map(list => (
+                <Link
+                  key={list.id}
+                  to={`/account/wishlist/${list.id}`}
+                >
+                  <ListItem>
+                    <ListItemText
+                      primary={`${list.name} (${list.gifts.length} items)`}
+                      primaryTypographyProps={{
+                        fontSize: 30,
+                        fontWeight: "medium",
+                        letterSpacing: 0,
+                      }}
+                    />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+        </Container>
+      </div>
     )
   }
 }

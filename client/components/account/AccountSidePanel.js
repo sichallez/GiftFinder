@@ -35,7 +35,7 @@ class AccountSidePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openWishListMenu: false,
+      openWishListMenu: true,
       openGroupMenu: true,
     };
   }
