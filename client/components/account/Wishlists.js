@@ -41,22 +41,16 @@ class Wishlists extends Component {
     }
 
     return (
-      <div>
+      <div style={
+        {marginLeft: 650,
+         marginTop: 30
+        }
+      }>
         <Container maxWidth="md" sx={{ marginTop: "30px" }}>
           <Typography variant="h5" component="h2" gutterBottom>
             You have {this.props.wishlists.length} wishlists.
           </Typography>
             
-            {/* {this.props.wishlists.map(list=>{
-              return(
-                <div key={list.id}>
-                   
-                   <Link to={`/account/wishlist/${list.id}`}>{list.name}</Link>
-                   
-                </div>
-              )
-            })} */}
-
             <List>
               {this.props.wishlists.map(list => (
                 <Link
