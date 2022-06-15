@@ -3,6 +3,7 @@
 // import { useDispatch, useSelector } from "react-redux";
 import React, { Component } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   Box,
   MenuList,
@@ -18,10 +19,9 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
-import { getAllMembers } from "../../store/group";
-import { connect } from "react-redux";
 import { HashRouter, BrowserRouter, Route } from "react-router-dom";
 import { getAllLists } from "../../store/wishlists";
+import { getAllMembers, getAllGiftlist } from "../../store";
 import Wishlists from "./Wishlists";
 import wishlist from "../../store/wishlist";
 
@@ -37,11 +37,13 @@ class AccountSidePanel extends Component {
     this.state = {
       openWishListMenu: true,
       openGroupMenu: true,
+      openShopForMenu: true,
     };
   }
 
   componentDidMount() {
     this.props.getAllLists();
+    this.props.getAllGiftlist(this.props.auth.id);
   }
 
   // componentDidUpdate(prevProps){
@@ -51,10 +53,17 @@ class AccountSidePanel extends Component {
   // }
 
   render() {
-    const { openWishListMenu, openGroupMenu, wishlists } = this.state;
-    const { pathname, group, getAllMembers } = this.props;
+    const { openWishListMenu, openGroupMenu, openShopForMenu, wishlists } =
+      this.state;
+    const { pathname, group, giftlist, getAllMembers } = this.props;
     // the group object in the redux store is { group: [], member: [] }
     const allGroup = group.group;
+
+    const allGiftlist = giftlist.allGiftlist;
+
+    const nonZeroGiftlist = allGiftlist.filter(
+      (item) => item.giftlists.length !== 0
+    );
 
     return (
       <Box
@@ -178,20 +187,35 @@ class AccountSidePanel extends Component {
                 padding: "10px",
               }}
               selected={pathname === "/account/giftlist"}
+              onClick={() => this.setState({ openShopForMenu: !openShopForMenu })}
             >
               <ListItemText>Shop For</ListItemText>
+              {openShopForMenu ? <ExpandLess /> : <ExpandMore />}
             </MenuItem>
           </Link>
-          <Link to="/account/favlist">
-            <MenuItem
-              sx={{
-                padding: "10px",
-              }}
-              selected={pathname === "/account/favlist"}
-            >
-              <ListItemText>Favorite List</ListItemText>
-            </MenuItem>
-          </Link>
+          <Collapse in={openShopForMenu} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {nonZeroGiftlist.map((item, index) => (
+                <div key={index}>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary={item.group.name} />
+                  </ListItemButton>
+                  {item.giftlists.map((giftlist, index) => (
+                    <Link to={"/account/giftlist/" + giftlist.id} key={index}>
+                      <ListItemButton
+                        sx={{ pl: 4 }}
+                        selected={
+                          pathname === `/account/giftlist/${giftlist.id}`
+                        }
+                      >
+                        <ListItemText primary={giftlist.user.username} />
+                      </ListItemButton>
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </List>
+          </Collapse>
           <Link to="/account/notification">
             <MenuItem
               sx={{
@@ -216,7 +240,10 @@ const mapDispatchToProps = (dispatch) => {
     getAllMembers: (groupRouteId) => {
       dispatch(getAllMembers(groupRouteId));
     },
+    getAllGiftlist: (userId) => {
+      dispatch(getAllGiftlist(userId));
+    },
   };
 };
 
-export default connect(state => state, mapDispatchToProps)(AccountSidePanel);
+export default connect((state) => state, mapDispatchToProps)(AccountSidePanel);

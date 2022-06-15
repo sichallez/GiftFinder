@@ -2,6 +2,7 @@ import axios from "axios";
 
 /* Action Types */
 const GET_ALLGIFTLIST = "GET_ALLGIFTLIST";
+const GET_ONEGIFTLIST = "GET_ONEGIFTLIST";
 
 /* Action Creators */
 const _getAllGiftlist = (giftlists) => {
@@ -11,8 +12,17 @@ const _getAllGiftlist = (giftlists) => {
   };
 };
 
+const _getOneGiftlist = (giftlist) => {
+  return {
+    type: GET_ONEGIFTLIST,
+    giftlist,
+  };
+};
+
 /* Thunks */
 
+// get all the giftlists by groups,
+// return each group and all the giftlists shared within this group, for all groups that this user belongs to
 export const getAllGiftlist = (userId) => {
   return async (dispatch) => {
     const allGroup = (
@@ -38,6 +48,20 @@ export const getAllGiftlist = (userId) => {
     ).data;
 
     dispatch(_getAllGiftlist(giftlists));
+  };
+};
+
+export const getOneGiftlist = (wishlistId) => {
+  return async (dispatch) => {
+    const giftlist = (
+      await axios.get(`/api/giftlist/${wishlistId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+    dispatch(_getOneGiftlist(giftlist));
   };
 };
 
@@ -74,11 +98,18 @@ export const addToGiftlist = (product, id) => {
   };
 };
 
+const initialState = {
+  allGiftlist: [],
+  oneGiftlist: {},
+};
+
 /* Reducer */
-export default function (state = [], action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ALLGIFTLIST:
-      return action.giftlists;
+      return { ...state, allGiftlist: [...action.giftlists] };
+    case GET_ONEGIFTLIST:
+      return { ...state, oneGiftlist: { ...action.giftlist } };
     default:
       return state;
   }
