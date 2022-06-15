@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -28,8 +28,13 @@ import {
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import AddIcon from "@mui/icons-material/Add";
-import { getAllGiftlist, getAllGroupsAndMembers } from "../../store";
+import TaskIcon from '@mui/icons-material/Task';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import {
+  getAllGiftlist,
+  getAllGroupsAndMembers,
+  getOneGiftlist,
+} from "../../store";
 
 const GiftFor = () => {
   const { auth, group, giftlist } = useSelector((state) => state);
@@ -44,6 +49,7 @@ const GiftFor = () => {
   }, []);
 
   const groupsAndMembers = group.groupsAndMembers;
+  const allGiftlist = giftlist.allGiftlist;
 
   const [openState, setOpenState] = useState({});
 
@@ -55,6 +61,12 @@ const GiftFor = () => {
       }, {})
     );
   }, [allGroup]);
+
+  const history = useHistory();
+  const handleRouteChange = (wishlistId) => {
+    let path = `/account/giftlist/${wishlistId}`;
+    history.push(path);
+  };
 
   // buys time for react to update the state from redux store//
   // Or using optional chain in Line 105
@@ -69,15 +81,10 @@ const GiftFor = () => {
       </Typography>
       <List>
         {allGroup.map((group, index) => {
-          const giftlistsInThisGroup = giftlist.filter(
+          const giftlistsInThisGroup = allGiftlist?.filter(
             (item) => item.group.id === group.id
           )[0]?.giftlists;
           return (
-            // <Link
-            //   key={index}
-            //   to={"/account/gift/" + group.groupRouteId}
-            //   onClick={() => handleRouteChange4SingelGroup(group.groupRouteId)}
-            // >
             <div key={index}>
               <ListItem
                 onClick={() =>
@@ -117,20 +124,23 @@ const GiftFor = () => {
                                   />
                                 </ListItemButton>
                                 {giftlist4ThisMember.map((item, index) => (
-                                  <ListItem key={index}>
+                                  <ListItemButton
+                                    onClick={() => handleRouteChange(item.id)}
+                                    key={index}
+                                  >
                                     <ListItemText primary={item.name} />
-                                  </ListItem>
+                                  </ListItemButton>
                                 ))}
                               </div>
                             );
                           else
                             return (
                               <div key={member.id}>
-                                {/* <Link to={`/account/giftlist/${}`} key={list.id}> */}
                                 <ListItemButton sx={{ pl: 4 }}>
-                                  <ListItemText primary={`${member.username} (0 shared lists)`} />
+                                  <ListItemText
+                                    primary={`${member.username} (0 shared lists)`}
+                                  />
                                 </ListItemButton>
-                                {/* </Link> */}
                               </div>
                             );
                         } else return <div key={member.id}></div>;
@@ -141,7 +151,6 @@ const GiftFor = () => {
                 </List>
               </Collapse>
             </div>
-            // </Link>
           );
         })}
       </List>
@@ -149,12 +158,80 @@ const GiftFor = () => {
   );
 };
 
-export const GiftForOne = (userId) => {
-  const members = groupsAndMembers.filter(
-    (item) => item.groupId === currentGroup.id
-  )[0].members;
-  const membersWithoutMe = members.filter((item) => item.id !== userId);
-  return <></>;
+export const GiftForOne = ({ match }) => {
+  const wishlistId = match.params.id * 1;
+
+  const giftlist = useSelector((state) => state.giftlist);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOneGiftlist(wishlistId));
+  }, []);
+
+  const oneGiftlist = giftlist.oneGiftlist;
+  
+  return (
+    <Grid container m="50px">
+      <div>
+        <h1>{oneGiftlist.name}</h1>
+        {oneGiftlist.gifts?.length ? (
+          oneGiftlist.gifts?.map((gift) => {
+            return (
+              <div key={gift.id}>
+                <Grid container spacing={2}>
+                  <Grid item sx={{ width: 500, height: 500 }}>
+                    <img src={gift.image_url} width="90%" />
+                  </Grid>
+
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          fontSize="30px"
+                          component="div"
+                        >
+                          <a href={gift.url}>{gift.name}</a>
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          fontSize="28px"
+                        >
+                          {`$${gift.price}`}
+                        </Typography>
+                        <Button
+                          color="primary"
+                          fontSize="30 "
+                          variant="outline"
+                          endIcon={<TaskIcon style={{ fontSize: 40 }} />}
+                        >
+                          Reserve
+                        </Button>
+                        <Button
+                          color="primary"
+                          fontSize="30 "
+                          variant="outline"
+                          endIcon={<PriceCheckIcon style={{ fontSize: 40 }} />}
+                        >
+                          Purchase
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <br />
+                <br />
+              </div>
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </div>
+    </Grid>
+  );
 };
 
 export default GiftFor;

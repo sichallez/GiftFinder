@@ -6,10 +6,9 @@ import AccountSidePanel from "./AccountSidePanel";
 import UserProfile from "./UserProfile";
 import Wishlist from "./Wishlist";
 import MyGroups, { CreateGroup, SingleGroup } from "./MyGroups";
-import GiftFor from "./GiftFor";
+import GiftFor, { GiftForOne } from "./GiftFor";
 import Notification from "./Notification";
 import CreateList from "./CreateList";
-import FavoriteList from "./FavoriteList";
 import Wishlists from "./Wishlists"
 
 const Account = ({ auth }) => {
@@ -34,8 +33,8 @@ const Account = ({ auth }) => {
           <Route exact path="/account/group/new" component={CreateGroup} />
           <Route path="/account/group/:groupRouteId" component={SingleGroup} />
           <Route path="/account/group" component={MyGroups} />
-          <Route path="/account/giftlist" component={GiftFor} />
-          <Route path="/account/favlist" component={FavoriteList} />
+          <Route exact path="/account/giftlist" component={GiftFor} />
+          <Route exact path="/account/giftlist/:id" component={GiftForOne} />
           <Route path="/account/notification" component={Notification} />
         </Switch>
     </Grid>

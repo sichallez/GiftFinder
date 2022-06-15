@@ -4,10 +4,11 @@ const {
 } = require("../db");
 
 // Base route "/api/giftlist"
+
 // Wishlist is the list created by me, from my point of view
 // Giftlist is the list for other users to view and shop for me, which equals my wishlist, but from other users' point of view.
 
-//return all wishlists of other users that shared with this user, within a specific group
+// return all wishlists of other users that shared with this user, within a specific group
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
@@ -27,29 +28,22 @@ router.get("/", async (req, res, next) => {
         where: {
           id: wishlistIds,
         },
+        include: [{ model: User }],
       });
       // filter out the wishlist shared in this group but is from the user herself
-      const giftlistsInThisGroup = wishlists.filter(wishlist => wishlist.userId !== user.id);
-      giftlists.push({ group: currentGroup, giftlists: giftlistsInThisGroup}); 
+      const giftlistsInThisGroup = wishlists.filter(
+        (wishlist) => wishlist.userId !== user.id
+      );
+      giftlists.push({ group: currentGroup, giftlists: giftlistsInThisGroup });
     }
 
+    // the responsed giftlists is an array and in the format of e.g. [
+    // { group: {id: 1, name: "Folks", ...}, giftlists: [{id: 1, name: "Birthday", userId: 1, ..}] },
+    // { group: {id: 2, name: "Rocks", ...}, giftlists: [{id: 1, name: "Birthday", userId: 1, ..}, {id: 2, name: "Baby", userId: 3, ..}] },
+    // { group: {id: 3, name: "Whatever", ...}, giftlists: [] },
+    // ...
+    // ]
     res.send(giftlists);
-    
-    // const wishlistgroups = await WishlistGroup.findAll({
-    //   where: {
-    //     groupId: currentGroupId,
-    //   },
-    // });
-
-    // const wishlistIds = wishlistgroups.map(item => item.wishlistId);
-    // const wishlists = await Wishlist.findAll({
-    //     where: {
-    //         id: wishlistIds
-    //     }
-    // });
-    // // giftlists is the wishlists within current group minus the wishlist of yourself
-    // const giftlists = wishlists.filter(item => item.userId !== user.id);
-    // res.send(giftlists);
   } catch (err) {
     if (err.status === 401) {
       res.sendStatus(401);
@@ -64,7 +58,6 @@ router.get("/:id", async (req, res, next) => {
     const giftlist = await Wishlist.findOne({
       where: {
         id: req.params.id,
-        userId: user.id,
       },
       include: [{ model: Gift }],
     });
