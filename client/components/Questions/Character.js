@@ -40,17 +40,7 @@ const Character = ({ character, setCharacter }) => {
             <h1 className='questionsH1'>What type of character is this person?</h1>
             <div className='character-div'>
                 {character.map((char) => {
-                    // const addSelectedStyle = char.id === selectedChar;
-                    // {icons.map((icon) => {
                   return (
-                    //   <CharacterButton
-                    //     style={addSelectedStyle ? 'character-btn' : 'characterSelected-btn'}
-                    //     key={char.id}
-                    //     value={char}
-                    //     onClick={() => {
-                    //         setSelectedChar(char)
-                    //     }}
-                    //   >{char}</CharacterButton>
                     <button
                         className= 'character-btn'
                         key={char.id}
@@ -58,14 +48,9 @@ const Character = ({ character, setCharacter }) => {
                         onClick={() => {
                             setSelectedChar(char.name)
                         }}
-                    >
-                        {/* <img src={<CharacterButton />} /> */}
-                        {/* <img src={icon.icon} /> */}
-
-                        {char.name}</button>
+                    >{char.name}</button>
                   )
                 })}
-                {/* })} */}
             </div>
             <ReturnAndContinue
                 returnPath={'/questions/person'}
@@ -87,21 +72,5 @@ const mapDispatch = (dispatch) => {
         setCharacter: selectedChar => dispatch((setCharacter(selectedChar)))
     }
 }
-
-// class Character extends Component {
-//     render() {
-//         return (
-//             <div>
-//                 <h1>What type of character is the person?</h1>
-
-//                 <ReturnAndContinue
-//                 returnPath={'/questions/person'}
-//                 continuePath={'/questions/category'}
-//                 // onContinueClick = {() => setBudget(value)}
-//             />
-//             </div>
-//         )
-//     }
-// }
 
 export default connect(mapState, mapDispatch)(Character)

@@ -18,7 +18,7 @@ const initialState = {
     'sibling',
     'mom',
     'dad',
-    'parent',
+    'parents',
     'grandma',
     'grandpa',
     'grandparent',
@@ -49,7 +49,7 @@ const initialState = {
       {id: 7, name: 'Spiritualist'},
       {id: 8, name: 'None'}
     ],
-    category: null,
+    category: []
 
 }
 
