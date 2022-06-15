@@ -4,7 +4,10 @@ const db = require("../db");
 const Wishlist = db.define("wishlist", {
   name: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   default:{
     type: BOOLEAN,
@@ -12,7 +15,19 @@ const Wishlist = db.define("wishlist", {
   },
   userId: {
     type: INTEGER,
-  }
+  },
+  isPrivate: {
+    type: BOOLEAN,
+    default: true,
+  },
+  isShared: {
+    type: BOOLEAN,
+    default: false,
+  },
+  isPublic: {
+    type: BOOLEAN,
+    default: false,
+  },
 });
 
 module.exports = Wishlist;

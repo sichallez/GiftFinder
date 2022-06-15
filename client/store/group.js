@@ -4,6 +4,7 @@ import axios from "axios";
 const GET_ALLGROUPS = "GET_ALLGROUPS";
 const CREATE_GROUP = "CREATE_GROUP";
 const GET_ALLMEMBERS = "GET_ALLMEMBERS";
+const GET_ALLGROUPSANDMEMBERS = "GET_ALLGROUPSANDMEMBERS";
 
 /* Action Creators */
 const _getAllGroups = (groups) => {
@@ -26,6 +27,13 @@ const _getAllMembers = (members) => {
     members,
   };
 };
+
+const _getAllGroupsAndMembers = (groupsAndMembers) => {
+  return {
+    type: GET_ALLGROUPSANDMEMBERS,
+    groupsAndMembers,
+  };
+}
 
 /* Thunks */
 
@@ -77,7 +85,38 @@ export const getAllMembers = (groupRouteId) => {
   };
 };
 
-export const addToGroup = (product) => {
+export const getAllGroupsAndMembers = (userId) => {
+  return async (dispatch) => {
+    const groups = (
+      await axios.get("/api/group", {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+        params: {
+          userId,
+        },
+      })
+    ).data;
+
+    const groupsAndMembers = [];
+
+    for (let i = 0; i < groups.length; i++) {
+      const currentGroup = groups[i];
+      const members = (
+        await axios.get(`/api/group/${currentGroup.groupRouteId}`, {
+          headers: {
+            authorization: window.localStorage.token,
+          },
+        })
+      ).data;
+      groupsAndMembers.push({groupId: currentGroup.id, members});
+    }
+
+    dispatch(_getAllGroupsAndMembers(groupsAndMembers));
+  };
+};
+
+export const inviteToGroup = (product) => {
   return async (dispatch) => {
     try {
       //get the group id
@@ -113,17 +152,20 @@ export const addToGroup = (product) => {
 const initialState = {
   group: [],
   member: [],
-}
+  groupsAndMembers: [],
+};
 
 /* Reducer */
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ALLGROUPS:
-      return {...state, group: action.groups};
+      return { ...state, group: action.groups };
     case CREATE_GROUP:
-      return {...state, group: action.group};
+      return { ...state, group: [...state.group, action.group] };
     case GET_ALLMEMBERS:
-      return {...state, member: action.members};
+      return { ...state, member: action.members };
+    case GET_ALLGROUPSANDMEMBERS:
+      return { ...state, groupsAndMembers: action.groupsAndMembers };
     default:
       return state;
   }

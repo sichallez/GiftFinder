@@ -8,6 +8,7 @@ const { generateString } = require("../utils");
 
 // a generator that generates random avatar images
 const { AvatarGenerator } = require("random-avatar-generator");
+const WishlistGroup = require("../server/db/models/WishlistGroup");
 const generator = new AvatarGenerator();
 
 /**
@@ -111,6 +112,13 @@ async function seed() {
     userId: users[2].dataValues.id,
   });
   await Wishlist.create({
+    name: "Happy Go",
+    userId: users[2].dataValues.id,
+    isPrivate: false,
+    isShared: true,
+    isPublic: false,
+  });
+  await Wishlist.create({
     name: "Graduation Gifts",
     userId: users[3].dataValues.id,
   });
@@ -128,18 +136,22 @@ async function seed() {
     await Group.create({
       name: "Team-8-Project",
       groupRouteId: generateString(5),
+      ownerId: 6,
     }),
     await Group.create({
       name: "Fullstack Academy Folks",
       groupRouteId: generateString(5),
+      ownerId: 3,
     }),
     await Group.create({
       name: "Wife-and-Husband",
       groupRouteId: generateString(5),
+      ownerId: 2,
     }),
     await Group.create({
       name: "Rock-and-Roll",
       groupRouteId: generateString(5),
+      ownerId: 3,
     }),
   ]);
 
@@ -176,6 +188,11 @@ async function seed() {
     userId: users[1].id,
     groupId: groups[2].id,
   });
+
+  await WishlistGroup.create({
+    wishlistId: 10,
+    groupId: 4,
+  })
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
