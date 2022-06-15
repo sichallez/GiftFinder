@@ -40,7 +40,6 @@ const AddItem = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   
- 
 
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
