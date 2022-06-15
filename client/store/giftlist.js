@@ -1,21 +1,32 @@
 import axios from "axios";
 
 /* Action Types */
-const GET_GIFTLIST = "GET_GIFTLIST";
+const GET_ALLGIFTLIST = "GET_ALLGIFTLIST";
 
 /* Action Creators */
-const _getGiftlist = (giftlist) => {
+const _getAllGiftlist = (giftlists) => {
   return {
-    type: GET_GIFTLIST,
-    giftlist,
+    type: GET_ALLGIFTLIST,
+    giftlists,
   };
 };
 
 /* Thunks */
 
-export const getAllGiftlist = (allGroup) => {
+export const getAllGiftlist = (userId) => {
   return async (dispatch) => {
-    const giftlist = (
+    const allGroup = (
+      await axios.get("/api/group", {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+        params: {
+          userId,
+        },
+      })
+    ).data;
+
+    const giftlists = (
       await axios.get("/api/giftlist", {
         headers: {
           authorization: window.localStorage.token,
@@ -26,7 +37,7 @@ export const getAllGiftlist = (allGroup) => {
       })
     ).data;
 
-    dispatch(_getGiftlist(giftlist));
+    dispatch(_getAllGiftlist(giftlists));
   };
 };
 
@@ -66,8 +77,8 @@ export const addToGiftlist = (product, id) => {
 /* Reducer */
 export default function (state = [], action) {
   switch (action.type) {
-    case GET_GIFTLIST:
-      return action.giftlist;
+    case GET_ALLGIFTLIST:
+      return action.giftlists;
     default:
       return state;
   }
