@@ -31,15 +31,31 @@ const StyledRating = styled(Rating)({
   },
 });
 
+const initialState = {
+  url: "",
+  name: "",
+  image_url: "",
+  ranking: "",
+  price: "",
+  Description: ""
+};
+
 
 const AddItem = () => {
-  const [title, setTitle] = useState("");
-  const [details, setDetails] = useState("");
+  //const [title, setTitle] = useState("");
+  //const [details, setDetails] = useState("");
+  const [createValues, setCreateValues] = useState(initialState);
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false)
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   
+  const handleChange = (e) => {
+    const change = {};
+    change[e.target.name] = e.target.value;
+    setCreateValues({ ...createValues, ...change });
+  };
+
 
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
@@ -150,8 +166,8 @@ const AddItem = () => {
 
 const mapDispatch = dispatch => {
   return {
-      addToWishlist: function (product,id) {
-        dispatch(addToWishlist(product,id));
+      addToWishlist: function (product, wishlistId) {
+        dispatch(addToWishlist(product, wishlistId));
     },
   }
 }
