@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   Fab,
@@ -21,18 +21,16 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {addToWishlist} from '../../store/wishlist'
-import {fetchProducts} from "../../store";
 
-  //const axios = require('axios');
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "#ff6d75",
-    // color: "dodgerBlue",
   },
   "& .MuiRating-iconHover": {
     color: "#ff3d47",
   },
 });
+
 
 const AddItem = () => {
   const [title, setTitle] = useState("");
@@ -74,7 +72,7 @@ const AddItem = () => {
           fullWidth
           error={titleError}
         />
-        <Button variant="contained" startIcon={<AutoFixHighIcon />}></Button>
+       {/*<Button variant="contained" startIcon={<AutoFixHighIcon />}></Button>*/}
         <TextField
           onChange={(e) => setDetails(e.target.value)}
           label="Gift Name"
@@ -90,10 +88,11 @@ const AddItem = () => {
           multiple
           type="file"
           onChange={handleUploadClick}
+          style={{display:'none'}}
         />
-        <label htmlFor="upload-image-button">
+        <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
           <Fab component="span">
-            <AddPhotoAlternateIcon />
+            <AddPhotoAlternateIcon/>
           </Fab>
         </label>
 
@@ -104,10 +103,9 @@ const AddItem = () => {
         >
           <StyledRating
             name="customized-color"
-            defaultValue={4.5}
-            // getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
+            //defaultValue={4.5}
+            getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
             precision={0.5}
-            readOnly
             icon={<GradeIcon fontSize="inherit" />}
             emptyIcon={<GradeIcon fontSize="inherit" />}
           />
@@ -129,15 +127,15 @@ const AddItem = () => {
           fullWidth
           error={titleError}
         />
-        <TextField
-          onChange={(e) => setTitle(e.target.value)}
-          label="Description"
-          variant="outlined"
-          color="secondary"
-          fullWidth
-          error={titleError}
-        />
-
+          <TextField
+            onChange={(e) => setTitle(e.target.value)}
+            label="Description"
+            variant="outlined"
+            color="secondary"
+            fullWidth
+            multiline
+            error={titleError}
+          />
         <Button
           type="submit"
           color="secondary"
