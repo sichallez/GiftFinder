@@ -27,7 +27,6 @@
     "@mui/styles": "^5.8.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
-    "cheerio": "^1.0.0-rc.11",
     "compression": "^1.7.3",
     "dotenv": "^16.0.1",
     "express": "^4.16.4",

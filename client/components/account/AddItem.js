@@ -21,10 +21,9 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {addToWishlist} from '../../store/wishlist'
-import axios from 'axios'
 import {fetchProducts} from "../../store";
-import cheerio from 'cheerio'
 
+  //const axios = require('axios');
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "#ff6d75",
@@ -42,23 +41,8 @@ const AddItem = () => {
   const [detailsError, setDetailsError] = useState(false)
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
-
-
-  async function handleUrl() {
-   const url = title
-console.log(url)
-    fetch(url)
-    .then(response => {
-      const html = response.data;
-console.log(html)
-      const $ = cheerio.load(html)
-      const salePrice = $('.sale-price').text()
-      console.log(salePrice);
-    })
-    .catch(console.error);
-  }
-
-handleUrl()
+  
+ 
 
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
