@@ -22,6 +22,10 @@ class Wishlist extends Component {
     }
   }
 
+  onClick(){
+    console.log('click')
+  }
+
   render() {
     if (!this.props.wishlist) {
       return null;
@@ -78,7 +82,7 @@ class Wishlist extends Component {
                   <Typography variant="body2" gutterBottom fontSize = "28px">
                      {`$${gift.price}`}
                   </Typography>
-                    <Button color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
+                    <Button onClick={this.onClick.bind(this)} color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
                       Delete
                     </Button>
                   </Grid>
