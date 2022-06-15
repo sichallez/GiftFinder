@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import {
   Fab,
@@ -34,9 +34,9 @@ const initialState = {
   url: "",
   name: "",
   image_url: "",
-  rating: "",
+  rating: 0,
   price: "",
-  Description: ""
+  description: ""
 };
 
 
@@ -44,11 +44,9 @@ const AddItem = () => {
   //const [title, setTitle] = useState("");
   //const [details, setDetails] = useState("");
   const [createValues, setCreateValues] = useState(initialState);
-  const [titleError, setTitleError] = useState(false);
-  const [detailsError, setDetailsError] = useState(false)
-  const [selectedTab, setSelectedTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
-  
+  const inputImageEl = useRef(null);
+console.log('selected', selectedFile)
   const handleChange = (e) => {
     const change = {};
     change[e.target.name] = e.target.value;
@@ -56,10 +54,17 @@ const AddItem = () => {
   };
 
 
+  useEffect(() => {
+    
+  }, []) 
+
   const handleUploadClick = (event) => {
     let file = event.target.files[0];
+console.log('file', file)
     const reader = new FileReader();
+console.log('reader', reader)
     let url = reader.readAsDataURL(file);
+console.log('url', url)
     reader.onloadend = function (e) {
       setSelectedFile([reader.result]);
     };
@@ -100,12 +105,13 @@ const AddItem = () => {
           error={detailsError}
         />
         <input
-          accept="image/*"
+          //accept="image/*"
           id="upload-image-button"
           multiple
           type="file"
           onChange={handleUploadClick}
-          style={{display:'none'}}
+          ref={inputImageEl}
+          //style={{display:'none'}}
         />
         <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
           <Fab component="span">
