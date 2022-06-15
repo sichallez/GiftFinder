@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import {
   Fab,
   Button,
@@ -45,6 +45,8 @@ const AddItem = () => {
   //const [details, setDetails] = useState("");
   const [createValues, setCreateValues] = useState(initialState);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [titleError, setTitleError] = useState(false);
+  const [detailsError, setDetailsError] = useState(false)
   const inputImageEl = useRef(null);
 console.log('selected', selectedFile)
   const handleChange = (e) => {
@@ -73,7 +75,8 @@ console.log('url', url)
 
     setSelectedFile(event.target.files[0]);
   };
-
+  
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
    
@@ -104,6 +107,9 @@ console.log('url', url)
           required
           error={detailsError}
         />
+        {
+          selectedFile ? <img src={ selectedFile } style={{ width: '100px', height: '100px'}}/> : null
+        }
         <input
           //accept="image/*"
           id="upload-image-button"
@@ -111,7 +117,7 @@ console.log('url', url)
           type="file"
           onChange={handleUploadClick}
           ref={inputImageEl}
-          //style={{display:'none'}}
+          style={{display:'none'}}
         />
         <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
           <Fab component="span">
