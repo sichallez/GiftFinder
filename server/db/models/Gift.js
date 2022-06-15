@@ -27,7 +27,7 @@ const Gift = db.define("gift", {
     type: TEXT,
     unique: true
   },
-  ranking: {
+  rating: {
     type: INTEGER
   }
 });

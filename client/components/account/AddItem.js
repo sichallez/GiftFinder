@@ -16,7 +16,6 @@ import {
   Rating,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -24,10 +23,10 @@ import {addToWishlist} from '../../store/wishlist'
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
-    color: "#ff6d75",
+    color: "rgb(250, 179, 0)",
   },
   "& .MuiRating-iconHover": {
-    color: "#ff3d47",
+    color: "rgb(255, 217, 133)",
   },
 });
 
@@ -35,7 +34,7 @@ const initialState = {
   url: "",
   name: "",
   image_url: "",
-  ranking: "",
+  rating: "",
   price: "",
   Description: ""
 };
@@ -79,8 +78,9 @@ const AddItem = () => {
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
-          id="externalUrl"
-          onChange={(e) => setTitle(e.target.value)}
+          url='url'
+          value={createValues.url ?? ""}
+          onChange={handleChange}
           label="Web link"
           variant="outlined"
           color="secondary"
@@ -89,8 +89,10 @@ const AddItem = () => {
         />
        {/*<Button variant="contained" startIcon={<AutoFixHighIcon />}></Button>*/}
         <TextField
-          onChange={(e) => setDetails(e.target.value)}
+          onChange={handleChange}
+          value={createValues.name ?? ""}
           label="Gift Name"
+          name='name'
           variant="outlined"
           color="secondary"
           fullWidth
@@ -111,15 +113,12 @@ const AddItem = () => {
           </Fab>
         </label>
 
-        <Box
-          sx={{
-            mt: 0.5,
-          }}
-        >
+        <Box>
           <StyledRating
-            name="customized-color"
-            //defaultValue={4.5}
-            getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
+            name="rating"
+            value={createValues.rating ?? ""}
+            onChange={handleChange}
+            //getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
             precision={0.5}
             icon={<GradeIcon fontSize="inherit" />}
             emptyIcon={<GradeIcon fontSize="inherit" />}
@@ -127,27 +126,31 @@ const AddItem = () => {
         </Box>
 
         <TextField
-          onChange={(e) => setTitle(e.target.value)}
+          name='price'
+          value={createValues.price ?? "" }
+          onChange={handleChange}
           label="Price"
           variant="outlined"
           color="secondary"
           fullWidth
           error={titleError}
         />
-        <TextField
+        {/*<TextField
           onChange={(e) => setTitle(e.target.value)}
           label="Where to buy"
           variant="outlined"
           color="secondary"
           fullWidth
           error={titleError}
-        />
+        />*/}
           <TextField
-            onChange={(e) => setTitle(e.target.value)}
+            name='description'
+            value={createValues.description ?? ""}
+            onChange={handleChange}
             label="Description"
             variant="outlined"
             color="secondary"
-            fullWidth
+            fullWidth 
             multiline
             error={titleError}
           />
