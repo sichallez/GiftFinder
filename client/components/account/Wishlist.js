@@ -4,7 +4,7 @@ import { Box, Paper, Button, Grid, Item, Typography, IconButton} from "@mui/mate
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddItem from "./AddItem";
-import { getWishlist } from "../../store/wishlist";
+import { getWishlist, deleteFromWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -22,8 +22,8 @@ class Wishlist extends Component {
     }
   }
 
-  onClick(){
-    console.log('click')
+  onClick(gift){
+    this.props.deleteFromWishlist(gift);
   }
 
   render() {
@@ -82,7 +82,7 @@ class Wishlist extends Component {
                   <Typography variant="body2" gutterBottom fontSize = "28px">
                      {`$${gift.price}`}
                   </Typography>
-                    <Button onClick={this.onClick.bind(this)} color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
+                    <Button onClick={this.onClick.bind(this,gift)} color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
                       Delete
                     </Button>
                   </Grid>
@@ -106,6 +106,9 @@ const mapDispatchToProps = (dispatch) => {
     getAllLists: function () {
       dispatch(getAllLists());
     },
+    deleteFromWishlist: function(gift){
+      dispatch(deleteFromWishlist(gift));
+    }
   };
 };
 

@@ -61,6 +61,12 @@ export const addToWishlist = (product,id) => {
   };
 };
 
+export const deleteFromWishlist = (gift) => {
+  return async (dispatch) => {
+    console.log('in store')
+  };
+};
+
 /* Reducer */
 export default function (state = [], action) {
   switch (action.type) {
