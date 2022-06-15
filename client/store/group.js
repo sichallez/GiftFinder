@@ -109,7 +109,7 @@ export const getAllGroupsAndMembers = (userId) => {
           },
         })
       ).data;
-      groupsAndMembers.push({groupId: currentGroup.id, members});
+      groupsAndMembers.push({group: currentGroup, members});
     }
 
     dispatch(_getAllGroupsAndMembers(groupsAndMembers));

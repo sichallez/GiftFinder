@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Wishlist, User, Gift, Group, UserGroup, WishlistGroup },
+  models: { Wishlist, User, Gift, Group, WishlistGroup },
 } = require("../db");
 
 // Base route "/api/giftlist"
@@ -12,32 +12,35 @@ router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
     const allGroup = req.query.allGroup;
-    console.log("BACKEND GIFTLISTS", allGroup);
     let giftlists = [];
 
-    allGroup.map(async(group) => {
-        const wishlistgroups = await WishlistGroup.findAll({
-            where: {
-                groupId: group.id,
-            },
-        });
-        const wishlistIds = wishlistgroups.map(item => item.wishlistId);
-        const wishlists = await Wishlist.findAll({
-            where: {
-                id: wishlistIds
-            }
-        });
-        const giftlist = wishlists.filter(item => item.userId !== user.id);
-        giftlists.push({groupId: group.id, giftlists: giftlist});
-    })
-    console.log("BACKEND GIFTLISTS", giftlists);
+    for (let i = 0; i < allGroup.length; i++) {
+      const currentGroup = JSON.parse(allGroup[i]);
+      const wishlistgroups = await WishlistGroup.findAll({
+        where: {
+          groupId: currentGroup.id,
+        },
+      });
+      const wishlistIds = wishlistgroups.map((item) => item.wishlistId);
+      // find all the wishlists that shared within the current group
+      const wishlists = await Wishlist.findAll({
+        where: {
+          id: wishlistIds,
+        },
+      });
+      // filter out the wishlist shared in this group but is from the user herself
+      const giftlistsInThisGroup = wishlists.filter(wishlist => wishlist.userId !== user.id);
+      giftlists.push({ group: currentGroup, giftlists: giftlistsInThisGroup}); 
+    }
 
+    res.send(giftlists);
+    
     // const wishlistgroups = await WishlistGroup.findAll({
     //   where: {
     //     groupId: currentGroupId,
     //   },
     // });
-    
+
     // const wishlistIds = wishlistgroups.map(item => item.wishlistId);
     // const wishlists = await Wishlist.findAll({
     //     where: {

@@ -172,12 +172,12 @@ class AccountSidePanel extends Component {
               ))}
             </List>
           </Collapse>
-          <Link to="/account/gift">
+          <Link to="/account/giftlist">
             <MenuItem
               sx={{
                 padding: "10px",
               }}
-              selected={pathname === "/account/gift"}
+              selected={pathname === "/account/giftlist"}
             >
               <ListItemText>Shop For</ListItemText>
             </MenuItem>
