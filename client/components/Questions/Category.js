@@ -1,7 +1,7 @@
 import React, {  useState } from 'react';
 import { connect } from 'react-redux';
 import { setCategory } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+import ReturnAndContinue from './components/ReturnAndContinue'
 
 const Category = ({ category, setCategory }) => {
     const categories = [
@@ -56,7 +56,7 @@ const Category = ({ category, setCategory }) => {
                         >{cat.name}</button>
                     )
                 })}
-                <button
+                {/* <button
                     className='category-btnAll'
                     id='all-button'
                     onClick={() => {
@@ -68,7 +68,7 @@ const Category = ({ category, setCategory }) => {
                             setSelectedCategory([])
                         }
                     }}
-                >All</button>
+                >All</button> */}
             </div>
             <ReturnAndContinue
             returnPath={'/questions/character'}

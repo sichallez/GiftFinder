@@ -1,6 +1,6 @@
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: #faf7f0;
+  background-color: white;
 }
 
 #app {  
@@ -46,6 +46,8 @@ form div {
 /** Navbar **/
 nav {
   text-decoration: none;
+  padding: 0.5rem 0 1rem 0;
+  font-size: 20px;
 
 }
 
@@ -61,6 +63,13 @@ nav a, nav li {
   justify-content: space-between;
   align-items: center;
   margin: auto;
+}
+
+.nav-flex-item img.logo {
+  display: block;
+  width: auto;
+  margin: auto;
+  cursor: pointer;
 }
 
 .nav-title {
@@ -93,6 +102,23 @@ nav a, nav li {
   text-decoration: none;
   color: white;
   padding: 2rem;
+}
+
+#paint {
+  display: block;
+  margin-left: -10px;
+  margin-top: -10px;
+  width: 110%;
+  height: .6rem;
+  /* background: black; */
+  background: linear-gradient(
+    to right, 
+    #c2c5ff,
+    #c2f9ff 8%,
+    #c8a2f0 8%,
+    #f0a2c2 85%,
+    #c2d8ff 85%
+  );
 }
 
 /** Budget **/
@@ -166,6 +192,7 @@ nav a, nav li {
 .person-suggestions {
     margin: 0;
     font-size: 17px;
+    font-weight: bolder;
     width: 385px;
     list-style-type: none;
     text-decoration: underline;
