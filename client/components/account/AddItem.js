@@ -14,11 +14,17 @@ import {
   Tab,
   Box,
   Rating,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import GradeIcon from "@mui/icons-material/Grade";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import GradeIcon from "@mui/icons-material/Grade";
+
 import {addToWishlist} from '../../store/wishlist'
 
 const StyledRating = styled(Rating)({
@@ -83,6 +89,7 @@ console.log('url', url)
   };
 
   return (
+    <>
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
@@ -176,6 +183,7 @@ console.log('url', url)
         </Button>
       </form>
     </Container>
+    </>
   );
 };
 
