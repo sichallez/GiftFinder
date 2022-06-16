@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
   Fab,
@@ -45,22 +45,22 @@ const initialState = {
   description: ""
 };
 
-
 const AddItem = ({ id }) => {
   const [createValues, setCreateValues] = useState(initialState);
   const [selectedFile, setSelectedFile] = useState(null);
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false)
 
-  const handleUploadClick = (event) => {
-    let file = event.target.files[0];
+  const handleUploadClick = (e) => {
+    let file = e.target.files[0];
     const reader = new FileReader();
     let url = reader.readAsDataURL(file);
     reader.onloadend = function (e) {
       setSelectedFile({image_url: reader.result});
     };
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(e.target.files[0]);
   };
+console.log('selectedFile', selectedFile?.image_url)
 
   const handleChange = (e) => {
     const change = {};

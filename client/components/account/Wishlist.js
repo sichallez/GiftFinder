@@ -7,7 +7,6 @@ import AddItem from "./AddItem";
 import { getWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from '@mui/icons-material/Delete';
-
 class Wishlist extends Component {
   componentDidMount() {
     //console.log(this.props)
@@ -89,7 +88,8 @@ console.log(this.props.wishlist)
             <br />
           </div>
         );
-      })}</div></Grid>
+      })}</div>
+    </Grid>
     );
   }
 }
