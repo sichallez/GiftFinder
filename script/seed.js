@@ -44,7 +44,7 @@ async function seed() {
       avatar: generator.generateRandomAvatar(),
     }),
     await User.create({
-      username: "savannah",
+      username: "sava",
       password: "123",
       email: "savannah@fsa.com",
       DOB: "1995-07-10",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
   Fab,
@@ -46,46 +46,45 @@ const initialState = {
 };
 
 
-const AddItem = () => {
-  //const [title, setTitle] = useState("");
-  //const [details, setDetails] = useState("");
+const AddItem = ({ id }) => {
   const [createValues, setCreateValues] = useState(initialState);
   const [selectedFile, setSelectedFile] = useState(null);
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false)
-  const inputImageEl = useRef(null);
-console.log('selected', selectedFile)
+
+  const handleUploadClick = (event) => {
+    let file = event.target.files[0];
+    const reader = new FileReader();
+    let url = reader.readAsDataURL(file);
+    reader.onloadend = function (e) {
+      setSelectedFile({image_url: reader.result});
+    };
+    setSelectedFile(event.target.files[0]);
+  };
+
   const handleChange = (e) => {
     const change = {};
     change[e.target.name] = e.target.value;
     setCreateValues({ ...createValues, ...change });
   };
-
-
-  useEffect(() => {
-    
-  }, []) 
-
-  const handleUploadClick = (event) => {
-    let file = event.target.files[0];
-console.log('file', file)
-    const reader = new FileReader();
-console.log('reader', reader)
-    let url = reader.readAsDataURL(file);
-console.log('url', url)
-    reader.onloadend = function (e) {
-      setSelectedFile([reader.result]);
-    };
-
-    // console.log(url); // Would see a path?
-
-    setSelectedFile(event.target.files[0]);
-  };
   
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const {
+      url,
+      name,
+      image_url,
+      rating,
+      price,
+      description
+    } = createValues
+
+    dispatch(addToWishlist({...createValues}, id))
    
+    setCreateValues("")
+    setSelectedFile("")
   };
 
   return (
@@ -93,7 +92,7 @@ console.log('url', url)
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
-          url='url'
+          name='url'
           value={createValues.url ?? ""}
           onChange={handleChange}
           label="Web link"
@@ -115,15 +114,15 @@ console.log('url', url)
           error={detailsError}
         />
         {
-          selectedFile ? <img src={ selectedFile } style={{ width: '100px', height: '100px'}}/> : null
+          selectedFile?.image_url ? <img src={ selectedFile?.image_url } style={{ width: '100px', height: '100px'}}/> : null
         }
         <input
           //accept="image/*"
+          name='image_url'
           id="upload-image-button"
           multiple
           type="file"
           onChange={handleUploadClick}
-          ref={inputImageEl}
           style={{display:'none'}}
         />
         <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
@@ -135,7 +134,7 @@ console.log('url', url)
         <Box>
           <StyledRating
             name="rating"
-            value={createValues.rating ?? ""}
+            value={createValues.rating*1 ?? ""}
             onChange={handleChange}
             //getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
             precision={0.5}
@@ -187,12 +186,18 @@ console.log('url', url)
   );
 };
 
+const mapState = ({ wishlist }) => {
+  const id = wishlist.id
+  return {
+    id
+  }
+}
 const mapDispatch = dispatch => {
   return {
-      addToWishlist: function (product, wishlistId) {
-        dispatch(addToWishlist(product, wishlistId));
+      addToWishlist: function (product, id) {
+        dispatch(addToWishlist(product, id));
     },
   }
 }
 
-export default connect(null, mapDispatch)(AddItem);
+export default connect(mapState, mapDispatch)(AddItem);
