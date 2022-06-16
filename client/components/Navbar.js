@@ -23,9 +23,9 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
           {/* The navbar will show these links after you log in */}
           <div className="nav-flex-item">
             <ul className="nav-top-level">
-              <li className="nav-title">
-                <Link to="/home">GiftFinder</Link>
-              </li>
+               <div className='nav-flex-item'>
+                <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
+               </div>  
             </ul>
           </div>
           <SearchBar />
@@ -60,9 +60,9 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
           {/* The navbar will show these links before you log in */}
           <div className="nav-flex-item">
             <ul className="nav-top-level">
-              <li className="nav-title">
-                <Link to="/home">GiftFinder</Link>
-              </li>
+              <div className='nav-flex-item'>
+                <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
+               </div> 
             </ul>
           </div>
           <SearchBar />

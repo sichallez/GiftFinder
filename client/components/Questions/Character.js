@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setCharacter } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
-import CharacterButton from './QuestionsComponents/CharacterButton'
+import ReturnAndContinue from './components/ReturnAndContinue'
+import CharacterButton from './components/CharacterButton'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import BrushIcon from '@mui/icons-material/Brush';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
