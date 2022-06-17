@@ -71,7 +71,7 @@ const SearchBar = () => {
       </Grid>
       <Grid item flexDirection="column" display="flex" justifyContent="center">
         <Button variant="contained" color="primary">
-          Need Guidence?
+          <Link to='/questions'>Need Guidance?</Link>
         </Button>
       </Grid>
     </Grid>

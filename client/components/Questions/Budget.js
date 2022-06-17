@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setBudget } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+import ReturnAndContinue from './components/ReturnAndContinue'
 
 const Budget = ({ budget, setBudget }) => {
     const initialBudget = budget;

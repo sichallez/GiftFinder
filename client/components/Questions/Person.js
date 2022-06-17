@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setPerson } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+import ReturnAndContinue from './components/ReturnAndContinue'
 
 class Person extends Component {
     constructor(props) {

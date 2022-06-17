@@ -1,21 +1,42 @@
 import axios from "axios";
 
 /* Action Types */
-const GET_GIFTLIST = "GET_GIFTLIST";
+const GET_ALLGIFTLIST = "GET_ALLGIFTLIST";
+const GET_ONEGIFTLIST = "GET_ONEGIFTLIST";
 
 /* Action Creators */
-const _getGiftlist = (giftlist) => {
+const _getAllGiftlist = (giftlists) => {
   return {
-    type: GET_GIFTLIST,
+    type: GET_ALLGIFTLIST,
+    giftlists,
+  };
+};
+
+const _getOneGiftlist = (giftlist) => {
+  return {
+    type: GET_ONEGIFTLIST,
     giftlist,
   };
 };
 
 /* Thunks */
 
-export const getAllGiftlist = (allGroup) => {
+// get all the giftlists by groups,
+// return each group and all the giftlists shared within this group, for all groups that this user belongs to
+export const getAllGiftlist = (userId) => {
   return async (dispatch) => {
-    const giftlist = (
+    const allGroup = (
+      await axios.get("/api/group", {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+        params: {
+          userId,
+        },
+      })
+    ).data;
+
+    const giftlists = (
       await axios.get("/api/giftlist", {
         headers: {
           authorization: window.localStorage.token,
@@ -26,7 +47,21 @@ export const getAllGiftlist = (allGroup) => {
       })
     ).data;
 
-    dispatch(_getGiftlist(giftlist));
+    dispatch(_getAllGiftlist(giftlists));
+  };
+};
+
+export const getOneGiftlist = (wishlistId) => {
+  return async (dispatch) => {
+    const giftlist = (
+      await axios.get(`/api/giftlist/${wishlistId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+    dispatch(_getOneGiftlist(giftlist));
   };
 };
 
@@ -63,11 +98,18 @@ export const addToGiftlist = (product, id) => {
   };
 };
 
+const initialState = {
+  allGiftlist: [],
+  oneGiftlist: {},
+};
+
 /* Reducer */
-export default function (state = [], action) {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_GIFTLIST:
-      return action.giftlist;
+    case GET_ALLGIFTLIST:
+      return { ...state, allGiftlist: [...action.giftlists] };
+    case GET_ONEGIFTLIST:
+      return { ...state, oneGiftlist: { ...action.giftlist } };
     default:
       return state;
   }

@@ -1,22 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Box, Paper, Button, Grid, Item, Typography, IconButton} from "@mui/material";
+import {
+  Box,
+  Paper,
+  Button,
+  Grid,
+  Item,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
 import { getWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
+
 class Wishlist extends Component {
   componentDidMount() {
-    //console.log(this.props)
+    console.log(this.props);
     this.props.getWishlist(this.props.match.params.id);
   }
 
-  componentDidUpdate(prevProps){
-    //console.log('UPDATE')
-    //console.log(this.props)
-    if(prevProps.match.params.id !== this.props.match.params.id){
+  componentDidUpdate(prevProps) {
+    console.log("UPDATE");
+    console.log(this.props);
+    if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.getWishlist(this.props.match.params.id);
     }
   }
@@ -46,7 +55,11 @@ class Wishlist extends Component {
             <Button variant="contained" startIcon={<AddIcon />}>
               Add Item
             </Button>
-            <Button variant="outlined" startIcon={<AddIcon />} endIcon={<FavoriteBorderIcon />}>
+            <Button
+              variant="outlined"
+              startIcon={<AddIcon />}
+              endIcon={<FavoriteBorderIcon />}
+            >
               Add Item From Your Favorite List
             </Button>
             <AddItem />
@@ -58,38 +71,54 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 console.log(this.props.wishlist)
     return (
-      <Grid container m='50px'>
-      <div><h1>{this.props.wishlist.name}</h1>
-      {wishListGifts.map(gift => {
-        return (
-          <div key={gift.id}>
-            <Grid container spacing={2}>
-              <Grid item sx={{ width: 500, height: 500 }}>
-                  <img src={gift.image_url} width="90%" />
-              </Grid>
+      <Grid container m="50px">
+        <div>
+          <h1>{this.props.wishlist.name}</h1>
+          {wishListGifts.map((gift) => {
+            return (
+              <div key={gift.id}>
+                <Grid container spacing={2}>
+                  <Grid item sx={{ width: 500, height: 500 }}>
+                    <img src={gift.image_url} width="90%" />
+                  </Grid>
 
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1" fontSize = "30px" component="div">
-                     <a href={gift.url}>{gift.name}</a>
-                  </Typography>
-                  <Typography variant="body2" gutterBottom fontSize = "28px">
-                     {`$${gift.price}`}
-                  </Typography>
-                    <Button color="primary" fontSize="30 " variant="contained" endIcon={<DeleteIcon style={{ fontSize: 40 }}/>}>
-                      Delete
-                    </Button>
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          fontSize="30px"
+                          component="div"
+                        >
+                          <a href={gift.url}>{gift.name}</a>
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          fontSize="28px"
+                        >
+                          {`$${gift.price}`}
+                        </Typography>
+                        <Button
+                          color="primary"
+                          fontSize="30 "
+                          variant="contained"
+                          endIcon={<DeleteIcon style={{ fontSize: 40 }} />}
+                        >
+                          Delete
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            <br />
-            <br />
-          </div>
-        );
-      })}</div>
-    </Grid>
+                <br />
+                <br />
+              </div>
+            );
+          })}
+        </div>
+      </Grid>
     );
   }
 }

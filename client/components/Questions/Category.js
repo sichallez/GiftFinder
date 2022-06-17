@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { connect } from 'react-redux';
 import { setCategory } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+import ReturnAndContinue from './components/ReturnAndContinue'
 
 const Category = ({ category, setCategory }) => {
     const categories = [
@@ -15,11 +15,11 @@ const Category = ({ category, setCategory }) => {
       {id: 8, name: 'Kitchen & Bar'},
       {id: 9, name: 'Jewelry & Accessories'},
       {id: 10, name: 'Anniversary'},
-      {id: 11, name: 'All'}
     ]
 
     const initialCategory = category
     const [selectedCategory, setSelectedCategory] = useState(initialCategory)
+    console.log(selectedCategory, 'selected')
 
     function toggleSelected(key) {
         if (selectedCategory.includes(key)) {
@@ -56,6 +56,19 @@ const Category = ({ category, setCategory }) => {
                         >{cat.name}</button>
                     )
                 })}
+                {/* <button
+                    className='category-btnAll'
+                    id='all-button'
+                    onClick={() => {
+                        const allButton = document.getElementById('all-button')
+                        allButton.classList.toggle('category-selected')
+                        if (allButton.classList.contains('category-selected')) {
+                            setSelectedCategory([...categories])
+                        } else {
+                            setSelectedCategory([])
+                        }
+                    }}
+                >All</button> */}
             </div>
             <ReturnAndContinue
             returnPath={'/questions/character'}
