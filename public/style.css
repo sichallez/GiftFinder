@@ -18,11 +18,6 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
@@ -34,7 +29,6 @@ form div {
 
 .button:hover {
   text-decoration: none;
-
 }
 
 .hr {
@@ -46,9 +40,7 @@ form div {
 /** Navbar **/
 nav {
   text-decoration: none;
-  padding: 0.5rem 0 1rem 0;
-  font-size: 20px;
-
+  padding: 0 0 10px 0;
 }
 
 nav a, nav li {
@@ -60,16 +52,17 @@ nav a, nav li {
 
 .nav-flex {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: auto;
+  justify-content:space-between;
+  margin: 0;
 }
 
 .nav-flex-item img.logo {
   display: block;
-  width: auto;
+  width: 200px;
   margin: auto;
   cursor: pointer;
+  padding: auto auto 4rem auto;
 }
 
 .nav-title {
@@ -79,29 +72,47 @@ nav a, nav li {
 .nav-flex-item a {
   display: block;
   margin: auto;
+  /* padding: 1rem auto x1rem auto; */
 }
 
 .nav-top-level {
   list-style: none;
   display: flex;
   justify-content: flex-start;
+  padding: 15px 10px 0 0;
+  align-items: center;
+  margin: 0;
 }
 
-.nav-top-level li {
-  padding: 10px;
+.nav-top-level li, .nav-bottom-level li {
+  padding: 0 20px 0 0 ;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.nav-bottom-level, .nav-second-bottom-level {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  align-items: center;
+  font-size: 12px;
+  margin: -7px auto 20px auto;
+}
+
+.nav-bottom-level li:nth-child(n+2) {
+  text-decoration: underline;
+}
+
+.nav-second-bottom-level li{
+  text-decoration: underline;
+  padding: 0 25px 0 0 ;
   vertical-align: middle;
   cursor: pointer;
 }
 
 .questionsH1 {
   text-align: center;
-}
-
-/** Search Bar **/
-.searchbar-btn a {
-  text-decoration: none;
-  color: white;
-  padding: 2rem;
 }
 
 #paint {
@@ -119,6 +130,17 @@ nav a, nav li {
     #f0a2c2 85%,
     #c2d8ff 85%
   );
+}
+
+/** Search Bar **/
+.searchbar-btn a {
+  text-decoration: none;
+  color: white;
+}
+
+.searchbar-btn {
+  width: 160px;
+  height: 44px;
 }
 
 /** Budget **/
@@ -198,8 +220,6 @@ nav a, nav li {
     text-decoration: underline;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 6px 5px 9px 10px;
-    border-left: none;
-    border-right: none;
     background: white;
 }
 
@@ -213,7 +233,7 @@ nav a, nav li {
   background: #FFD32E;
   bottom: -35px;
   left: -1px;
-  width: 360px;
+  width: 400px;
   border-radius: 0 0 5px 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -303,4 +323,20 @@ nav a, nav li {
 
 .category-btnAll:active {
   filter: none;
+}
+
+/** Account Menu **/
+.account-menu {
+  padding: 0;
+}
+
+.account-menu button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.user-menu a {
+  font-family: 'Quicksand', sans-serif;
+  color: black;
 }
