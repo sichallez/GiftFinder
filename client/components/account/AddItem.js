@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
   Fab,
@@ -21,7 +21,6 @@ import {
 import { styled } from "@mui/material/styles";
 
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import GradeIcon from "@mui/icons-material/Grade";
 
@@ -47,29 +46,19 @@ const initialState = {
 
 const AddItem = ({ id }) => {
   const [createValues, setCreateValues] = useState(initialState);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState();
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false)
-
-//console.log('selectedFile', selectedFile?.image_url)
-  const inputUrl = useRef(null)
-
-  const handleUploadClick = (ev) => {
-    //inputUrl.addEventListener('change', (ev) => {
-        let file = ev.target.files[0];
-        const reader = new FileReader();
-console.log('reader', reader)
-        let url = reader.readAsDataURL(file);
-        reader.addEventListener = ('load', () => {
-          console.log('reader result', reader.result)
-        }) 
-    //})
-   
-    //reader.readAsDataURL(file)
-      //{
-      //setSelectedFile({image_url: reader.result});
-    //};
-    //setSelectedFile(e.target.files[0]);
+console.log(createValues)
+console.log(selectedFile)
+  const handleUploadClick = (e) => {
+    let file = e.target.files[0];
+    const reader = new FileReader();
+    let url = reader.readAsDataURL(file);
+    reader.onloadend = function (e) {
+      setSelectedFile([reader.result]);
+    };
+    setSelectedFile(e.target.files[0]);
   };
 
 
@@ -134,7 +123,6 @@ console.log('reader', reader)
           multiple
           type="file"
           onChange={handleUploadClick}
-          ref={inputUrl}
           style={{display:'none'}}
         />
         <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
