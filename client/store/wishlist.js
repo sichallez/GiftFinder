@@ -61,9 +61,26 @@ export const addToWishlist = (product,id) => {
   };
 };
 
-export const deleteFromWishlist = (gift) => {
+export const deleteFromWishlist = (gift,wishlistId) => {
   return async (dispatch) => {
-    console.log('in store')
+    const removed = (
+      await axios.delete(`/api/gifts/${gift.id}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+    const wishlist = (
+      await axios.get(`/api/wishlist/${wishlistId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+    
+    console.log(wishlist)
+    dispatch(_getWishlist(wishlist));
   };
 };
 
