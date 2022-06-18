@@ -18,6 +18,7 @@ import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
 import SearchBar from "./SearchBar";
 import AccountMenu from "./account/AccountMenu";
+import AccountDropdown from "./account/AccountDropdown";
 
 const Navbar = ({ isLoggedIn, username, firstName }) => (
   <div>
@@ -26,7 +27,11 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
         <div className="nav-flex">
           {/* The navbar will show these links after you log in */}
           <div className="nav-flex-item">
-            <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
+            <ul className="nav-top">
+              <div className='nav-flex-item'>
+                <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
+                </div>
+            </ul>
           </div>
           <SearchBar />
           <div className="nav-flex-item">
@@ -57,9 +62,9 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
                   </li>
             </ul>
             <ul className='nav-bottom-level'>
-              <li>Hi, { username || firstName }</li>
-              <li><Link to='account/notification'>Notification</Link></li>
-              <li><Link to='account/wishlist'>Wish List</Link></li>
+              <li>Hi, { username || firstName } <AccountDropdown /></li>
+              <li><Link to='/account/notification'>Notification</Link></li>
+              <li><Link to='/account/wishlist'>Wish List</Link></li>
               <li><Link to='/questions'>Gift Finder</Link></li>
             </ul>
           </div>
@@ -68,7 +73,7 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
         <div className="nav-flex">
           {/* The navbar will show these links before you log in */}
           <div className="nav-flex-item">
-            <ul className="nav-top-level">
+            <ul className="nav-top">
               <div className='nav-flex-item'>
                 <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
                </div> 

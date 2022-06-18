@@ -59,10 +59,12 @@ nav a, nav li {
 
 .nav-flex-item img.logo {
   display: block;
-  width: 200px;
-  margin: auto;
+  width: 210px;
   cursor: pointer;
-  padding: auto auto 4rem auto;
+}
+
+.nav-top {
+  margin: 5px 0 0 -50px;
 }
 
 .nav-title {

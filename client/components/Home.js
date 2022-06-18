@@ -32,7 +32,6 @@ class Home extends Component {
     this.fetchHomePage()
     this.handleFilter(this.state.giftOccasion);
     this.props.getAllLists();
-
   };
 
   fetchHomePage = () => {

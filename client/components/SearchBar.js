@@ -35,7 +35,8 @@ const SearchBar = () => {
           width='280px'
           flexDirection="row"
           display="flex"
-          alignContent="center"
+          margin='20px auto auto auto'
+          // alignContent="bottom"
           sx={{
             border: "1px solid gray",
             borderBottomLeftRadius: "25px",

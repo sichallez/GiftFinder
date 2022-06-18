@@ -9,7 +9,7 @@ class Clothes extends Component {
         }
     }
     componentDidMount() {
-        fetch('https://openapi.etsy.com/v2/listings', {mode: "no-cors"})
+        fetch('https://openapi.etsy.com/v3/listings&api_key=igx6b90unhkjik68jacmq0jc', {mode: "no-cors"})
         .then(res => res.json())
         .then((data) => {
             // this.setState({ clothes: data })
