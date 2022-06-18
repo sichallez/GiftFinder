@@ -42,7 +42,7 @@ class Wishlists extends Component {
 
     return (
       <div style={
-        {marginLeft: 650,
+        {marginLeft: 50,
          marginTop: 30
         }
       }>

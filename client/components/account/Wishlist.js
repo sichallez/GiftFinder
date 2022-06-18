@@ -12,22 +12,23 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
-import { getWishlist } from "../../store/wishlist";
+import wishlist, { getWishlist, deleteFromWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 class Wishlist extends Component {
   componentDidMount() {
-    console.log(this.props);
     this.props.getWishlist(this.props.match.params.id);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("UPDATE");
-    console.log(this.props);
-    if (prevProps.match.params.id !== this.props.match.params.id) {
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id !== this.props.match.params.id){
       this.props.getWishlist(this.props.match.params.id);
     }
+  }
+
+  onClick(gift,wishlistId){
+    this.props.deleteFromWishlist(gift,wishlistId);
   }
 
   render() {
@@ -101,6 +102,7 @@ class Wishlist extends Component {
                           {`$${gift.price}`}
                         </Typography>
                         <Button
+                          onClick={this.onClick.bind(this,gift,this.props.wishlist.id)}
                           color="primary"
                           fontSize="30 "
                           variant="contained"
@@ -131,6 +133,9 @@ const mapDispatchToProps = (dispatch) => {
     getAllLists: function () {
       dispatch(getAllLists());
     },
+    deleteFromWishlist: function(gift,wishlistId){
+      dispatch(deleteFromWishlist(gift,wishlistId));
+    }
   };
 };
 
