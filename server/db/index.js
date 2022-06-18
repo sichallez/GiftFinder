@@ -8,6 +8,7 @@ const Gift = require("./models/Gift");
 const Group = require("./models/Group");
 const UserGroup = require("./models/UserGroup");
 const WishlistGroup = require("./models/WishlistGroup")
+const Idea = require("./models/Idea")
 
 //associations could go here!
 
@@ -42,5 +43,6 @@ module.exports = {
     Wishlist,
     Gift,
     WishlistGroup,
+    Idea
   },
 };
