@@ -19,3 +19,13 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+
+router.put('/', async(req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    res.send(await user.update(req.body))
+  } catch (error) {
+    next(error) 
+  }
+})

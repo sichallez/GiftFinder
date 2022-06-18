@@ -4,6 +4,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import AccountSidePanel from "./AccountSidePanel";
 import UserProfile from "./UserProfile";
+import UpdateUser from './UpdateUser';
 import Wishlist from "./Wishlist";
 import MyGroups, { CreateGroup, SingleGroup } from "./MyGroups";
 import GiftFor, { GiftForOne } from "./GiftFor";
@@ -27,6 +28,7 @@ const Account = ({ auth }) => {
         {pathname === "/account" ? <UserProfile /> : null}
         <Switch>
           <Route path="/account/profile" component={UserProfile} />
+          <Route path="/account/profile/:id/edit" component={UpdateUser} />
           <Route exact path="/account/wishlist/new" component={CreateList} />
           <Route path="/account/wishlist/:id" component={Wishlist} />
           <Route path="/account/wishlist" component={Wishlists} />
