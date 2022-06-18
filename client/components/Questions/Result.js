@@ -2,6 +2,7 @@ import { Living } from '@mui/icons-material';
 import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import ReturnAndContinue from './components/ReturnAndContinue'
+import Clothes from './jsons/Clothes'
 
 const Result = ({ selectedBudget, selectedCategory, categories, selectedCharacter, selectedPerson }) =>  {
     const [filteredProducts, setFilteredProducts] = useState([])
