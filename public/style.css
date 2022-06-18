@@ -1,6 +1,6 @@
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: #faf7f0;
+  background-color: white;
 }
 
 #app {  
@@ -18,11 +18,6 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
@@ -34,7 +29,6 @@ form div {
 
 .button:hover {
   text-decoration: none;
-
 }
 
 .hr {
@@ -46,7 +40,7 @@ form div {
 /** Navbar **/
 nav {
   text-decoration: none;
-
+  padding: 0 0 10px 0;
 }
 
 nav a, nav li {
@@ -58,9 +52,19 @@ nav a, nav li {
 
 .nav-flex {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: auto;
+  justify-content:space-between;
+  margin: 0;
+}
+
+.nav-flex-item img.logo {
+  display: block;
+  width: 210px;
+  cursor: pointer;
+}
+
+.nav-top {
+  margin: 5px 0 0 -50px;
 }
 
 .nav-title {
@@ -70,16 +74,41 @@ nav a, nav li {
 .nav-flex-item a {
   display: block;
   margin: auto;
+  /* padding: 1rem auto x1rem auto; */
 }
 
 .nav-top-level {
   list-style: none;
   display: flex;
   justify-content: flex-start;
+  padding: 15px 10px 0 0;
+  align-items: center;
+  margin: 0;
 }
 
-.nav-top-level li {
-  padding: 10px;
+.nav-top-level li, .nav-bottom-level li {
+  padding: 0 20px 0 0 ;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.nav-bottom-level, .nav-second-bottom-level {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  align-items: center;
+  font-size: 12px;
+  margin: -7px auto 20px auto;
+}
+
+.nav-bottom-level li:nth-child(n+2) {
+  text-decoration: underline;
+}
+
+.nav-second-bottom-level li{
+  text-decoration: underline;
+  padding: 0 25px 0 0 ;
   vertical-align: middle;
   cursor: pointer;
 }
@@ -88,11 +117,32 @@ nav a, nav li {
   text-align: center;
 }
 
+#paint {
+  display: block;
+  margin-left: -10px;
+  margin-top: -10px;
+  width: 110%;
+  height: .6rem;
+  /* background: black; */
+  background: linear-gradient(
+    to right, 
+    #c2c5ff,
+    #c2f9ff 8%,
+    #c8a2f0 8%,
+    #f0a2c2 85%,
+    #c2d8ff 85%
+  );
+}
+
 /** Search Bar **/
 .searchbar-btn a {
   text-decoration: none;
   color: white;
-  padding: 2rem;
+}
+
+.searchbar-btn {
+  width: 160px;
+  height: 44px;
 }
 
 /** Budget **/
@@ -166,13 +216,12 @@ nav a, nav li {
 .person-suggestions {
     margin: 0;
     font-size: 17px;
+    font-weight: bolder;
     width: 385px;
     list-style-type: none;
     text-decoration: underline;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 6px 5px 9px 10px;
-    border-left: none;
-    border-right: none;
     background: white;
 }
 
@@ -186,7 +235,7 @@ nav a, nav li {
   background: #FFD32E;
   bottom: -35px;
   left: -1px;
-  width: 360px;
+  width: 400px;
   border-radius: 0 0 5px 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -205,7 +254,7 @@ nav a, nav li {
   font-family: Quicksand;
 }
 
-.character-btn, .category-btn {
+.character-btn {
   padding: 0 25px;
   width: 130px;
   height: 100px;
@@ -219,13 +268,13 @@ nav a, nav li {
   color: rgb(53, 53, 53);
 }
 
-.character-btn:hover, .category-btn:hover {
+.character-btn:hover {
   border: 2px solid #91a4d9;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   color: #91a4d9;
 }
 
-.character-btn:focus, .category-btn:focus {
+.character-btn:focus{
   border: 2px solid hsl(224, 49%, 71%);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background-color: #91a4d9;
@@ -233,3 +282,63 @@ nav a, nav li {
 }
 
 /** Category Questionnaire **/
+.category-btn, .category-btnAll  {
+  padding: 0 25px;
+  width: 130px;
+  height: 100px;
+  margin: 15px 20px 30px 20px; 
+  cursor: pointer;
+  background: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0));
+  border: .5px solid lightgray;
+  border-radius: 10%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgb(53, 53, 53);
+}
+
+.category-btn:hover {
+  background: var(--white-hover);
+}
+
+.category-btn:active {
+  filter: none;
+}
+
+.category-selected {
+  /* border: 2px solid hsl(224, 49%, 71%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #91a4d9;
+  color: white; */
+  filter: none;
+}
+
+.all-button {
+  border: 2px solid hsl(224, 49%, 71%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #91a4d9;
+  color: white;
+}
+
+.category-btnAll:hover {
+  background: var(--black-hover);
+}
+
+.category-btnAll:active {
+  filter: none;
+}
+
+/** Account Menu **/
+.account-menu {
+  padding: 0;
+}
+
+.account-menu button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.user-menu a {
+  font-family: 'Quicksand', sans-serif;
+  color: black;
+}

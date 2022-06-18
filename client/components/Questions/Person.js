@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setPerson } from '/client/store';
-import ReturnAndContinue from './QuestionsComponents/ReturnAndContinue'
+import ReturnAndContinue from './components/ReturnAndContinue'
 
 class Person extends Component {
     constructor(props) {
@@ -23,6 +23,8 @@ class Person extends Component {
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
             suggestions = person.filter(p => regex.test(p))
+        } else if (value.length === 0) {
+            suggestions = person.slice(0, 5)
         }
         this.setState(() => ({
             suggestions,

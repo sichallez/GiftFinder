@@ -29,9 +29,18 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
+    this.fetchHomePage()
     this.handleFilter(this.state.giftOccasion);
     this.props.getAllLists();
   };
+
+  fetchHomePage = () => {
+    return (
+    <div>
+      <h1>Summer Birthday Gifts</h1>
+    </div>
+    )
+  }
 
   fetchProducts = (query, minPrice, maxPrice) => {
     return axios.get("/api/gifts", {
@@ -203,6 +212,8 @@ class Home extends Component {
             resetPage={this.resetPage}
           />
         </Box>
+        
+
         <FilterResults
           name="giftSearch"
           value={this.state.giftSearch}

@@ -41,6 +41,6 @@ module.exports = {
     UserGroup,
     Wishlist,
     Gift,
-    WishlistGroup,
+    WishlistGroup
   },
 };

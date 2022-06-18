@@ -5,7 +5,7 @@ import { IconButton, Menu, MenuItem, Avatar } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { logout } from "../../store";
 
-const AccountMenu = ({ auth, username, firstName }) => {
+const AccountDropdown = ({ auth, username, firstName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
 
@@ -19,8 +19,8 @@ const AccountMenu = ({ auth, username, firstName }) => {
 
   return (
     <div className='account-menu'>
-      <IconButton color="inherit" sx={{ margin: 'auto 2px auto 2px' }} onClick={handleClick}>
-        {auth.avatar ? (
+      <IconButton onClick={handleClick} sx={{ padding: 0, fontSize: '12px', borderRadius: 0, textDecoration: 'underline' }}>
+        {/* {auth.avatar ? (
           <Avatar
             sx={{ width: 30, height: 30 }}
             alt={auth.username}
@@ -28,7 +28,8 @@ const AccountMenu = ({ auth, username, firstName }) => {
           />
         ) : (
           <AccountCircleIcon />
-        )}
+        )} */}
+        Hi, { username || firstName }
       </IconButton>
       <Menu
         className='user-menu'
@@ -52,16 +53,6 @@ const AccountMenu = ({ auth, username, firstName }) => {
             My Groups
           </MenuItem>
         </Link>
-        {/* <Link to="/gift/shopping_list">
-          <MenuItem onClick={handleClose} color="black">
-            Shopping List
-          </MenuItem>
-        </Link> */}
-        {/* <Link to="/gift_center">
-          <MenuItem onClick={handleClose} color="black">
-            Gift Center
-          </MenuItem>
-        </Link> */}
         <Link to="/account/notification">
           <MenuItem onClick={handleClose} color="black">
             Notification
@@ -91,4 +82,4 @@ const mapState = ({ auth }) => {
   };
 };
 
-export default connect(mapState)(AccountMenu);
+export default connect(mapState)(AccountDropdown);

@@ -11,6 +11,7 @@ import Category from "./components/Questions/Category";
 import Character from "./components/Questions/Character";
 import Result from "./components/Questions/Result";
 import Account from "./components/account/Account";
+import Clothes from './components/Questions/jsons/Clothes'
 /**
  * COMPONENT
  */
@@ -43,6 +44,8 @@ class Routes extends Component {
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/account" component={Account} />
+
+            <Route path='/clothes' component={Clothes} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -57,6 +60,9 @@ class Routes extends Component {
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/questions" exact component={Questions} />
+
+            <Route path='/clothes' component={Clothes} />
+
           </Switch>
         )}
       </div>

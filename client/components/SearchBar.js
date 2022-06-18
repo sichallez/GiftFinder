@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import {
-  Button,
   Typography,
   InputBase,
   Grid,
@@ -25,19 +24,19 @@ const SearchBar = () => {
 
   return (
     <Grid
-      container
-      justifyContent="center"
-      spacing={0}
-      align="center"
-      alignItems="center"
-      sx={{ margin: "auto" }}
+      // justifyContent="center"
+      // spacing={0}
+      // align="center"
+      // alignItems="center"
     >
       <form>
         <Grid
           item
+          width='280px'
           flexDirection="row"
           display="flex"
-          justifyContent="center"
+          margin='20px auto auto auto'
+          // alignContent="bottom"
           sx={{
             border: "1px solid gray",
             borderBottomLeftRadius: "25px",
@@ -47,21 +46,22 @@ const SearchBar = () => {
           }}
         >
           <InputBase
-            sx={{ margin: 0, paddingLeft: 2, paddingTop: 1, paddingBottom: 1 }}
+          
+            sx={{ margin: '0 4rem 0 0', paddingLeft: 2, paddingTop: 0.75, paddingBottom: 0.5, fontFamily: 'Quicksand'}}
             id="search-bar"
             onInput={(e) => {
               setSearchQuery(e.target.value);
             }}
-            placeholder="Search Gift Ideas"
+            placeholder="search gift ideas"
             inputProps={{ "aria-label": "search gift ideas" }}
           />
           <IconButton type="submit" aria-label="search">
-            <SearchIcon style={{ fill: "blue" }} />
+            <SearchIcon style={{ fill: "purple"}} />
           </IconButton>
         </Grid>
       </form>
 
-      <Grid
+      {/* <Grid
         xs={1}
         item
         display="flex"
@@ -70,10 +70,10 @@ const SearchBar = () => {
         <h5>OR</h5>
       </Grid>
       <Grid item flexDirection="column" display="flex" justifyContent="center">
-        <Button variant="contained" color="primary">
-          Need Guidence?
-        </Button>
-      </Grid>
+        <button className='searchbar-btn'>
+          <Link to='/questions'>Personalized Gift</Link>
+        </button>
+      </Grid> */}
     </Grid>
   );
 };
