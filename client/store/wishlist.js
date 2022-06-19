@@ -84,6 +84,28 @@ export const deleteFromWishlist = (gift,wishlistId) => {
   };
 };
 
+export const moveItem = (oldListId,newListId,giftId) => {
+  return async (dispatch) => {
+    (await axios.put(`/api/gifts/${giftId}`,{wishlistId: newListId}, {
+      headers: {
+        authorization: window.localStorage.token,
+      },
+    })
+    ).data;
+
+    const wishlist = (
+      await axios.get(`/api/wishlist/${oldListId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+    
+    console.log(wishlist)
+    dispatch(_getWishlist(wishlist));
+  };
+};
+
 /* Reducer */
 export default function (state = [], action) {
   switch (action.type) {
