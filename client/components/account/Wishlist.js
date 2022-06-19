@@ -15,10 +15,26 @@ import AddItem from "./AddItem";
 import wishlist, { getWishlist, deleteFromWishlist } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 class Wishlist extends Component {
+  constructor(){
+    super();
+    this.state={
+      anchorEl: null,
+      open: false
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+
+  }
+
   componentDidMount() {
     this.props.getWishlist(this.props.match.params.id);
+    this.props.getAllLists();
   }
 
   componentDidUpdate(prevProps){
@@ -29,6 +45,50 @@ class Wishlist extends Component {
 
   onClick(gift,wishlistId){
     this.props.deleteFromWishlist(gift,wishlistId);
+
+  }
+
+  handleClick(event) {
+    this.setState({
+      anchorEl: event.currentTarget,
+      open: !this.state.open
+    })
+  }
+
+
+  handleClose() {
+    this.setState({
+      anchorEl: null,
+      open: !this.state.open
+    })
+  }
+
+  renderMenu(){
+    return(
+    // <Menu id="fade-menu" anchorEl={this.state.anchorEl} open={this.state.open} onClose={this.handleClose} TransitionComponent={Fade}>
+    //       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+    //       <MenuItem onClick={this.handleClose}>My account</MenuItem>
+    //       <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+    // </Menu>
+
+    <Menu
+      id="list-menu"
+      anchorEl={this.state.anchorEl}
+      open={this.state.open}
+      onClose={this.handleClose}
+      >
+      {this.props.wishlists.map(list=>{
+        return (
+        <MenuItem key = {list.id} onClick={()=>{
+          // onClick(product,list.id)
+          console.log('CLICK');
+          this.handleClose()
+          }}>
+          {list.name}
+        </MenuItem>)
+      })}
+    </Menu>
+    )
   }
 
   render() {
@@ -101,6 +161,7 @@ class Wishlist extends Component {
                         >
                           {`$${gift.price}`}
                         </Typography>
+                        <Box  display="flex" justifyContent="space-between">
                         <Button
                           onClick={this.onClick.bind(this,gift,this.props.wishlist.id)}
                           color="primary"
@@ -110,6 +171,17 @@ class Wishlist extends Component {
                         >
                           Delete
                         </Button>
+                        <Button
+                          aria-owns={this.state.open ? 'list-menu' : undefined}
+                          onClick={this.handleClick}
+                          color="primary" 
+                          fontSize="30 " 
+                          variant="contained" 
+                          endIcon={<ArrowDropDownIcon style={{ fontSize: 40 }}/>}>
+                          Move To Wishlist
+                        </Button>
+                        {this.renderMenu()}
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
