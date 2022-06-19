@@ -12,7 +12,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
-import wishlist, { getWishlist, deleteFromWishlist } from "../../store/wishlist";
+import { getWishlist, deleteFromWishlist, moveItem } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -63,14 +63,8 @@ class Wishlist extends Component {
     })
   }
 
-  renderMenu(){
+  renderMenu(giftId){
     return(
-    // <Menu id="fade-menu" anchorEl={this.state.anchorEl} open={this.state.open} onClose={this.handleClose} TransitionComponent={Fade}>
-    //       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-    //       <MenuItem onClick={this.handleClose}>My account</MenuItem>
-    //       <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-    // </Menu>
-
     <Menu
       id="list-menu"
       anchorEl={this.state.anchorEl}
@@ -80,9 +74,8 @@ class Wishlist extends Component {
       {this.props.wishlists.map(list=>{
         return (
         <MenuItem key = {list.id} onClick={()=>{
-          // onClick(product,list.id)
-          console.log('CLICK');
-          this.handleClose()
+          this.props.moveItem(this.props.wishlist.id,list.id,giftId);
+          this.handleClose();
           }}>
           {list.name}
         </MenuItem>)
@@ -180,7 +173,7 @@ class Wishlist extends Component {
                           endIcon={<ArrowDropDownIcon style={{ fontSize: 40 }}/>}>
                           Move To Wishlist
                         </Button>
-                        {this.renderMenu()}
+                        {this.renderMenu(gift.id)}
                         </Box>
                       </Grid>
                     </Grid>
@@ -207,7 +200,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteFromWishlist: function(gift,wishlistId){
       dispatch(deleteFromWishlist(gift,wishlistId));
-    }
+    },
+    moveItem: function(oldListId,newListId,giftId){
+      dispatch(moveItem(oldListId,newListId,giftId));
+    },
   };
 };
 
