@@ -33,7 +33,7 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
                 </div>
             </ul>
           </div>
-          <SearchBar />
+          {/*<SearchBar />*/}
           <div className="nav-flex-item">
             <ul className="nav-top-level">
                   <li>

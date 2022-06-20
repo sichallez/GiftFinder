@@ -9,7 +9,7 @@ import { fetchProducts } from "../store";
 import axios from "axios"; // axios call should NOT appear here in component..
 import Pagination from '@mui/material/Pagination';
 import {getAllLists} from '../store/wishlists'
-
+import SearchBar from './SearchBar'
 /**
  * COMPONENT
  */
@@ -17,6 +17,7 @@ class Home extends Component {
   state = {
     products: [],
     filteredProducts: [],
+    categorySearch: "",
     giftSearch: "",
     giftOccasion: "Anniversary",
     minPrice: "0",
@@ -48,6 +49,15 @@ class Home extends Component {
     });
   };
 
+  handleCategorySearch = (e) => {
+    e.preventDefault();
+    let keyword = this.state.categorySearch.toLowerCase()
+console.log(keyword)
+    if(keyword === query) {
+      return this.fetchProducts()
+    }
+  }
+
   handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -59,11 +69,10 @@ class Home extends Component {
     this.setState({ filteredProducts: filterProduct });
   };
 
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
+  handleInputChange = (ev) => {
+    const change = {};
+    change[ev.target.name] = ev.target.value;
+    this.setState(change);
   };
 
   handleFilter = (occasion) => {
@@ -203,8 +212,13 @@ class Home extends Component {
     );
     return (
       <div>
-        <Box sx={{ display: "grid", justifyContent: "center" }}>
-          {/* <SearchBar /> */}
+        <Box sx={{ display: "grid", justifyContent: "center"}}>
+          <SearchBar
+            name="categorySearch"
+            onChange={this.handleInputChange}
+            value={this.state.categorySearch}
+            handleCategorySearch={this.handleCategorySearch}
+          />
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
@@ -212,8 +226,6 @@ class Home extends Component {
             resetPage={this.resetPage}
           />
         </Box>
-        
-
         <FilterResults
           name="giftSearch"
           value={this.state.giftSearch}
