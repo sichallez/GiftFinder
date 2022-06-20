@@ -3,11 +3,11 @@ const axios = require("axios");
 const {
   models: { Gift },
 } = require("../db");
-const { requireAdmin } = require("./backendProtect");
+const { requireLoggedIn } = require("./backendProtect");
 
 // Route "/api/gifts"
 
-router.delete("/:id", requireAdmin, async (req, res, next) => {
+router.delete("/:id", requireLoggedIn, async (req, res, next) => {
   try {
     const gift = await Gift.findByPk(req.params.id);
     await gift.destroy();

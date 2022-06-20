@@ -83,7 +83,6 @@ const AccountMenu = ({ auth, username, firstName }) => {
 };
 
 const mapState = ({ auth }) => {
-  console.log(auth, 'auth')
   return { 
     auth,
     username: auth.username,

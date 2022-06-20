@@ -12,22 +12,76 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
-import { getWishlist } from "../../store/wishlist";
+import { getWishlist, deleteFromWishlist, moveItem } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 class Wishlist extends Component {
-  componentDidMount() {
-    console.log(this.props);
-    this.props.getWishlist(this.props.match.params.id);
+  constructor(){
+    super();
+    this.state={
+      anchorEl: null,
+      open: false
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("UPDATE");
-    console.log(this.props);
-    if (prevProps.match.params.id !== this.props.match.params.id) {
+  componentDidMount() {
+    this.props.getWishlist(this.props.match.params.id);
+    this.props.getAllLists();
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params.id !== this.props.match.params.id){
       this.props.getWishlist(this.props.match.params.id);
     }
+  }
+
+  onClick(gift,wishlistId){
+    this.props.deleteFromWishlist(gift,wishlistId);
+
+  }
+
+  handleClick(event) {
+    this.setState({
+      anchorEl: event.currentTarget,
+      open: !this.state.open
+    })
+  }
+
+
+  handleClose() {
+    this.setState({
+      anchorEl: null,
+      open: !this.state.open
+    })
+  }
+
+  renderMenu(giftId){
+    return(
+    <Menu
+      id="list-menu"
+      anchorEl={this.state.anchorEl}
+      open={this.state.open}
+      onClose={this.handleClose}
+      >
+      {this.props.wishlists.map(list=>{
+        return (
+        <MenuItem key = {list.id} onClick={()=>{
+          this.props.moveItem(this.props.wishlist.id,list.id,giftId);
+          this.handleClose();
+          }}>
+          {list.name}
+        </MenuItem>)
+      })}
+    </Menu>
+    )
   }
 
   render() {
@@ -100,7 +154,9 @@ class Wishlist extends Component {
                         >
                           {`$${gift.price}`}
                         </Typography>
+                        <Box  display="flex" justifyContent="space-between">
                         <Button
+                          onClick={this.onClick.bind(this,gift,this.props.wishlist.id)}
                           color="primary"
                           fontSize="30 "
                           variant="contained"
@@ -108,6 +164,17 @@ class Wishlist extends Component {
                         >
                           Delete
                         </Button>
+                        <Button
+                          aria-owns={this.state.open ? 'list-menu' : undefined}
+                          onClick={this.handleClick}
+                          color="primary" 
+                          fontSize="30 " 
+                          variant="contained" 
+                          endIcon={<ArrowDropDownIcon style={{ fontSize: 40 }}/>}>
+                          Move To Wishlist
+                        </Button>
+                        {this.renderMenu(gift.id)}
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -130,6 +197,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     getAllLists: function () {
       dispatch(getAllLists());
+    },
+    deleteFromWishlist: function(gift,wishlistId){
+      dispatch(deleteFromWishlist(gift,wishlistId));
+    },
+    moveItem: function(oldListId,newListId,giftId){
+      dispatch(moveItem(oldListId,newListId,giftId));
     },
   };
 };
