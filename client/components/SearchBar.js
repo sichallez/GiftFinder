@@ -17,6 +17,10 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // const classes = useStyles();
+  const handleSearch = (e) => {
+    event.preventDefault();
+    props.handleCategorySearch()
+  }
 
   const clearInput = () => {
     setSearchQuery("");
@@ -53,7 +57,7 @@ const SearchBar = () => {
               setSearchQuery(e.target.value);
             }}
             placeholder="search gift ideas"
-            inputProps={{ "aria-label": "search gift ideas" }}
+            //inputProps={{ "aria-label": "search gift ideas" }}
           />
           <IconButton type="submit" aria-label="search">
             <SearchIcon style={{ fill: "purple"}} />

@@ -19,9 +19,9 @@ router.delete("/:id", requireAdmin, async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log('req', req.body);
+    //console.log('req', req.body);
     const gift = await Gift.create({ ...req.body });
-    console.log(gift);
+    //console.log(gift);
     res.send(gift).sendStatus(201);
   } catch (err) {
     next(err);
@@ -40,7 +40,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    //console.log("BACKEND BACKEND", req.query);
+    //console.log("BACKEND BACKEND", req);
     const response = await axios.get(
       "https://openapi.etsy.com/v2/listings/active?keywords=" +
         req.query.q +
@@ -65,4 +65,6 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+
 module.exports = router;

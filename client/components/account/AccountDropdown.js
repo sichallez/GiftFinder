@@ -74,7 +74,7 @@ const AccountDropdown = ({ auth, username, firstName }) => {
 };
 
 const mapState = ({ auth }) => {
-  console.log(auth, 'auth')
+  //console.log(auth, 'auth')
   return { 
     auth,
     username: auth.username,
