@@ -32,7 +32,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { makeStyles } from "@mui/styles";
-import { createGroup, getAllGroups, getAllMembers } from "../../store/group";
+import { createGroup, getAllGroups, getAllMembers, removeMember } from "../../store/group";
 import { generateString } from "../../../utils";
 
 const useStyles = makeStyles({
@@ -139,7 +139,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
   );
 };
 
-const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
+const _SingleGroup = ({ auth, group, getAllMembers, removeMember, match }) => {
   const allGroup = group.group;
 
   // // buys time for the component to update its state from redux store
@@ -169,6 +169,10 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
   };
 
   const handleInviteMembers = () => {};
+
+  if(!currentGroup){
+    return null;
+  }
 
   return (
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
@@ -262,7 +266,9 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
                     <MenuItem onClick={handleClose}>Message member</MenuItem>
                     <MenuItem
                       sx={{ color: "#c74152", fontWeight: "550" }}
-                      onClick={handleClose}
+                      onClick={()=>{
+                        removeMember(currentGroup,item.id);
+                        handleClose()}}
                     >
                       Remove from group
                     </MenuItem>
@@ -465,6 +471,9 @@ const mapDispatch = (dispatch) => {
     getAllMembers: (groupRouteId) => {
       dispatch(getAllMembers(groupRouteId));
     },
+    removeMember:(group,userId)=>{
+      dispatch(removeMember(group,userId));
+    }
   };
 };
 

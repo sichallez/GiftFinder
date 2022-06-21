@@ -19,7 +19,6 @@ export const fetchProducts = (query, minPrice, maxPrice) => {
         params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
       })
     ).data;
-    console.log("STORE STORE STORE", gifts);
     dispatch(_fetchProducts(gifts));
   };
 };
