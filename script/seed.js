@@ -2,13 +2,12 @@
 
 const {
   db,
-  models: { User, Group, UserGroup, Wishlist, Gift },
+  models: { User, Group, UserGroup, Wishlist, WishlistGroup, Gift },
 } = require("../server/db");
 const { generateString } = require("../utils");
 
 // a generator that generates random avatar images
 const { AvatarGenerator } = require("random-avatar-generator");
-const WishlistGroup = require("../server/db/models/WishlistGroup");
 const generator = new AvatarGenerator();
 
 /**
