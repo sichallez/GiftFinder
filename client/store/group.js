@@ -149,10 +149,27 @@ export const inviteToGroup = (product) => {
   };
 };
 
-export const removeMember = (groupRouteId) => {
+export const removeMember = (group,userId) => {
   return async (dispatch) => {
+
+    console.log(group);
+    console.log(userId);
+    
+    //delete usergroup
+    const user = (
+      await axios.delete(`/api/usergroup/${userId}`, {
+        params:{
+          groupId: group.id
+        },
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+    //get group
     const members = (
-      await axios.get(`/api/group/${groupRouteId}`, {
+      await axios.get(`/api/group/${group.groupRouteId}`, {
         headers: {
           authorization: window.localStorage.token,
         },
@@ -160,6 +177,7 @@ export const removeMember = (groupRouteId) => {
     ).data;
 
     console.log('REMOVE')
+    console.log(members)
 
     dispatch(_getAllMembers(members));
   };

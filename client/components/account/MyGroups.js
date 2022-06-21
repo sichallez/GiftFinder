@@ -267,7 +267,7 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, match }) => {
                     <MenuItem
                       sx={{ color: "#c74152", fontWeight: "550" }}
                       onClick={()=>{
-                        removeMember(groupRouteId);
+                        removeMember(currentGroup,item.id);
                         handleClose()}}
                     >
                       Remove from group
@@ -471,8 +471,8 @@ const mapDispatch = (dispatch) => {
     getAllMembers: (groupRouteId) => {
       dispatch(getAllMembers(groupRouteId));
     },
-    removeMember:(groupRouteId)=>{
-      dispatch(removeMember(groupRouteId));
+    removeMember:(group,userId)=>{
+      dispatch(removeMember(group,userId));
     }
   };
 };
