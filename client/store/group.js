@@ -175,10 +175,7 @@ export const removeMember = (group,userId) => {
         },
       })
     ).data;
-
-    console.log('REMOVE')
-    console.log(members)
-
+    
     dispatch(_getAllMembers(members));
   };
 };

@@ -93,20 +93,20 @@ console.log(keyword)
     let minPrice;
     let maxPrice;
     switch (value) {
-      case "1":
+      case "Under $50":
       default:
         minPrice = 0;
         maxPrice = 50;
         break;
-      case "2":
+      case "$50 to $100":
         minPrice = 50;
         maxPrice = 100;
         break;
-      case "3":
+      case "$100 to $250":
         minPrice = 100;
         maxPrice = 250;
         break;
-      case "4":
+      case "Over $250":
         minPrice = 250;
         break;
     }
