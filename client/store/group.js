@@ -149,6 +149,22 @@ export const inviteToGroup = (product) => {
   };
 };
 
+export const removeMember = (groupRouteId) => {
+  return async (dispatch) => {
+    const members = (
+      await axios.get(`/api/group/${groupRouteId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+
+    console.log('REMOVE')
+
+    dispatch(_getAllMembers(members));
+  };
+};
+
 const initialState = {
   group: [],
   member: [],
