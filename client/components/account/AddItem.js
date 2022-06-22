@@ -97,7 +97,6 @@ const AddItem = ({ id }) => {
           autoFocus={true}
           error={titleError}
         />
-       {/*<Button variant="contained" startIcon={<AutoFixHighIcon />}></Button>*/}
         <TextField
           onChange={handleChange}
           value={createValues.name ?? ""}
