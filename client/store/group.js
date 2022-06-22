@@ -151,10 +151,6 @@ export const inviteToGroup = (product) => {
 
 export const removeMember = (group,userId) => {
   return async (dispatch) => {
-
-    console.log(group);
-    console.log(userId);
-    
     //delete usergroup
     const user = (
       await axios.delete(`/api/usergroup/${userId}`, {
@@ -167,6 +163,25 @@ export const removeMember = (group,userId) => {
       })
     ).data;
 
+    //get group
+    const members = (
+      await axios.get(`/api/group/${group.groupRouteId}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
+    
+    dispatch(_getAllMembers(members));
+  };
+};
+
+export const inviteMember = (group) => {
+  return async (dispatch) => {
+    //grab user where email matches email given
+    //have user object and use id and group id to make usergroup
+
+    console.log(group)
     //get group
     const members = (
       await axios.get(`/api/group/${group.groupRouteId}`, {
