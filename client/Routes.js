@@ -39,12 +39,12 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/questions/budget" component={Budget} />
             <Route path="/questions/person" component={Person} />
-            <Route path="/questions" exact component={Questions} />
+            <Route path="/questions/" exact component={Questions} />
             <Route path="/questions/character" component={Character} />
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/account" component={Account} />
-            <Route path='/clothes/:search?' component={Clothes} />
+            {/* <Route path='/clothes/:search?' component={Clothes} /> */}
 
             <Redirect to="/home" />
           </Switch>
@@ -60,7 +60,7 @@ class Routes extends Component {
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/questions" exact component={Questions}  />
-            <Route path='/clothes' component={Clothes} />
+            {/* <Route path='/clothes' component={Clothes} /> */}
 
 
           </Switch>

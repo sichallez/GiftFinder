@@ -40,7 +40,7 @@ const Budget = ({ budget, setBudget}) => {
                 </input> */}
                 <Slider
                     aria-label="Temperature"
-                    value={value} 
+                    value={value}
                     onChange={onBudgetChange}
                     step={5}
                     min={10}
@@ -48,7 +48,7 @@ const Budget = ({ budget, setBudget}) => {
                     sx={{
                         width: '80%',
                         color: '#91a4d9',
-                        height: 5
+                        height: 5,
                     }}
                 />
                 $100
@@ -64,11 +64,7 @@ const Budget = ({ budget, setBudget}) => {
     )
 }
 
-const mapState = (state, {history}) => {
-//     const state = { 'page_id': 1, 'user_id': 5 }
-// const url = 'hello-world.html'
-
-// history.pushState(state, '', url)
+const mapState = (state) => {
     return {
         budget: state.questions.budget
     }

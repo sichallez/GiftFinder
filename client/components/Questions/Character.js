@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setCharacter } from '/client/store';
+import { useHistory } from "react-router-dom";
 import ReturnAndContinue from './components/ReturnAndContinue'
 import CharacterButton from './components/CharacterButton'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
@@ -35,11 +36,29 @@ const Character = ({ character, setCharacter }) => {
     //     <SelfImprovementIcon />,
     //     <ErrorOutlineIcon />,
     // ]
+    let history = useHistory()
+
+    // useEffect(() => {
+    //     history.push({
+    //         pathname: 'questions/character',
+    //         search: `:${character}`,
+    //         state: { character: `${character}`}
+    //         })
+    // }, [])
+
+    // useEffect(() => {
+    //     setSelectedChar(JSON.parse(window.localStorage.getItem('selectedChar')))
+    // }, [])
+
+    // useEffect(() => {
+    //     window.localStorage.setItem('selectedChar', character)
+    // }, [character])
+
     return (
         <div>
             <h1 className='questionsH1'>What type of character is this person?</h1>
             <div className='character-div'>
-                {character.map((char) => {
+                {character?.map((char) => {
                   return (
                     <button
                         className= 'character-btn'
