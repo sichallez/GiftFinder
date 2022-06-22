@@ -176,10 +176,22 @@ export const removeMember = (group,userId) => {
   };
 };
 
-export const inviteMember = (group) => {
+export const inviteMember = (group,email) => {
   return async (dispatch) => {
     //grab user where email matches email given
     //have user object and use id and group id to make usergroup
+    console.log(email)
+
+    const user = (
+      await axios.get(`/api/users/byEmail`, {
+        params:{
+          email: email
+        },
+        headers: {
+          authorization: window.localStorage.token,
+        },
+      })
+    ).data;
 
     console.log(group)
     //get group

@@ -167,6 +167,7 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [openPopUp, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState('');
 
   const handleButtonMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -181,12 +182,17 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, 
 
   const handleClosePopUp = () => {
     setOpen(false);
+    setEmail('');
   };
 
-  const handleInviteMembers = (group) => {
+  const handleInviteMembers = (group,email) => {
     console.log('adding')
-    inviteMember(group)
+    inviteMember(group,email)
   };
+
+  const handleChange = (event) => {
+    setEmail(event.target.value);
+  }
 
   if(!currentGroup){
     return null;
@@ -208,8 +214,7 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, 
         <DialogTitle>Invite Member</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            Please enter the email of the user you wish to add to your group.
           </DialogContentText>
           <TextField
             autoFocus
@@ -219,11 +224,16 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, 
             type="email"
             fullWidth
             variant="standard"
+            value ={email}
+            onChange={handleChange}
+            placeholder={'Enter Email'}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePopUp}>Cancel</Button>
-          <Button onClick={handleClosePopUp}>Subscribe</Button>
+          <Button onClick={()=>{
+            handleInviteMembers(currentGroup,email)
+            handleClosePopUp()}}>Add</Button>
         </DialogActions>
       </Dialog>
       <Typography variant="h5" component="h2" gutterBottom>
@@ -514,8 +524,8 @@ const mapDispatch = (dispatch) => {
     removeMember:(group,userId)=>{
       dispatch(removeMember(group,userId));
     },
-    inviteMember:(group)=>{
-      dispatch(inviteMember(group))
+    inviteMember:(group,email)=>{
+      dispatch(inviteMember(group,email))
     }
   };
 };

@@ -4,7 +4,6 @@ const UserGroup = require("../db/models/UserGroup");
 
 // Base route "/api/usergroup"
 
-
 router.delete("/:id", requireLoggedIn, async (req, res, next) => {
     try {
         const group = await UserGroup.findOne({
