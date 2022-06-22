@@ -25,7 +25,6 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import AddIcon from "@mui/icons-material/Add";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import GradeIcon from "@mui/icons-material/Grade";
 
 import {addToWishlist} from '../../store/wishlist'
 
@@ -170,7 +169,6 @@ const AddItem = ({ id }) => {
 
       </form>
     </Container>
-    </>
   );
 };
 
