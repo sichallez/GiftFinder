@@ -13,10 +13,11 @@ const UserProfile = ({ auth }) => {
       sx={{
         display: "flex",
         flexDirection: "row",
-        width: "60%",
-        height: "350px",
-        justifyContent: "space-around",
-        margin: "20px auto",
+        width: "40%",
+        height: "250px",
+        justifyContent: "flex-start",
+        margin: "25px 100px",
+        fontSize: '17px',
       }}
     >
       <Paper
@@ -25,7 +26,7 @@ const UserProfile = ({ auth }) => {
           width: "100%",
           border: 1,
           borderColor: "#f4eee0",
-          backgroundColor: "#f4eee0"
+          backgroundColor: "#f4ecee",
         }}
       >
         <Box
@@ -38,8 +39,8 @@ const UserProfile = ({ auth }) => {
         <Box sx={{display: 'flex'}}>
           <h4
             style={{
-              font: "Abril Fatface",
-              margin: "0.5rem",
+              fontSize: '20px',
+              margin: ".5rem 1.5rem",
             }}
           >
             Personal Information
@@ -51,8 +52,8 @@ const UserProfile = ({ auth }) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-evenly",
-              margin: "0.5rem",
+              justifyContent: "space-around",
+              margin: "0.5rem"
             }}
           >
             <Box sx={{display: 'flex'}}>
@@ -63,7 +64,7 @@ const UserProfile = ({ auth }) => {
                 htmlFor="bootstrap-input"
                 sx={{
                   marginTop: "1rem",
-                  marginLeft: "0.5rem",
+                  marginLeft: 0
                 }}
               >
                 User Name
@@ -88,7 +89,7 @@ const UserProfile = ({ auth }) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-evenly",
+              justifyContent: "space-around",
               margin: "0.5rem",
             }}
           >

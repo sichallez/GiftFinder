@@ -5,15 +5,15 @@ const {
 } = require("../db");
 require("dotenv").config();
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
+const GOOGLE_REDIRECT_URL = process.env.GOOGLE_REDIRECT_URL;
 
 module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: REDIRECT_URI,
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: GOOGLE_REDIRECT_URL,
       },
       async function (token, refreshToken, profile, done) {
         profile = profile._json;

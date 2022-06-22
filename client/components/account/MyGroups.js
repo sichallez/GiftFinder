@@ -14,6 +14,11 @@ import {
   FormControlLabel,
   FormControl,
   FormLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
   Grid,
   List,
   ListItem,
@@ -32,13 +37,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { makeStyles } from "@mui/styles";
-import { createGroup, getAllGroups, getAllMembers } from "../../store/group";
+import { createGroup, getAllGroups, getAllMembers, removeMember, inviteMember} from "../../store/group";
 import { generateString } from "../../../utils";
 
 const useStyles = makeStyles({
   field: {
-    marginTop: 20,
-    marginBottom: 20,
+    margin: '25px 100px',
     display: "block",
   },
   menuItemText: {
@@ -72,7 +76,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
     // if a user does not belongs to any group
     // show the page for Creating a group or Finding a group
     return (
-      <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+      <Container maxWidth="md"  sx={{margin: '25px 100px'}}>
         <Typography variant="h5" component="h2" gutterBottom>
           Don't have a group yet?
         </Typography>
@@ -97,7 +101,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+    <Container maxWidth="md">
       <Typography variant="h5" component="h2" gutterBottom>
         Groups that I belong to (Total: {allGroup.length})
       </Typography>
@@ -139,7 +143,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
   );
 };
 
-const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
+const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, match }) => {
   const allGroup = group.group;
 
   // // buys time for the component to update its state from redux store
@@ -161,6 +165,9 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [openPopUp, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+
   const handleButtonMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -168,20 +175,66 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
     setAnchorEl(null);
   };
 
-  const handleInviteMembers = () => {};
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClosePopUp = () => {
+    setOpen(false);
+    setEmail('');
+  };
+
+  const handleInviteMembers = (group,email) => {
+    console.log('adding')
+    inviteMember(group,email)
+  };
+
+  const handleChange = (event) => {
+    setEmail(event.target.value);
+  }
+
+  if(!currentGroup){
+    return null;
+  }
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+    <Container maxWidth="md">
       <Typography variant="h5" component="h2" gutterBottom>
         {currentGroup.name}
       </Typography>
       <Button
         variant="contained"
         startIcon={<AddIcon />}
-        onClick={handleInviteMembers}
+        onClick={handleClickOpen}
       >
         Invite more members
       </Button>
+      <Dialog open={openPopUp} onClose={handleClosePopUp}>
+        <DialogTitle>Invite Member</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter the email of the user you wish to add to your group.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+            value ={email}
+            onChange={handleChange}
+            placeholder={'Enter Email'}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopUp}>Cancel</Button>
+          <Button onClick={()=>{
+            handleInviteMembers(currentGroup,email)
+            handleClosePopUp()}}>Add</Button>
+        </DialogActions>
+      </Dialog>
       <Typography variant="h5" component="h2" gutterBottom>
         Members
       </Typography>
@@ -262,7 +315,9 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
                     <MenuItem onClick={handleClose}>Message member</MenuItem>
                     <MenuItem
                       sx={{ color: "#c74152", fontWeight: "550" }}
-                      onClick={handleClose}
+                      onClick={()=>{
+                        removeMember(currentGroup,item.id);
+                        handleClose()}}
                     >
                       Remove from group
                     </MenuItem>
@@ -465,6 +520,12 @@ const mapDispatch = (dispatch) => {
     getAllMembers: (groupRouteId) => {
       dispatch(getAllMembers(groupRouteId));
     },
+    removeMember:(group,userId)=>{
+      dispatch(removeMember(group,userId));
+    },
+    inviteMember:(group,email)=>{
+      dispatch(inviteMember(group,email))
+    }
   };
 };
 

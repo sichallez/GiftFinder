@@ -30,6 +30,7 @@ import "./CategoryTabs.css";
 
 export function Category(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
+
   function handleChange(event, newValue) {
     props.resetPage()
     setSelectedTab(newValue);
@@ -135,10 +136,33 @@ export function FilterResults({
   handleMostViews
 }) {
   const [checked, setChecked] = React.useState(false);
+  let [sort, setSort] = React.useState('');
 
-  const handleChange = (e) => {
+  const getSort =(value)=>{
+    let sortValue = '';
+    switch (value) {
+      case "Under $50":
+      default:
+        sortValue = 'Under $50'
+        break;
+      case "$50 to $100":
+        sortValue = '$50 to $100'
+        break;
+      case "$100 to $250":
+        sortValue = '$100 to $250'
+        break;
+      case "Over $250":
+        sortValue = 'Over $250'
+        break;
+     }
+
+     setSort(sortValue);
+  }
+
+   const handleChange = (e) => {
     setChecked(e.target.checked);
   };
+
   return (
     <Grid
       container
@@ -173,14 +197,18 @@ export function FilterResults({
         <Select
           labelId="priceGroup"
           id="priceGroup"
-          value="1"
           label="Price"
-          onChange={(event) => handlePrice(event.target.value)}
+          value={sort || ''}
+          defaultValue = ""
+          onChange={(event) => {
+            getSort(event.target.value)
+            handlePrice(event.target.value)
+          }}
         >
-          <MenuItem value="1">Under $50</MenuItem>
-          <MenuItem value="2">$50 to $100</MenuItem>
-          <MenuItem value="3">$100 to $250</MenuItem>
-          <MenuItem value="4">Over $250</MenuItem>
+          <MenuItem value="Under $50">Under $50</MenuItem>
+          <MenuItem value="$50 to $100">$50 to $100</MenuItem>
+          <MenuItem value="$100 to $250">$100 to $250</MenuItem>
+          <MenuItem value="Over $250">Over $250</MenuItem>
         </Select>
       </FormControl>
       <FormControlLabel

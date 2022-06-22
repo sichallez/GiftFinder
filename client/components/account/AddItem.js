@@ -21,6 +21,9 @@ import {
 import { styled } from "@mui/material/styles";
 
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+
+import AddIcon from "@mui/icons-material/Add";
+import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import GradeIcon from "@mui/icons-material/Grade";
 
@@ -75,8 +78,13 @@ const AddItem = ({ id }) => {
   };
 
   return (
-    <>
-    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+
+    <Container 
+      maxWidth="md" 
+      sx={{ 
+        backgroundColor: '#f4f4f4',
+        width: '95%'
+      }}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           name='url'
@@ -160,6 +168,7 @@ const AddItem = ({ id }) => {
         >
           Save
         </Button>
+
       </form>
     </Container>
     </>

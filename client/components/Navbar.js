@@ -9,49 +9,63 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import RedeemIcon from '@mui/icons-material/Redeem';
+import PersonIcon from '@mui/icons-material/Person';
+import FaceIcon from '@mui/icons-material/Face';
 import { Login, Signup } from "./AuthForm";
 import { logout } from "../store";
 import SearchBar from "./SearchBar";
 import AccountMenu from "./account/AccountMenu";
+import AccountDropdown from "./account/AccountDropdown";
 
-const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
+const Navbar = ({ isLoggedIn, username, firstName }) => (
   <div>
     <nav>
       {isLoggedIn ? (
         <div className="nav-flex">
           {/* The navbar will show these links after you log in */}
           <div className="nav-flex-item">
-            <ul className="nav-top-level">
-               <div className='nav-flex-item'>
+            <ul className="nav-top">
+              <div className='nav-flex-item'>
                 <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
-               </div>  
+                </div>
             </ul>
           </div>
-          <SearchBar />
+          {/*<SearchBar />*/}
           <div className="nav-flex-item">
             <ul className="nav-top-level">
-              <li>
-                <ul className="nav-top-level">
-                  <li>{username || firstName}</li>
                   <li>
                     <AccountMenu />
                   </li>
                   <li>
                     <Link to="/account/notification">
-                      <IconButton>
-                        <NotificationsNoneIcon />
+                      <IconButton sx={{ margin: 'auto 18px auto 18px' }}>
+                        <NotificationsIcon sx={{ width: 30, height: 30, color: 'darkorchid' }}/>
                       </IconButton>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/account/group">Groups</Link>
+                    <Link to="/account/wishlist">
+                      <IconButton sx={{ margin: 'auto 10px auto 10px' }}>
+                        <FavoriteIcon sx={{ width: 30, height: 30, color: 'plum'}} />
+                      </IconButton>
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/account/gift">Shop For</Link>
+                    <Link to="/questions">
+                      <IconButton sx={{ margin: 'auto 6px auto 6px' }}>
+                          <RedeemIcon sx={{ width: 30, height: 30, color: 'skyblue'}} />
+                        </IconButton>
+                    </Link>
                   </li>
-                </ul>
-              </li>
+            </ul>
+            <ul className='nav-bottom-level'>
+              <li> <AccountDropdown /></li>
+              <li><Link to='/account/notification'>Notification</Link></li>
+              <li><Link to='/account/wishlist'>Wish List</Link></li>
+              <li><Link to='/questions'>Gift Finder</Link></li>
             </ul>
           </div>
         </div>
@@ -59,7 +73,7 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
         <div className="nav-flex">
           {/* The navbar will show these links before you log in */}
           <div className="nav-flex-item">
-            <ul className="nav-top-level">
+            <ul className="nav-top">
               <div className='nav-flex-item'>
                 <Link to="/home"> <img className="logo" src="/images/gift-finder-logo.png"/> </Link> 
                </div> 
@@ -69,14 +83,36 @@ const Navbar = ({ handleClick, isLoggedIn, username, firstName }) => (
           <div className="nav-flex-item">
             <ul className="nav-top-level">
               <li>
-                <ul className="nav-top-level">
-                  <li>
-                    <Link to="/login">Login</Link>
+                <Link to="/login">
+                  <IconButton sx={{ margin: 'auto -4px auto -4px' }}>
+                      <FaceIcon sx={{ width: 30, height: 30, color: 'tan'}} />
+                    </IconButton>
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup">
+                  <IconButton sx={{ margin: 'auto 4px auto 4px' }}>
+                      <PersonIcon sx={{ width: 30, height: 30, color: 'gray' }} />
+                    </IconButton>
+                </Link>
+              </li>
+              <li>
+                    <Link to="/questions">
+                      <IconButton sx={{ margin: 'auto 11px auto 11px' }}>
+                          <RedeemIcon sx={{ width: 30, height: 30, color: 'skyblue'}} />
+                        </IconButton>
+                    </Link>
                   </li>
-                  <li>
-                    <Link to="/signup">Sign Up</Link>
-                  </li>
-                </ul>
+            </ul>
+            <ul className='nav-second-bottom-level'>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li>
+                <Link to='/questions'>Gift Finder</Link>
               </li>
             </ul>
           </div>
@@ -155,7 +191,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     username: state.auth.username,
-    firstName: state.auth.firstName,
+    firstName: state.auth.firstname
   };
 };
 

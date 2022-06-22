@@ -3,6 +3,7 @@ const {
   models: { User },
 } = require("../db");
 module.exports = router;
+const { requireLoggedIn } = require("./backendProtect");
 
 // Route "/api/users"
 
@@ -19,13 +20,16 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
-
-
-router.put('/', async(req, res, next) => {
+router.get("/byEmail", requireLoggedIn, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    res.send(await user.update(req.body))
-  } catch (error) {
-    next(error) 
+      const user = await User.findOne({
+          where: {
+          email: req.query.email
+          }
+      });
+      res.send(user);
+  } catch (err) {
+      next(err);
   }
-})
+});
+
