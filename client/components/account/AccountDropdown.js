@@ -19,17 +19,8 @@ const AccountDropdown = ({ auth, username, firstName }) => {
 
   return (
     <div className='account-menu'>
-      <IconButton onClick={handleClick} sx={{ padding: 0, fontSize: '12px', borderRadius: 0, textDecoration: 'underline' }}>
-        {/* {auth.avatar ? (
-          <Avatar
-            sx={{ width: 30, height: 30 }}
-            alt={auth.username}
-            src={auth.avatar}
-          />
-        ) : (
-          <AccountCircleIcon />
-        )} */}
-        Hi, { username || firstName }
+      <IconButton onClick={handleClick} disableRipple sx={{ padding: 0, fontSize: '12px', borderRadius: 0, textDecoration: 'underline', textTransform: 'uppercase', margin: 'auto'}}>
+        Hi, { username || firstName}
       </IconButton>
       <Menu
         className='user-menu'

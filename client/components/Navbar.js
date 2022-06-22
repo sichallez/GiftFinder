@@ -41,14 +41,14 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
                   </li>
                   <li>
                     <Link to="/account/notification">
-                      <IconButton sx={{ margin: 'auto 13px auto 13px' }}>
+                      <IconButton sx={{ margin: 'auto 18px auto 18px' }}>
                         <NotificationsIcon sx={{ width: 30, height: 30, color: 'darkorchid' }}/>
                       </IconButton>
                     </Link>
                   </li>
                   <li>
                     <Link to="/account/wishlist">
-                      <IconButton sx={{ margin: 'auto 12px auto 12px' }}>
+                      <IconButton sx={{ margin: 'auto 10px auto 10px' }}>
                         <FavoriteIcon sx={{ width: 30, height: 30, color: 'plum'}} />
                       </IconButton>
                     </Link>
@@ -62,7 +62,7 @@ const Navbar = ({ isLoggedIn, username, firstName }) => (
                   </li>
             </ul>
             <ul className='nav-bottom-level'>
-              <li>Hi, { username || firstName } <AccountDropdown /></li>
+              <li> <AccountDropdown /></li>
               <li><Link to='/account/notification'>Notification</Link></li>
               <li><Link to='/account/wishlist'>Wish List</Link></li>
               <li><Link to='/questions'>Gift Finder</Link></li>

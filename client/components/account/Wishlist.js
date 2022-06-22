@@ -102,20 +102,22 @@ class Wishlist extends Component {
             elevation={12}
             sx={{
               border: 1,
-              borderColor: "#f4eee0",
-              backgroundColor: "#f4eee0",
+              borderColor: "black",
+              backgroundColor: "#f4f4f4",
+              margin: '70px auto',
+              width: '80%'
             }}
           >
-            <Button variant="contained" startIcon={<AddIcon />}>
+            <Button variant="contained" sx={{ margin: '.5rem'}} startIcon={<AddIcon />}>
               Add Item
             </Button>
-            <Button
+            {/* <Button
               variant="outlined"
               startIcon={<AddIcon />}
               endIcon={<FavoriteBorderIcon />}
             >
               Add Item From Your Favorite List
-            </Button>
+            </Button> */}
             <AddItem />
           </Paper>
         </Box>
@@ -125,14 +127,14 @@ class Wishlist extends Component {
     const wishListGifts = this.props.wishlist.gifts;
 
     return (
-      <Grid container m="50px">
+      <Grid container m="5px 50px">
         <div>
           <h1>{this.props.wishlist.name}</h1>
           {wishListGifts.map((gift) => {
             return (
               <div key={gift.id}>
                 <Grid container spacing={2}>
-                  <Grid item sx={{ width: 500, height: 500 }}>
+                  <Grid item sx={{ width: 300, height: 'auto' }}>
                     <img src={gift.image_url} width="90%" />
                   </Grid>
 
@@ -142,7 +144,7 @@ class Wishlist extends Component {
                         <Typography
                           gutterBottom
                           variant="subtitle1"
-                          fontSize="30px"
+                          fontSize="20px"
                           component="div"
                         >
                           <a href={gift.url}>{gift.name}</a>
@@ -150,17 +152,16 @@ class Wishlist extends Component {
                         <Typography
                           variant="body2"
                           gutterBottom
-                          fontSize="28px"
+                          fontSize="19px"
                         >
                           {`$${gift.price}`}
                         </Typography>
-                        <Box  display="flex" justifyContent="space-between">
+                        <Box  display="flex" gap='20px'>
                         <Button
                           onClick={this.onClick.bind(this,gift,this.props.wishlist.id)}
                           color="primary"
-                          fontSize="30 "
                           variant="contained"
-                          endIcon={<DeleteIcon style={{ fontSize: 40 }} />}
+                          endIcon={<DeleteIcon style={{ fontSize: 20 }} />}
                         >
                           Delete
                         </Button>
@@ -168,9 +169,8 @@ class Wishlist extends Component {
                           aria-owns={this.state.open ? 'list-menu' : undefined}
                           onClick={this.handleClick}
                           color="primary" 
-                          fontSize="30 " 
                           variant="contained" 
-                          endIcon={<ArrowDropDownIcon style={{ fontSize: 40 }}/>}>
+                          endIcon={<ArrowDropDownIcon style={{ fontSize: 20 }}/>}>
                           Move To Wishlist
                         </Button>
                         {this.renderMenu(gift.id)}

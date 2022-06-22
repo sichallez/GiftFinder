@@ -1,39 +1,10 @@
-import { Living } from '@mui/icons-material';
 import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import ReturnAndContinue from './components/ReturnAndContinue'
-import Clothes from './jsons/Clothes'
 
-const Result = ({ selectedBudget, selectedCategory, categories, selectedCharacter, selectedPerson }) =>  {
-    const [filteredProducts, setFilteredProducts] = useState([])
-
-    // const categories = [
-    //     'clothes',
-    //     'electronics',
-    //     'home & Living',
-    //     'sports & outdoors',
-    //     'games',
-    //     'craft supplies',
-    //     'books',
-    //     'kitchen & bar',
-    //     'jewelry & accessories',
-    //     'anniversary'
-    //   ]
-
-    /*
-        usememo: returns a memoized value(opimization technique to store results)
-        pass a "create function" and an arr of dependecies = (computeValue(a,b), [a, b])
-        helps to avoid expensive calculations on every memo. 
-        if no arr, a new value will be computed 
-    */
-
-    const products = useMemo(() => {
-        return selectedCategory.map((category) => {
-            return categories[category]
-        }).flat();
-    }, [selectedCategory])
-    console.log(products, 'products')
-
+// const Result = ({ results, selectedBudget, selectedCategory, categories, selectedCharacter, selectedPerson }) =>  {
+const Result = (props) =>  {
+    console.log(props)
     return (
         <div>
             <h1 className='questionsH1'>Results Pending...</h1>
