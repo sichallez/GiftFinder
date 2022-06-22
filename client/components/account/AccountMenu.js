@@ -36,6 +36,7 @@ const AccountMenu = ({ auth, username, firstName }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{ fontFamily: 'Arial'}}
       >
         <Link to="/account">
           <MenuItem onClick={handleClose} color="black">

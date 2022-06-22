@@ -342,3 +342,12 @@ nav a, nav li {
   font-family: 'Quicksand', sans-serif;
   color: black;
 }
+
+/** Notification **/
+.notification-div {
+  margin: 25px 100px
+}
+
+.notification-div h1{
+  font-size: 20px;
+}

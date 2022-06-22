@@ -24,6 +24,7 @@ import {
   Box,
   CssBaseline,
   Divider,
+  Fab
 } from "@mui/material";
 
 class Wishlists extends Component {
@@ -41,14 +42,10 @@ class Wishlists extends Component {
     }
 
     return (
-      <div style={
-        {marginLeft: 50,
-         marginTop: 30
-        }
-      }>
-        <Container maxWidth="md" sx={{ marginTop: "30px" }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            You have {this.props.wishlists.length} wishlists.
+      <div>
+        <Container maxWidth="md" sx={{ margin: "25px 60px" }}>
+          <Typography variant="h5" component="h2" margin='auto 20px' fontSize='20px' gutterBottom>
+            You have {this.props.wishlists.length} wishlists:
           </Typography>
             
             <List>
@@ -58,14 +55,14 @@ class Wishlists extends Component {
                   to={`/account/wishlist/${list.id}`}
                 >
                   <ListItem>
+                    <Fab variant="extended" size="medium" sx={{ backgroundColor: '#f4ecee'}} >
                     <ListItemText
                       primary={`${list.name} (${list.gifts.length} items)`}
                       primaryTypographyProps={{
-                        fontSize: 30,
-                        fontWeight: "medium",
-                        letterSpacing: 0,
+                        fontSize: '16px',
                       }}
                     />
+                    </Fab>
                   </ListItem>
                 </Link>
               ))}

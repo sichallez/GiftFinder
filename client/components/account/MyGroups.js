@@ -37,8 +37,7 @@ import { generateString } from "../../../utils";
 
 const useStyles = makeStyles({
   field: {
-    marginTop: 20,
-    marginBottom: 20,
+    margin: '25px 100px',
     display: "block",
   },
   menuItemText: {
@@ -72,7 +71,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
     // if a user does not belongs to any group
     // show the page for Creating a group or Finding a group
     return (
-      <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+      <Container maxWidth="md"  sx={{margin: '25px 100px'}}>
         <Typography variant="h5" component="h2" gutterBottom>
           Don't have a group yet?
         </Typography>
@@ -97,7 +96,7 @@ const MyGroups = ({ auth, group, getAllGroups }) => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+    <Container maxWidth="md">
       <Typography variant="h5" component="h2" gutterBottom>
         Groups that I belong to (Total: {allGroup.length})
       </Typography>
@@ -171,7 +170,7 @@ const _SingleGroup = ({ auth, group, getAllMembers, getAllGroups, match }) => {
   const handleInviteMembers = () => {};
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "30px" }}>
+    <Container maxWidth="md">
       <Typography variant="h5" component="h2" gutterBottom>
         {currentGroup.name}
       </Typography>
