@@ -46,20 +46,8 @@ const initialState = {
 
 const AddItem = ({ id }) => {
   const [createValues, setCreateValues] = useState(initialState);
-  const [selectedFile, setSelectedFile] = useState();
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false)
-console.log(createValues)
-console.log(selectedFile)
-  const handleUploadClick = (e) => {
-    let file = e.target.files[0];
-    const reader = new FileReader();
-    let url = reader.readAsDataURL(file);
-    reader.onloadend = function (e) {
-      setSelectedFile([reader.result]);
-    };
-    setSelectedFile(e.target.files[0]);
-  };
 
 
   const handleChange = (e) => {
@@ -84,7 +72,6 @@ console.log(selectedFile)
     dispatch(addToWishlist({...createValues}, id))
    
     setCreateValues("")
-    setSelectedFile("")
   };
 
   return (
@@ -99,6 +86,7 @@ console.log(selectedFile)
           variant="outlined"
           color="secondary"
           fullWidth
+          autoFocus={true}
           error={titleError}
         />
        {/*<Button variant="contained" startIcon={<AutoFixHighIcon />}></Button>*/}
@@ -113,24 +101,16 @@ console.log(selectedFile)
           required
           error={detailsError}
         />
-        {
-          selectedFile?.image_url ? <img src={ selectedFile?.image_url } style={{ width: '100px', height: '100px'}}/> : null
-        }
-        <input
-          //accept="image/*"
+        <TextField
+          onChange={handleChange}
+          value={createValues.image_url ?? ""}
+          label="Image link"
           name='image_url'
-          id="upload-image-button"
-          multiple
-          type="file"
-          onChange={handleUploadClick}
-          style={{display:'none'}}
+          variant="outlined"
+          color="secondary"
+          fullWidth
+          required
         />
-        <label htmlFor="upload-image-button" style={{marginLeft:'18px'}}>
-          <Fab component="span">
-            <AddPhotoAlternateIcon/>
-          </Fab>
-        </label>
-
         <Box>
           <StyledRating
             name="rating"
