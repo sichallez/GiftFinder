@@ -12,7 +12,7 @@ export const setCategory = (category) => {return { type: SET_CATEGORY, category}
 export const resetState = () => { return { type: RESET_STATE }}
 
 const initialState = {
-    budget: 20,
+    budget: 30,
     person: [
     'mom',
     'sibling',

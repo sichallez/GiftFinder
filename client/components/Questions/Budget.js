@@ -13,8 +13,8 @@ const Budget = ({ budget, setBudget}) => {
     function onBudgetChange(ev) {
         setValue(ev.target.value)
         history.push({
-            pathname: '/questions/budget',
-            search: `:${ev.target.value}`,
+            pathname: `/questions/budget/:budget=${ev.target.value}`,
+            // search: `${ev.target.value}`,
             state: { budget: `${ev.target.value}`}          
         })
     }
@@ -23,13 +23,13 @@ const Budget = ({ budget, setBudget}) => {
         ev.preventDefault()
     }
 
-    useEffect(() => {
-        setValue(JSON.parse(window.localStorage.getItem('value')))
-    }, [])
+    // useEffect(() => {
+    //     setValue(JSON.parse(window.localStorage.getItem('value')))
+    // }, [])
 
-    useEffect(() => {
-        window.localStorage.setItem('value', value)
-    }, [value])
+    // useEffect(() => {
+    //     window.localStorage.setItem('value', value)
+    // }, [value])
     
     return (
         <div className='budget-div'>
@@ -40,6 +40,7 @@ const Budget = ({ budget, setBudget}) => {
                 </input> */}
                 <Slider
                     aria-label="Temperature"
+                    defaultValue={initialBudget}
                     value={value}
                     onChange={onBudgetChange}
                     step={5}
@@ -57,7 +58,7 @@ const Budget = ({ budget, setBudget}) => {
             <label htmlFor='budget' className='budget-label'>${value}</label>
             <ReturnAndContinue
                 returnPath={'/questions'}
-                continuePath={'/questions/person'}
+                continuePath={`/questions/person/budget=${value}`}
                 onContinueClick = {() => setBudget(value)}
             />
         </div>

@@ -8,10 +8,8 @@ import Questions from "./components/Questions";
 import Budget from "./components/Questions/Budget";
 import Person from "./components/Questions/Person";
 import Category from "./components/Questions/Category";
-import Character from "./components/Questions/Character";
 import Result from "./components/Questions/Result";
 import Account from "./components/account/Account";
-import Clothes from "./components/Questions/jsons/Clothes";
 /**
  * COMPONENT
  */
@@ -40,11 +38,9 @@ class Routes extends Component {
             <Route path="/questions/budget" component={Budget} />
             <Route path="/questions/person" component={Person} />
             <Route path="/questions/" exact component={Questions} />
-            <Route path="/questions/character" component={Character} />
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/account" component={Account} />
-            {/* <Route path='/clothes/:search?' component={Clothes} /> */}
 
             <Redirect to="/home" />
           </Switch>
@@ -56,13 +52,9 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/questions/budget" component={Budget} />
             <Route path="/questions/person" component={Person} />
-            <Route path="/questions/character/:characterName" component={Character} />
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/questions" exact component={Questions}  />
-            {/* <Route path='/clothes' component={Clothes} /> */}
-
-
           </Switch>
         )}
       </div>

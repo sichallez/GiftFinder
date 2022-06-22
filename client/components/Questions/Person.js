@@ -8,7 +8,7 @@ class Person extends Component {
         super(props);
         this.state = {
             suggestions: [],
-            text: ''
+            text: '',
         }
         this.onTextChange = this.onTextChange.bind(this)
         this.selectedText = this.selectedText.bind(this)
@@ -18,7 +18,7 @@ class Person extends Component {
 
     onTextChange(ev) {
         const value = ev.target.value;
-        const { person } = this.props;
+        const { person, budget } = this.props;
         let suggestions = [];
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
@@ -30,10 +30,12 @@ class Person extends Component {
             suggestions,
             text: value
         }))
+
         this.props.history.push({
-            pathname: '/questions/person',
-            search: `${suggestions}`,
-            state: { suggestions: `${suggestions}`}
+            pathname: `/questions/person/:budget=${budget}:person=${value}`,
+            // pathname: `questions/person`,
+            // search: `${suggestions}`,
+            state: { suggestions: `${value}`}
         })
     }
     
@@ -70,6 +72,7 @@ class Person extends Component {
     render() {
         const { text, suggestions } = this.state;
         const { onTextChange, handleSubmit } = this;
+        const { budget } = this.props;
         return (
             <div>
                 <div className='person-div'>
@@ -83,7 +86,7 @@ class Person extends Component {
                 <div className='person-bottom-div'>
                 <ReturnAndContinue
                     returnPath={'/questions/budget'}
-                    continuePath={'/questions/category'}
+                    continuePath={`/questions/category/:budget=${budget}:person=${text}`}
                     // onContinueClick = {() => setPerson(text)}
                     className='person-return'
                 />
@@ -95,7 +98,8 @@ class Person extends Component {
 
 const mapState = (state) => {
     return {
-        person: state.questions.person
+        person: state.questions.person,
+        budget: state.questions.budget
     }
 }
 
