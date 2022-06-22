@@ -1,6 +1,7 @@
 const { STRING, INTEGER } = require("sequelize");
 const db = require("../db");
 const { generateString } = require("../../../utils");
+const axios = require('axios');
 
 const Group = db.define("group", {
   name: {
@@ -26,6 +27,5 @@ const Group = db.define("group", {
 Group.prototype.generateRouteId = function() {
     this.groupRouteId = generateString(5);
 }
-
 
 module.exports = Group;

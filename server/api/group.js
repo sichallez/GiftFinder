@@ -57,6 +57,18 @@ router.get("/:groupRouteId", async (req, res, next) => {
   }
 });
 
+router.get("/getGroup/:groupRouteId", async (req, res, next) => {
+  try {       
+    const group = await Group.findOne({
+      where: { groupRouteId: req.params.groupRouteId },
+    });
+    
+    res.send(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete("/:id", requireAdmin, async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.id);
