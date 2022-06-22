@@ -2,8 +2,8 @@ import React from 'react'
 
 const Notification = () => {
   return (
-    <div>
-      <h1>No message sent to you at this moment!</h1>
+    <div className='notification-div'>
+      <h1 >No Notifications</h1>
     </div>
   )
 }

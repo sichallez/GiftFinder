@@ -9,7 +9,7 @@ import { fetchProducts } from "../store";
 import axios from "axios"; // axios call should NOT appear here in component..
 import Pagination from '@mui/material/Pagination';
 import {getAllLists} from '../store/wishlists'
-
+import SearchBar from './SearchBar'
 /**
  * COMPONENT
  */
@@ -17,6 +17,7 @@ class Home extends Component {
   state = {
     products: [],
     filteredProducts: [],
+    categorySearch: "",
     giftSearch: "",
     giftOccasion: "Anniversary",
     minPrice: "0",
@@ -29,15 +30,33 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
+    this.fetchHomePage()
     this.handleFilter(this.state.giftOccasion);
     this.props.getAllLists();
   };
+
+  fetchHomePage = () => {
+    return (
+    <div>
+      <h1>Summer Birthday Gifts</h1>
+    </div>
+    )
+  }
 
   fetchProducts = (query, minPrice, maxPrice) => {
     return axios.get("/api/gifts", {
       params: { q: query, minPrice: minPrice, maxPrice: maxPrice },
     });
   };
+
+  handleCategorySearch = (e) => {
+    e.preventDefault();
+    let keyword = this.state.categorySearch.toLowerCase()
+console.log(keyword)
+    if(keyword === query) {
+      return this.fetchProducts()
+    }
+  }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -50,11 +69,10 @@ class Home extends Component {
     this.setState({ filteredProducts: filterProduct });
   };
 
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
+  handleInputChange = (ev) => {
+    const change = {};
+    change[ev.target.name] = ev.target.value;
+    this.setState(change);
   };
 
   handleFilter = (occasion) => {
@@ -75,20 +93,20 @@ class Home extends Component {
     let minPrice;
     let maxPrice;
     switch (value) {
-      case "1":
+      case "Under $50":
       default:
         minPrice = 0;
         maxPrice = 50;
         break;
-      case "2":
+      case "$50 to $100":
         minPrice = 50;
         maxPrice = 100;
         break;
-      case "3":
+      case "$100 to $250":
         minPrice = 100;
         maxPrice = 250;
         break;
-      case "4":
+      case "Over $250":
         minPrice = 250;
         break;
     }
@@ -194,8 +212,13 @@ class Home extends Component {
     );
     return (
       <div>
-        <Box sx={{ display: "grid", justifyContent: "center" }}>
-          {/* <SearchBar /> */}
+        <Box sx={{ display: "grid", justifyContent: "center"}}>
+          <SearchBar
+            name="categorySearch"
+            onChange={this.handleInputChange}
+            value={this.state.categorySearch}
+            handleCategorySearch={this.handleCategorySearch}
+          />
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}

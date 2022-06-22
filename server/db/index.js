@@ -16,7 +16,7 @@ const WishlistGroup = require("./models/WishlistGroup")
 //a user can have one wishlist --- can have many if time to implement
 
 Wishlist.belongsTo(User);
-User.hasOne(Wishlist); //hasMany
+User.hasMany(Wishlist); //hasMany
 
 //a wishlist has many gifts
 //gifts can belong to many wishlist
@@ -41,6 +41,6 @@ module.exports = {
     UserGroup,
     Wishlist,
     Gift,
-    WishlistGroup,
+    WishlistGroup
   },
 };

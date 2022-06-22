@@ -16,10 +16,15 @@ import {
   Paper,
   Avatar,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import GoogleIcon from '@mui/icons-material/Google';
+import GoogleIcon from "@mui/icons-material/Google";
 
 // import "./authForm.module.css";
 
@@ -41,6 +46,12 @@ const AuthForm = (props) => {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const paperStyle = {
@@ -193,55 +204,6 @@ const AuthForm = (props) => {
       </Paper>
     </Grid>
   );
-
-  // return (
-  //   <div className={styles.authform}>
-  //     <form onSubmit={handleSubmit} name={name} className="formContainer">
-  //       <div className={styles.text_field}>
-  //         <input
-  //           name="username"
-  //           type="text"
-  //           placeholder="Username"
-  //           required
-  //           autoFocus="on"
-  //         />
-  //       </div>
-  //       <div className={styles.text_field}>
-  //         <input
-  //           name="password"
-  //           type="password"
-  //           placeholder="Password"
-  //           required
-  //         />
-  //       </div>
-  //       <div className={styles.authBtn}>
-  //         <button type="submit">{displayName}</button>
-  //       </div>
-  //       {error && error.response && <div> {error.response.data} </div>}
-  //       <div className={styles.divider}>
-  //         <span></span>
-  //       </div>
-  //       <div className={styles.authBtn}>
-  //         {displayName === "Login" ? (
-  //           <>
-  //             <p className={styles.message}>Not registered?</p>
-  //             <Link to="/signup">
-  //               <button style={{ backgroundColor: "#F1F1F1", color: "#000" }}>
-  //                 Sign Up
-  //               </button>
-  //             </Link>
-  //           </>
-  //         ) : (
-  //           <Link to="/login">
-  //             <button style={{ backgroundColor: "#F1F1F1", color: "#000" }}>
-  //               LogIn
-  //             </button>
-  //           </Link>
-  //         )}
-  //       </div>
-  //     </form>
-  //   </div>
-  // );
 };
 
 /**

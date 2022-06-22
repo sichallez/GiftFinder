@@ -10,6 +10,10 @@ export const theme = createTheme({
       main: "#0052AA",
     },
   },
+  typography: {
+    fontFamily: 'Quicksand',
+    // fontSize: '14px'
+  },
   components: {
     MuiMenuItem: {
       styleOverrides: {
@@ -28,5 +32,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          fontSize: '14px'
+        }
+      }
+    }
   },
 });

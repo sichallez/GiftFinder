@@ -23,6 +23,8 @@ class Person extends Component {
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
             suggestions = person.filter(p => regex.test(p))
+        } else if (value.length === 0) {
+            suggestions = person.slice(0, 5)
         }
         this.setState(() => ({
             suggestions,
