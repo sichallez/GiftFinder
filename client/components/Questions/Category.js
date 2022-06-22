@@ -1,5 +1,6 @@
 import React, {  useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { setCategory } from '/client/store';
 import ReturnAndContinue from './components/ReturnAndContinue'
 
@@ -38,10 +39,20 @@ const Category = ({ category, setCategory }) => {
         color: 'white'
       };
 
+    let history = useHistory()
+    function onCategorySubmit(ev) {
+        ev.preventDefault()
+        history.push({
+            pathname: '/questions/category',
+            search: `:${selectedCategory}`,
+            state: { category: `${selectedCategory}`}          
+        })
+    }
+
     return (
-        <div>
-            <h1 className='questionsH1'> Choose a category</h1>
-            <div className='category-div'>
+        <div className='categories-div'>
+            <h1 className='questionsH2'> Choose a category</h1>
+            <form className='category-div' onSubmit={onCategorySubmit}>
                 {categories.map((cat) => {
                     const addSelectedStyle = selectedCategory.includes(cat.name)
                     return (
@@ -56,22 +67,10 @@ const Category = ({ category, setCategory }) => {
                         >{cat.name}</button>
                     )
                 })}
-                {/* <button
-                    className='category-btnAll'
-                    id='all-button'
-                    onClick={() => {
-                        const allButton = document.getElementById('all-button')
-                        allButton.classList.toggle('category-selected')
-                        if (allButton.classList.contains('category-selected')) {
-                            setSelectedCategory([...categories])
-                        } else {
-                            setSelectedCategory([])
-                        }
-                    }}
-                >All</button> */}
-            </div>
+
+            </form>
             <ReturnAndContinue
-            returnPath={'/questions/character'}
+            returnPath={'/questions/person'}
             continuePath={'/questions/result'}
             onContinueClick = {() => setCategory(selectedCategory)}
             />

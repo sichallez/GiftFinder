@@ -36,6 +36,7 @@ class Person extends Component {
             state: { suggestions: `${suggestions}`}
         })
     }
+    
 
     selectedText(value) {
         this.setState(() => ({
@@ -82,7 +83,7 @@ class Person extends Component {
                 <div className='person-bottom-div'>
                 <ReturnAndContinue
                     returnPath={'/questions/budget'}
-                    continuePath={'/questions/character'}
+                    continuePath={'/questions/category'}
                     // onContinueClick = {() => setPerson(text)}
                     className='person-return'
                 />

@@ -56,7 +56,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/questions/budget" component={Budget} />
             <Route path="/questions/person" component={Person} />
-            <Route path="/questions/character" component={Character} />
+            <Route path="/questions/character/:characterName" component={Character} />
             <Route path="/questions/category" component={Category} />
             <Route path="/questions/result" component={Result} />
             <Route path="/questions" exact component={Questions}  />

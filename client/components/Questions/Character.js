@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setCharacter } from '/client/store';
-import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ReturnAndContinue from './components/ReturnAndContinue'
 import CharacterButton from './components/CharacterButton'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
@@ -36,7 +36,8 @@ const Character = ({ character, setCharacter }) => {
     //     <SelfImprovementIcon />,
     //     <ErrorOutlineIcon />,
     // ]
-    let history = useHistory()
+    const params = useParams()
+    console.log(params)
 
     // useEffect(() => {
     //     history.push({
