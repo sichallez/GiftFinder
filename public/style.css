@@ -15,7 +15,7 @@ a {
 }
 
 label {
-  display: block;
+  display: block; 
 }
 
 form div {
@@ -146,22 +146,25 @@ nav a, nav li {
 }
 
 /** Budget **/
+.budget-div {
+  margin: 2rem 5rem;
+}
+
 .sliderBudget {
-  height: 2rem;
+  height: 1rem;
   cursor: pointer;
   width: 75%;
   -webkit-appearance: none;
-	background-image: linear-gradient(#a0a0a0, #a0a0a0);
-  background-repeat: no-repeat;
+	background-color:#91a4d9;
   border-radius: 5px;
 }
 
 .sliderBudget::-webkit-slider-thumb {
   -webkit-appearance: none;
-	height: 20px;
-	width: 20px;
+	height: 30px;
+	width: 30px;
 	border-radius: 50%;
-	background: #d46a6a;
+	background: #91a4d9;
 	cursor: pointer;
 	box-shadow: 0 0 2px 0 #555;
   transition: 0.2s ease-in-out;
