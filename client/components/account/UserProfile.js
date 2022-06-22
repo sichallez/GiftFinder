@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Box, Paper, InputBase, InputLabel } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Box, Paper, InputBase, InputLabel} from "@mui/material";
 import { Divider } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import SettingsIcon from '@mui/icons-material/Settings';
+import UpdateUser from './UpdateUser'
 
 const UserProfile = ({ auth }) => {
   return (
@@ -31,7 +35,8 @@ const UserProfile = ({ auth }) => {
             flexWrap: "wrap",
             flexDirection: "column",
           }}
-        >
+        > 
+        <Box sx={{display: 'flex'}}>
           <h4
             style={{
               fontSize: '20px',
@@ -40,6 +45,8 @@ const UserProfile = ({ auth }) => {
           >
             Personal Information
           </h4>
+          <Link to={`/account/profile/${auth.id}/edit`}><SettingsIcon/></Link>
+        </Box>
           <Divider />
           <Box
             sx={{
@@ -49,7 +56,9 @@ const UserProfile = ({ auth }) => {
               margin: "0.5rem"
             }}
           >
-            <Box>
+            <Box sx={{display: 'flex'}}>
+             <Avatar src={auth.avatar} />
+              <>
               <InputLabel
                 shrink
                 htmlFor="bootstrap-input"
@@ -61,6 +70,7 @@ const UserProfile = ({ auth }) => {
                 User Name
               </InputLabel>
               <InputBase defaultValue={auth.username} id="bootstrap-input" />
+              </>
             </Box>
             <Box>
               <InputLabel
@@ -116,6 +126,7 @@ const UserProfile = ({ auth }) => {
         </Box>
       </Paper>
     </Box>
+    
   );
 };
 

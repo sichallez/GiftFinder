@@ -3,6 +3,7 @@ import axios from "axios";
 const SET_PRODUCTS = "SET_PRODUCTS";
 
 /* Action Creators */
+
 const _fetchProducts = (gifts) => {
   return {
     type: SET_PRODUCTS,
@@ -22,8 +23,6 @@ export const fetchProducts = (query, minPrice, maxPrice) => {
     dispatch(_fetchProducts(gifts));
   };
 };
-
-/* Flower Reducer */
 export default function (state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:

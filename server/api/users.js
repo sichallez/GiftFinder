@@ -20,7 +20,6 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
-
 router.get("/byEmail", requireLoggedIn, async (req, res, next) => {
   try {
       const user = await User.findOne({
@@ -33,3 +32,4 @@ router.get("/byEmail", requireLoggedIn, async (req, res, next) => {
       next(err);
   }
 });
+

@@ -125,7 +125,7 @@ class Wishlist extends Component {
     }
 
     const wishListGifts = this.props.wishlist.gifts;
-
+console.log(this.props.wishlist)
     return (
       <Grid container m="5px 50px">
         <div>
