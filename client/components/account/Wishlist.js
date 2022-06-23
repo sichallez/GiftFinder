@@ -12,24 +12,29 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
-import { getWishlist, deleteFromWishlist, moveItem } from "../../store/wishlist";
+import { getWishlist, deleteFromWishlist, moveItem, changeSetting } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
 
 class Wishlist extends Component {
   constructor(){
     super();
     this.state={
       anchorEl: null,
-      open: false
+      open: false,
+      giftID: -1,
+      anchorElShared: null,
+      openShared: false,
     }
 
     this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
-
+    this.handleClickShared = this.handleClickShared.bind(this)
+    this.handleCloseShared = this.handleCloseShared.bind(this)
   }
 
   componentDidMount() {
@@ -55,7 +60,6 @@ class Wishlist extends Component {
     })
   }
 
-
   handleClose() {
     this.setState({
       anchorEl: null,
@@ -63,7 +67,22 @@ class Wishlist extends Component {
     })
   }
 
-  renderMenu(giftId){
+  handleClickShared(event) {
+    this.setState({
+      anchorElShared: event.currentTarget,
+      openShared: !this.state.openShared
+    })
+  }
+
+  handleCloseShared() {
+    this.setState({
+      anchorElShared: null,
+      openShared: !this.state.openShared
+    })
+  }
+
+  renderMenu(){
+    console.log('render menu')
     return(
     <Menu
       id="list-menu"
@@ -74,12 +93,30 @@ class Wishlist extends Component {
       {this.props.wishlists.map(list=>{
         return (
         <MenuItem key = {list.id} onClick={()=>{
-          this.props.moveItem(this.props.wishlist.id,list.id,giftId);
+          this.props.moveItem(this.props.wishlist.id,list.id,this.state.giftID);
           this.handleClose();
           }}>
           {list.name}
         </MenuItem>)
       })}
+    </Menu>
+    )
+  }
+  sharedMenu(){
+    console.log('shared menu')
+    return(
+    <Menu
+      id="shared-menu"
+      anchorEl={this.state.anchorElShared}
+      open={this.state.openShared}
+      onClose={this.handleCloseShared.bind(this)}
+      >
+      <MenuItem onClick={()=>{
+        this.props.changeSetting(this.props.wishlist)
+        this.handleCloseShared();
+        }}>
+        {this.props.wishlist.isShared ? 'Private' : 'Shared'}
+      </MenuItem>
     </Menu>
     )
   }
@@ -125,11 +162,19 @@ class Wishlist extends Component {
     }
 
     const wishListGifts = this.props.wishlist.gifts;
-console.log(this.props.wishlist)
     return (
       <Grid container m="5px 50px">
         <div>
-          <h1>{this.props.wishlist.name}</h1>
+        <span><Typography variant='h3'  display="inline">{this.props.wishlist.name}</Typography>
+          <Typography ml = '20px' fontSize = '20pt' display="inline">{this.props.wishlist.isShared? 'Shared' : 'Private'} 
+          <Button 
+            aria-owns={this.state.openShared ? 'shared-menu' : undefined}
+            onClick={this.handleClickShared.bind(this)}
+            >
+              <EditIcon/>
+          </Button>
+          {this.sharedMenu()}
+          </Typography></span>
           {wishListGifts.map((gift) => {
             return (
               <div key={gift.id}>
@@ -167,13 +212,17 @@ console.log(this.props.wishlist)
                         </Button>
                         <Button
                           aria-owns={this.state.open ? 'list-menu' : undefined}
-                          onClick={this.handleClick}
+                          onClick={(e)=>{
+                            this.setState({giftID: gift.id})
+                            this.handleClick(e)
+                          }
+                            }
                           color="primary" 
                           variant="contained" 
                           endIcon={<ArrowDropDownIcon style={{ fontSize: 20 }}/>}>
                           Move To Wishlist
                         </Button>
-                        {this.renderMenu(gift.id)}
+                        {this.renderMenu()}
                         </Box>
                       </Grid>
                     </Grid>
@@ -204,6 +253,9 @@ const mapDispatchToProps = (dispatch) => {
     moveItem: function(oldListId,newListId,giftId){
       dispatch(moveItem(oldListId,newListId,giftId));
     },
+    changeSetting: function(wishlist){
+      dispatch(changeSetting(wishlist))
+    }
   };
 };
 

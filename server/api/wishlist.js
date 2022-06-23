@@ -80,6 +80,16 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const data = await Wishlist.findByPk(req.params.id);
+    const updated = await data.update(req.body);
+    res.send(updated);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   try {
     const sharedGroups = req.query.sharedGroups;
