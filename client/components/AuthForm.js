@@ -157,29 +157,11 @@ const AuthForm = (props) => {
           </Button>
         </form>
         <Grid align="center">
-           <h5>OR</h5>
+           {/*<h5>OR</h5>
           <hr />
           <Button style={{ backgroundColor: "#4285F4", color: "white", width: '100%' }}>
             <GoogleIcon /><a href="/auth/login/google" style={{marginLeft: '20px', color: '#fff'}}>{displayName} with Google</a>
-          </Button>
-          {/*<FacebookLoginButton
-            align="center"
-            onClick={() => (window.location = "/auth/facebook")}
-          >
-            <span>Log in with Facebook</span>
-          </FacebookLoginButton>
-          <TwitterLoginButton
-            align="center"
-            onClick={() => (window.location = "/auth/twitter")}
-          >
-            <span>Log in with Twitter</span>
-          </TwitterLoginButton>
-          <InstagramLoginButton
-            align="center"
-            onClick={() => console.log("Instagram login")}
-          >
-            <span>Log in with Instagram</span>
-          </InstagramLoginButton> */}
+          </Button>*/}
           <Typography
             color="textSecondary"
             sx={{ marginTop: "15px", fontSize: 14, marginBottom: "10px" }}
