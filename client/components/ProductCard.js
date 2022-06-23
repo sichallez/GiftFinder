@@ -96,6 +96,7 @@ const ProductCard = ({
               {wishlists.map(list=>{
                 return (
                 <MenuItem key = {list.id} onClick={()=>{
+                  console.log(product)
                   onClick(product,list.id)
                   handleClose()
                   }}>
