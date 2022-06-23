@@ -129,7 +129,8 @@ console.log(this.props.wishlist)
     return (
       <Grid container m="5px 50px">
         <div>
-          <h1>{this.props.wishlist.name}</h1>
+          <span><Typography variant='h3'  display="inline">{this.props.wishlist.name}</Typography>
+          <Typography ml = '20px' fontSize = '20pt' display="inline">{this.props.wishlist.isShared? 'Shared' : 'Private'}</Typography></span>
           {wishListGifts.map((gift) => {
             return (
               <div key={gift.id}>
