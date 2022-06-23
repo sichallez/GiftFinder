@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Wishlist, User, Gift, Group, WishlistGroup },
 } = require("../db");
+const { not_requireLoggedIn } = require("./backendProtect");
 
 // Base route "/api/wishlist"
 
@@ -33,6 +34,21 @@ router.get("/", async (req, res, next) => {
       where: {
         userId: user.id,
       },
+      include: [{ model: Gift }],
+    });
+
+    res.send(wishlists);
+  } catch (err) {
+    if (err.status === 401) {
+      res.sendStatus(401);
+    } else next(err);
+  }
+});
+
+//return all wishlists of the specified user
+router.get("/all/", async (req, res, next) => {
+  try {
+    const wishlists = await Wishlist.findAll({
       include: [{ model: Gift }],
     });
 
