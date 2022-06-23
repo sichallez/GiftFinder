@@ -113,7 +113,7 @@ const GiftFor = () => {
                 <List component="div" disablePadding>
                   {group.members.length === 0 ? 'No Lists.' : group.members.map(member => {
                     return(<div key = {member.id}>
-                      {member.username}'s lists:
+                      {member.username}'s lists{member.id === auth.id?'(your lists)':''}:
                       {allUserLists.allUserLists.map(list=>{
                         //if list userId matches current member userID, display
                         if(member.id === list.userId){
