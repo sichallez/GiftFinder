@@ -5,7 +5,7 @@ const {
 } = require("../db");
 require("dotenv").config();
 
-const GOOGLE_REDIRECT_URL = process.env.GOOGLE_REDIRECT_URL;
+const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URL;
 
 module.exports = function (passport) {
   passport.use(
@@ -13,7 +13,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: GOOGLE_REDIRECT_URL,
+        callbackURL: "http://localhost:8080/auth/callback",
       },
       async function (token, refreshToken, profile, done) {
         profile = profile._json;
@@ -39,11 +39,11 @@ module.exports = function (passport) {
 };
 
 passport.serializeUser(function (user, done) {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser(function (userId, done) {
-  User.findById(userId).then(function (user) {
-    done(null, user);
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id, function (err, user) {
+    done(err, user);
   });
 });

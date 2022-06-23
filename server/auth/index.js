@@ -36,14 +36,14 @@ router.get("/me", async (req, res, next) => {
 
 router.get(
   "/login/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", { scope: ["email"] })
 );
 
 router.get(
   "/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    session: false,
+    session: false
   }),
   async (req, res) => {
     const passportId = req.user[0].dataValues.passportId;
