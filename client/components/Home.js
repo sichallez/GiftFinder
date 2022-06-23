@@ -213,12 +213,6 @@ console.log(keyword)
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center"}}>
-          <SearchBar
-            name="categorySearch"
-            onChange={this.handleInputChange}
-            value={this.state.categorySearch}
-            handleCategorySearch={this.handleCategorySearch}
-          />
           <Category
             handleFilter={this.handleFilter}
             handlePrice={this.handlePrice}
