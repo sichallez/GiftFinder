@@ -39,6 +39,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { makeStyles } from "@mui/styles";
 import { createGroup, getAllGroups, getAllMembers, removeMember, inviteMember} from "../../store/group";
 import { generateString } from "../../../utils";
+import axios from "axios";
 
 const useStyles = makeStyles({
   field: {
@@ -50,12 +51,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MyGroups = ({ auth, group, getAllGroups }) => {
-  // const userId = auth.id;
-  // useEffect(() => {
-  //   getAllGroups(userId);
-  // }, []);
-
+const MyGroups = ({ group }) => {
   const allGroup = group.group;
 
   const history = useHistory();
@@ -375,13 +371,10 @@ const _SingleGroup = ({ auth, group, getAllMembers, removeMember, inviteMember, 
   );
 };
 
-const _CreateGroup = ({ auth, createGroup }) => {
+const _CreateGroup = ({ auth,createGroup, inviteMember }) => {
   const classes = useStyles();
   const [groupName, setGroupName] = useState("");
-  const [userName1, setUserName1] = useState("");
   const [email1, setEmail1] = useState("");
-  const [userName2, setUserName2] = useState("");
-  const [email2, setEmail2] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
@@ -391,7 +384,7 @@ const _CreateGroup = ({ auth, createGroup }) => {
 
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setTitleError(false);
     setDetailsError(false);
@@ -403,10 +396,11 @@ const _CreateGroup = ({ auth, createGroup }) => {
     if (groupName) {
       const groupRouteId = generateString(5);
       const newGroup = { name: groupName, groupRouteId, ownerId: auth.id };
-      createGroup(newGroup, auth.id);
+      await createGroup(newGroup, auth.id);
+      await inviteMember(newGroup,email1);
       // after it is created, redirect it to the url of the newly created group
-      // const newGroupPath = `/account/group/${groupRouteId}`;
-      // history.push(newGroupPath);
+      const newGroupPath = `/account/group/${groupRouteId}`;
+      history.push(newGroupPath);
     }
   };
 
@@ -434,54 +428,16 @@ const _CreateGroup = ({ auth, createGroup }) => {
           Invite Members
         </Typography>
         <Divider />
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={6}>
             <Typography variant="h6" component="h2" color="gray" gutterBottom>
-              {auth.username}
+              Please enter the user's email below. 
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="h2" color="gray" gutterBottom>
-              {auth.email}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className={classes.field}
-              onChange={(e) => setUserName1(e.target.value)}
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              required
-              placeholder="Full name"
-            />
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={20}>
             <TextField
               className={classes.field}
               onChange={(e) => setEmail1(e.target.value)}
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              required
-              placeholder="Email address"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className={classes.field}
-              onChange={(e) => setUserName2(e.target.value)}
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              required
-              placeholder="Full name"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className={classes.field}
-              onChange={(e) => setEmail2(e.target.value)}
               variant="outlined"
               color="secondary"
               fullWidth

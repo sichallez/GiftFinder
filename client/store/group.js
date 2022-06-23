@@ -163,7 +163,7 @@ export const removeMember = (group,userId) => {
       })
     ).data;
 
-    //get group
+    //get members
     const members = (
       await axios.get(`/api/group/${group.groupRouteId}`, {
         headers: {
@@ -178,6 +178,15 @@ export const removeMember = (group,userId) => {
 
 export const inviteMember = (group,email) => {
   return async (dispatch) => {
+    let useGroup = group;
+    //neeeded if creating group and added member immediately, group passed in does not have id key
+    useGroup  = (
+          await axios.get(`/api/group/getGroup/${group.groupRouteId}`, {
+            headers: {
+              authorization: window.localStorage.token,
+            },
+    })).data
+    
     //grab user where email matches email given
     const user = (
       await axios.get(`/api/users/byEmail`, {
@@ -192,7 +201,7 @@ export const inviteMember = (group,email) => {
 
     //have user object and use id and group id to make usergroup
     const userGroup = (
-      await axios.post(`/api/usergroup/`, {groupId: group.id, userId:user.id},{
+      await axios.post(`/api/usergroup/`, {groupId: useGroup.id, userId:user.id},{
         headers: {
         authorization: window.localStorage.token,
       }})
