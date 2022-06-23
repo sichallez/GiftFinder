@@ -1,9 +1,10 @@
-import React, {  useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { setCategory } from '/client/store';
 import ReturnAndContinue from './components/ReturnAndContinue'
 
-const Category = ({ category, setCategory }) => {
+const Category = ({ category, setCategory, budget, person }) => {
     const categories = [
       {id: 1, name: 'Clothes'},
       {id: 2, name: 'Electronics'},
@@ -19,13 +20,22 @@ const Category = ({ category, setCategory }) => {
 
     const initialCategory = category
     const [selectedCategory, setSelectedCategory] = useState(initialCategory)
-    console.log(selectedCategory, 'selected')
+
+    let history = useHistory()
+    function onCategorySubmit(ev) {
+        ev.preventDefault()
+        history.push({
+            pathname: `/questions/category/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }:category=${selectedCategory.length !== 0 ? selectedCategory : 'all'}`,
+            state: { category: `${selectedCategory}`}          
+        })
+    }
 
     function toggleSelected(key) {
         if (selectedCategory.includes(key)) {
             const updatedSelected = [...selectedCategory];
             updatedSelected.splice(updatedSelected.indexOf(key), 1)
             setSelectedCategory(updatedSelected)
+            
         } else {
             setSelectedCategory([...selectedCategory, key])
         }
@@ -39,11 +49,11 @@ const Category = ({ category, setCategory }) => {
       };
 
     return (
-        <div>
-            <h1 className='questionsH1'> Choose a category</h1>
-            <div className='category-div'>
+        <div className='categories-div'>
+            <h1 className='questionsH2'> Choose a category</h1>
+            <form className='category-div' onSubmit={onCategorySubmit}>
                 {categories.map((cat) => {
-                    const addSelectedStyle = selectedCategory.includes(cat.name)
+                    const addSelectedStyle = selectedCategory?.includes(cat.name)
                     return (
                         <button
                             style={addSelectedStyle ? selectedStyle : {}}
@@ -56,23 +66,11 @@ const Category = ({ category, setCategory }) => {
                         >{cat.name}</button>
                     )
                 })}
-                {/* <button
-                    className='category-btnAll'
-                    id='all-button'
-                    onClick={() => {
-                        const allButton = document.getElementById('all-button')
-                        allButton.classList.toggle('category-selected')
-                        if (allButton.classList.contains('category-selected')) {
-                            setSelectedCategory([...categories])
-                        } else {
-                            setSelectedCategory([])
-                        }
-                    }}
-                >All</button> */}
-            </div>
+
+            </form>
             <ReturnAndContinue
-            returnPath={'/questions/character'}
-            continuePath={'/questions/result'}
+            returnPath={`/questions/person/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }`}
+            continuePath={`/questions/result/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }:category=${selectedCategory.length !== 0 ? selectedCategory : 'all'}`}
             onContinueClick = {() => setCategory(selectedCategory)}
             />
         </div>
@@ -81,7 +79,9 @@ const Category = ({ category, setCategory }) => {
 
 const mapState = (state) => {
     return {
-       category: state.questions.category
+       category: state.questions.category,
+       person: state.questions.person,
+       budget: state.questions.budget
     }
 }
 

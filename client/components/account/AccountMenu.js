@@ -17,9 +17,11 @@ const AccountMenu = ({ auth, username, firstName }) => {
     setAnchorEl(null);
   };
 
+  const iconButtonMargin = auth.username.length/2 + 3.5 || auth.firstName.length/2 + 3.5
+
   return (
     <div className='account-menu'>
-      <IconButton color="inherit" sx={{ margin: 'auto 2px auto 2px' }} onClick={handleClick}>
+      <IconButton color="inherit" sx={{ margin: `auto ${iconButtonMargin}px` }} onClick={handleClick}>
         {auth.avatar ? (
           <Avatar
             sx={{ width: 30, height: 30 }}
