@@ -384,22 +384,6 @@ const _CreateGroup = ({ auth,createGroup, inviteMember }) => {
 
   const history = useHistory();
 
-  // const getNewGroup = async(groupRouteId)=>{
-  //   const group  = (
-  //     await axios.get(`/api/group/getGroup/${groupRouteId}`, {
-  //       headers: {
-  //         authorization: window.localStorage.token,
-  //       },
-  //     })).data
-
-  //   console.log(group.id)
-      
-  //   const id = group.id;
-  //   // setSoloGroup({...group});
-
-  //   return id;
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setTitleError(false);
@@ -415,8 +399,8 @@ const _CreateGroup = ({ auth,createGroup, inviteMember }) => {
       await createGroup(newGroup, auth.id);
       await inviteMember(newGroup,email1);
       // after it is created, redirect it to the url of the newly created group
-      // const newGroupPath = `/account/group/${groupRouteId}`;
-      // history.push(newGroupPath);
+      const newGroupPath = `/account/group/${groupRouteId}`;
+      history.push(newGroupPath);
     }
   };
 
