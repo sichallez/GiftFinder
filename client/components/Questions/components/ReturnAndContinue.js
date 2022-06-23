@@ -9,7 +9,7 @@ const ReturnAndContinue = (props) => {
     return (
         <div className='return-div'>
             <Button variant="outlined" sx={{ fontSize: '20px', textTransform: 'none', padding: '.5rem 1.25rem .5rem .5rem', color: 'black'}}>
-                <ArrowLeftIcon  size="large" color='secondary' />
+                <ArrowLeftIcon fontSize="large" color='secondary' />
                 <Navigation 
                     to={returnPath} 
                     text="Return" 
@@ -21,9 +21,8 @@ const ReturnAndContinue = (props) => {
                     text="Continue"
                     click={onContinueClick}
                 />
-                <ArrowRightIcon  size="large" color='secondary' />
+                <ArrowRightIcon fontSize="large" color='secondary' />
             </Button>
-
         </div>
     )
 }

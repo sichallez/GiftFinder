@@ -18,7 +18,35 @@ class Person extends Component {
 
     onTextChange(ev) {
         const value = ev.target.value;
-        const { person, budget } = this.props;
+        const { budget } = this.props
+        const person = [
+            'mom',
+            'sibling',
+            'coworker',
+            'niece',
+            'grandchild',
+            'grandson',
+            'dad',
+            'parents',
+            'grandma',
+            'sister',
+            'grandpa',
+            'brother',
+            'grandparent',
+            'granddaughter',
+            'partner',
+            'couple',
+            'cousin',
+            'child',
+            'son',
+            'daughter',
+            'client',
+            'boss',
+            'niece',
+            'nephew',
+            'aunt',
+            'uncle'
+        ]
         let suggestions = [];
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
@@ -85,8 +113,8 @@ class Person extends Component {
                 </div>
                 <div className='person-bottom-div'>
                 <ReturnAndContinue
-                    returnPath={'/questions/budget'}
-                    continuePath={`/questions/category/:budget=${budget}:person=${text}`}
+                    returnPath={`/questions/budget/:budget=${budget}`}
+                    continuePath={`/questions/category/:budget=${budget}:person=${text ? text : 'n/a'}`}
                     // onContinueClick = {() => setPerson(text)}
                     className='person-return'
                 />

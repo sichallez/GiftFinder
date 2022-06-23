@@ -380,3 +380,9 @@ nav a, nav li {
 .notification-div h1{
   font-size: 20px;
 }
+
+/** Result **/
+.resultBtn {
+  display: flex;
+  justify-content: center;
+}

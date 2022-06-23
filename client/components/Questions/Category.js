@@ -25,7 +25,7 @@ const Category = ({ category, setCategory, budget, person }) => {
     function onCategorySubmit(ev) {
         ev.preventDefault()
         history.push({
-            pathname: `/questions/category/:budget=${budget}:person=${person}:category=${selectedCategory}`,
+            pathname: `/questions/category/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }:category=${selectedCategory.length !== 0 ? selectedCategory : 'all'}`,
             state: { category: `${selectedCategory}`}          
         })
     }
@@ -69,8 +69,8 @@ const Category = ({ category, setCategory, budget, person }) => {
 
             </form>
             <ReturnAndContinue
-            returnPath={'/questions/person'}
-            continuePath={'/questions/result'}
+            returnPath={`/questions/person/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }`}
+            continuePath={`/questions/result/:budget=${budget}:person=${person.length === 0 ? 'n/a' : person }:category=${selectedCategory.length !== 0 ? selectedCategory : 'all'}`}
             onContinueClick = {() => setCategory(selectedCategory)}
             />
         </div>

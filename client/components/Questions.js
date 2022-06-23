@@ -18,7 +18,6 @@ const Questions = ({ initialBudget }) => {
 }
 
 const mapState = (state) => {
-    console.log(state)
     return {
         initialBudget: state.questions.budget
     }

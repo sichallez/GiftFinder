@@ -58,7 +58,7 @@ const Budget = ({ budget, setBudget}) => {
             <label htmlFor='budget' className='budget-label'>${value}</label>
             <ReturnAndContinue
                 returnPath={'/questions'}
-                continuePath={`/questions/person/budget=${value}`}
+                continuePath={`/questions/person/:budget=${value}`}
                 onContinueClick = {() => setBudget(value)}
             />
         </div>
