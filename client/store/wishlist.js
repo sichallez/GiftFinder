@@ -30,9 +30,17 @@ export const getWishlist = (id) => {
 
 export const changeSetting = (list) => {
   return async (dispatch) => {
-    const wishlist = (
+    (
       await axios.put(`/api/wishlist/${list.id}`, {
         isShared: !list.isShared
+      })
+    ).data;
+
+    const wishlist = (
+      await axios.get(`/api/wishlist/${list.id}`, {
+        headers: {
+          authorization: window.localStorage.token,
+        },
       })
     ).data;
 
