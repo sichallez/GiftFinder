@@ -28,6 +28,17 @@ export const getWishlist = (id) => {
   };
 };
 
+export const changeSetting = (list) => {
+  return async (dispatch) => {
+    const wishlist = (
+      await axios.put(`/api/wishlist/${list.id}`, {
+        isShared: !list.isShared
+      })
+    ).data;
+
+    dispatch(_getWishlist(wishlist));
+  };
+};
 
 export const addToWishlist = (product,id) => {
   return async (dispatch) => {

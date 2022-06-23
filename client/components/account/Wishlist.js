@@ -12,7 +12,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddItem from "./AddItem";
-import { getWishlist, deleteFromWishlist, moveItem } from "../../store/wishlist";
+import { getWishlist, deleteFromWishlist, moveItem, changeSetting } from "../../store/wishlist";
 import { getAllLists } from "../../store/wishlists";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -112,9 +112,10 @@ class Wishlist extends Component {
       onClose={this.handleCloseShared.bind(this)}
       >
       <MenuItem onClick={()=>{
+        this.props.changeSetting(this.props.wishlist)
         this.handleCloseShared();
         }}>
-        Shared
+        {this.props.wishlist.isShared ? 'Private' : 'Shared'}
       </MenuItem>
     </Menu>
     )
@@ -161,7 +162,6 @@ class Wishlist extends Component {
     }
 
     const wishListGifts = this.props.wishlist.gifts;
-console.log(this.props.wishlist)
     return (
       <Grid container m="5px 50px">
         <div>
@@ -253,6 +253,9 @@ const mapDispatchToProps = (dispatch) => {
     moveItem: function(oldListId,newListId,giftId){
       dispatch(moveItem(oldListId,newListId,giftId));
     },
+    changeSetting: function(wishlist){
+      dispatch(changeSetting(wishlist))
+    }
   };
 };
 
