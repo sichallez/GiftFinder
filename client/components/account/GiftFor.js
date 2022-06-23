@@ -72,7 +72,9 @@ const GiftFor = () => {
     }
   });
 
-  console.log(allUserLists)
+  if(!allUserLists.allUserLists){
+    return null
+  }
 
 
   const history = useHistory();
