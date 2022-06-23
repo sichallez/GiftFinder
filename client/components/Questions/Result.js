@@ -19,6 +19,7 @@ class Result extends Component {
 
     componentDidMount() {
         const { selectedCategory, selectedPerson, selectedBudget } = this.state
+        console.log(this.props.location.pathname, 'pathname')
         if (this.props.location.pathname.includes(selectedCategory)) {
             const maxBudget = selectedBudget.toString().slice(0,2).padEnd(5, '.00')
             const minBudget = (selectedBudget - 10).toString().slice(0,2).padEnd(5, '.00')
@@ -50,7 +51,6 @@ class Result extends Component {
 
     findFinalProductNames() {
         const { results } = this.state.categoryData
-        console.log(results)
         const productName = results?.map((result) => {
             return (
                 <div>
@@ -60,9 +60,6 @@ class Result extends Component {
                     </li>
                     <li key={result.priceId}>
                         ${result.price}
-                    </li>
-                    <li key={result.descriptionId}>
-                        {result.description}
                     </li>
                 </ul>
                 </div>
@@ -74,6 +71,7 @@ class Result extends Component {
 
     render() {
         const { results, params } = this.state.categoryData
+        console.log(results, params)
         const { findFinalProductNames } = this;
         return (
             <div>
