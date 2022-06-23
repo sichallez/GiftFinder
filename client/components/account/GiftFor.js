@@ -35,23 +35,21 @@ import {
   getAllGroupsAndMembers,
   getOneGiftlist,
 } from "../../store";
+import axios from "axios";
 
 const GiftFor = () => {
-  const { auth, group, giftlist } = useSelector((state) => state);
+  const { auth, group } = useSelector((state) => state);
 
   const allGroup = group.group;
-  const allMembers = group.member;
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllGroupsAndMembers(auth.id));
-    dispatch(getAllGiftlist(auth.id));
   }, []);
 
   const groupsAndMembers = group.groupsAndMembers;
-  const allGiftlist = giftlist.allGiftlist;
-
   const [openState, setOpenState] = useState({});
+  const [allUserLists, setAllUserLists] = useState ([]);
 
   useEffect(() => {
     setOpenState(
@@ -62,17 +60,26 @@ const GiftFor = () => {
     );
   }, [allGroup]);
 
+  useEffect(() => {
+    if(allUserLists.length===0){
+      console.log('inside', allUserLists.length)
+      async function fetchLists (){
+        const lists = (await axios.get('/api/wishlist/all')).data
+        setAllUserLists({allUserLists: lists});
+      }
+      
+      fetchLists();
+    }
+  });
+
+  console.log(allUserLists)
+
+
   const history = useHistory();
   const handleRouteChange = (wishlistId) => {
     let path = `/account/giftlist/${wishlistId}`;
     history.push(path);
   };
-
-  // buys time for react to update the state from redux store//
-  // Or using optional chain in Line 105
-  // if (!groupsAndMembers.length) {
-  //   return null;
-  // }
 
   return (
     <Container maxWidth="md" sx={{ marginTop: "30px" }}>
@@ -80,74 +87,35 @@ const GiftFor = () => {
         Groups that I can shop for (Total: {allGroup.length})
       </Typography>
       <List>
-        {allGroup.map((group, index) => {
-          const giftlistsInThisGroup = allGiftlist?.filter(
-            (item) => item.group.id === group.id
-          )[0]?.giftlists;
+        {groupsAndMembers.map((group, index) => {
+          console.log(group)
           return (
-            <div key={index}>
+            <div key={group.group.id}>
               <ListItem
                 onClick={() =>
                   setOpenState({
                     ...openState,
-                    [group.id]: !openState[group.id],
+                    [group.group.id]: !openState[group.group.id],
                   })
                 }
               >
                 <ListItemText
-                  primary={`${group.name} (${giftlistsInThisGroup?.length} shared wishlists)`}
+                  primary={`${group.group.name} (0 shared wishlists)`}
                   primaryTypographyProps={{
                     fontSize: 30,
                     fontWeight: "medium",
                     letterSpacing: 0,
                   }}
                 />
-                {openState[group.id] ? <ExpandLess /> : <ExpandMore />}
+                {openState[group.group.id] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              <Collapse in={openState[group.id]} timeout="auto" unmountOnExit>
+              <Collapse in={openState[group.group.id]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {giftlistsInThisGroup?.length ? (
-                    groupsAndMembers
-                      .filter((item) => item.group.id === group.id)[0]
-                      ?.members.map((member) => {
-                        const giftlist4ThisMember = giftlistsInThisGroup.filter(
-                          (item) => item.userId === member.id
-                        );
-                        if (member.id !== auth.id) {
-                          if (giftlist4ThisMember.length)
-                            return (
-                              <div key={member.id}>
-                                {/* <Link to={`/account/giftlist/${}`} key={list.id}> */}
-                                <ListItemButton sx={{ pl: 4 }}>
-                                  <ListItemText
-                                    primary={`${member.username} (${giftlist4ThisMember.length} shared lists)`}
-                                  />
-                                </ListItemButton>
-                                {giftlist4ThisMember.map((item, index) => (
-                                  <ListItemButton
-                                    onClick={() => handleRouteChange(item.id)}
-                                    key={index}
-                                  >
-                                    <ListItemText primary={item.name} />
-                                  </ListItemButton>
-                                ))}
-                              </div>
-                            );
-                          else
-                            return (
-                              <div key={member.id}>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                  <ListItemText
-                                    primary={`${member.username} (0 shared lists)`}
-                                  />
-                                </ListItemButton>
-                              </div>
-                            );
-                        } else return <div key={member.id}></div>;
-                      })
-                  ) : (
-                    <></>
-                  )}
+                  {group.members.length === 0 ? 'No Lists.' : group.members.map(member => {
+                    return(<div key = {member.id}>
+                      {member.username}
+                      </div>)
+                  })}
                 </List>
               </Collapse>
             </div>
