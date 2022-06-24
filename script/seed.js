@@ -119,10 +119,16 @@ async function seed() {
   await Wishlist.create({
     name: "Birthday Wishlist",
     userId: users[0].dataValues.id,
+    isPrivate: true,
+    isShared: false,
+    isPublic: false,
   });
   await Wishlist.create({
     name: "Valentine's Day Ideas",
     userId: users[1].dataValues.id,
+    isPrivate: true,
+    isShared: false,
+    isPublic: false,
   });
   await Wishlist.create({
     name: "Birthday Ideas",
@@ -141,14 +147,23 @@ async function seed() {
   await Wishlist.create({
     name: "Graduation Gifts",
     userId: users[3].dataValues.id,
+    isPrivate: false,
+    isShared: true,
+    isPublic: false,
   });
   await Wishlist.create({
     name: "Anniversary Gifts",
     userId: users[4].dataValues.id,
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     name: "Mother's Day",
     userId: users[5].dataValues.id,
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
 
   // pre-Creating a few groups
