@@ -5,6 +5,10 @@ import Routes from "./Routes";
 import Chat from "./components/cometchat/Chat"
 
 const App = () => {
+   if (!window.localStorage.getItem("isRemember")) {
+    window.localStorage.setItem("isRemember", "[]");
+  }
+
   return (
     <div>
       <Navbar />
