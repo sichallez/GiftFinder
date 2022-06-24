@@ -65,7 +65,7 @@ async function seed() {
     }),
   ]);
 
-  //default list for each user
+//default list for each user
   await Wishlist.create({
     userId: users[0].dataValues.id,
     default: true,
