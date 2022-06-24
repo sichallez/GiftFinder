@@ -26,6 +26,7 @@ import {
   Divider,
   Fab
 } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 class Wishlists extends Component {
   componentDidMount() {
@@ -50,21 +51,30 @@ class Wishlists extends Component {
             
             <List>
               {this.props.wishlists.map(list => (
-                <Link
-                  key={list.id}
-                  to={`/account/wishlist/${list.id}`}
-                >
-                  <ListItem>
-                    <Fab variant="extended" size="medium" sx={{ backgroundColor: '#f4ecee'}} >
-                    <ListItemText
-                      primary={`${list.name} (${list.gifts.length} items)`}
-                      primaryTypographyProps={{
-                        fontSize: '16px',
-                      }}
-                    />
-                    </Fab>
-                  </ListItem>
-                </Link>
+                <Box sx={{display: 'flex', margin: '10px 0'}}>
+                    <ListItem>
+                      <Link
+                    key={list.id}
+                    to={`/account/wishlist/${list.id}`}
+                  >
+                  <Fab variant="extended" size="medium" sx={{ backgroundColor: '#f4ecee'}} >
+                  <ListItemText
+                    primary={`${list.name} (${list.gifts.length} items)`}
+                    primaryTypographyProps={{
+                      fontSize: '16px',
+                    }}
+                  />
+                  </Fab>
+                  </Link>
+                </ListItem>
+                  <Button
+                    variant="contained"
+                    startIcon={<SettingsIcon />}
+                    color="error"
+                  >
+                    Settings
+                  </Button>
+              </Box>
               ))}
             </List>
         </Container>
