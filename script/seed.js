@@ -70,31 +70,49 @@ async function seed() {
     userId: users[0].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     userId: users[1].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     userId: users[2].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     userId: users[3].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     userId: users[4].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
   await Wishlist.create({
     userId: users[5].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isPrivate: false,
+    isShared: false,
+    isPublic: true,
   });
 
   //additional list for each user
@@ -109,6 +127,9 @@ async function seed() {
   await Wishlist.create({
     name: "Birthday Ideas",
     userId: users[2].dataValues.id,
+    isPrivate: false,
+    isShared: true,
+    isPublic: false,
   });
   await Wishlist.create({
     name: "Happy Go",

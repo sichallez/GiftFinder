@@ -15,6 +15,7 @@ import {
   List,
   ListItemButton,
   ListItemIcon,
+  Typography
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -125,6 +126,7 @@ class AccountSidePanel extends Component {
               </Link>
               <Divider />
               {this.props.wishlists.map((list) => {
+
                 return (
                   <div key={list.id}>
                     <Link to={`/account/wishlist/${list.id}`}>
@@ -132,7 +134,15 @@ class AccountSidePanel extends Component {
                         sx={{ pl: 4 }}
                         selected={pathname === `/account/wishlist/${list.id}`}
                       >
-                        <ListItemText primary={list.name} />
+                        <ListItemText 
+                        primary={list.name} 
+                        secondary={
+                        <Box sx={{fontSize: '12px'}}>
+                          {list.isPrivate ? 'private': ''}
+                          {list.isPublic ? 'public': ''}
+                          {list.isShared ? 'shared': ''}
+                        </Box>}
+                        />
                       </ListItemButton>
                     </Link>
                   </div>
