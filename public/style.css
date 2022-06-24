@@ -121,7 +121,7 @@ nav a, nav li {
 
 .questionsH2 {
   text-align: center;
-  margin: 0;
+  margin: 2rem auto 0 auto;
 }
 
 #paint {
@@ -154,7 +154,12 @@ nav a, nav li {
 
 /** Budget **/
 .budget-div {
-  margin: 3rem 8rem;
+  margin: 3rem 10rem;
+  padding: 2rem; 
+  border: .5px solid lightgray;
+  background-color: #e8e9ff;
+  border-radius: 20px;
+  box-shadow: 12px 12px 2px 1px #0000ff33;
 }
 
 /* .sliderBudget {
@@ -219,6 +224,14 @@ nav a, nav li {
 }
 
 /** Person Suggestions **/
+.persons-div {
+  margin: 3rem 10rem;
+  padding: 2rem; 
+  border: .5px solid lightgray;
+  background-color: #e8e9ff;
+  border-radius: 20px;
+  box-shadow: 12px 12px 2px 1px #0000ff33;
+}
 .person-div {
   margin: auto 10rem;
   display: flex;
@@ -239,14 +252,15 @@ nav a, nav li {
 
 .person-suggestions {
     margin: 0;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: bolder;
-    width: 385px;
+    width: 430px;
     list-style-type: none;
     text-decoration: underline;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     padding: 6px 5px 9px 10px;
     background: white;
+    border-radius: 5px;
 }
 
 .person-suggestions li {
@@ -271,77 +285,46 @@ nav a, nav li {
   margin: auto 8rem;
 }
 
-/** Character Questionnaire **/
-.character-div {
-  margin: 4rem 15rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content:flex-start;
-  align-items: center;
-  font-family: Quicksand;
-}
-
-.character-btn {
-  padding: 0 25px;
-  width: 130px;
-  height: 100px;
-  margin: 15px 20px 30px 20px; 
-  cursor: pointer;
-  background: white;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0));
-  border: .5px solid lightgray;
-  border-radius: 10%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: rgb(53, 53, 53);
-}
-
-.character-btn:hover {
-  border: 2px solid #91a4d9;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  color: #91a4d9;
-}
-
-.character-btn:focus{
-  border: 2px solid hsl(224, 49%, 71%);
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  background-color: #91a4d9;
-  color: white;
-}
-
 /** Category Questionnaire **/
 .categories-div {
-  margin: 2.6rem 15rem;
   align-items: center;
+  margin: 3rem 10rem;
+  padding: 2rem; 
+  border: .5px solid lightgray;
+  background-color: #e8e9ff;
+  border-radius: 20px;
+  box-shadow: 12px 12px 2px 1px #0000ff33;
 }
+
 .category-div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content:flex-start;
+  justify-content:space-evenly;
   align-items: center;
   font-family: Quicksand;
 }
 
 .category-btn  {
   width: 130px;
-  height: 100px;
+  height: 110px;
   margin: 40px 20px 0px 20px; 
   cursor: pointer;
   background: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0));
   border: 1px solid lightgray;
   border-radius: 10%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: Quicksand;
   color: rgb(53, 53, 53);
-  font-size: 16px;
+  font-size: 18px;
+  padding: .5rem;
 }
 
 .category-btn:hover {
-  background: var(--white-hover);
+  background: white;
   color: #91a4d9;
   border: 2px solid #91a4d9;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0));
+  filter: drop-shadow(5px 5px 0 0 lightgray);
 }
 
 .category-btn:active {
@@ -382,7 +365,53 @@ nav a, nav li {
 }
 
 /** Result **/
-.resultBtn {
+.startOverBtn {
   display: flex;
   justify-content: center;
+}
+
+.results-div {
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.results-div > div {
+  width: 300px;
+  padding: 0;
+  margin: 0 15px 30px 15px;
+  cursor: pointer;
+  border-radius: 5%;
+}
+
+.results-div li {
+  font-size: 16px;
+  padding: .5rem 1rem 0 1rem;
+  text-align: center;
+}
+
+.results-div img {
+  display: block;
+  object-fit: cover;
+}
+
+/** Questions Starting Page **/
+.questions-div {
+  margin: 3rem 10rem;
+  padding: 2rem; 
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  border: .5px solid lightgray;
+  background-color: #e8e9ff;
+  border-radius: 20px;
+  box-shadow: 12px 12px 2px 1px #0000ff33;
+}
+
+.questions-div p {
+  text-align: center; 
+  font-size: 20px;
 }
