@@ -65,77 +65,63 @@ async function seed() {
     }),
   ]);
 
-  //default list for each user
+//default list for each user
   await Wishlist.create({
     userId: users[0].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
   await Wishlist.create({
     userId: users[1].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
   await Wishlist.create({
     userId: users[2].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
   await Wishlist.create({
     userId: users[3].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
+    isShared: true
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Mother's Day Gifts",
+    isShared: true
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Babyshower",
   });
   await Wishlist.create({
     userId: users[4].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
   await Wishlist.create({
     userId: users[5].dataValues.id,
     default: true,
     name: "Default Wishlist",
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
 
   //additional list for each user
   await Wishlist.create({
     name: "Birthday Wishlist",
     userId: users[0].dataValues.id,
-    isPrivate: true,
-    isShared: false,
-    isPublic: false,
+    isShared: true
   });
   await Wishlist.create({
     name: "Valentine's Day Ideas",
     userId: users[1].dataValues.id,
-    isPrivate: true,
-    isShared: false,
-    isPublic: false,
   });
   await Wishlist.create({
     name: "Birthday Ideas",
     userId: users[2].dataValues.id,
-    isPrivate: false,
-    isShared: true,
-    isPublic: false,
   });
   await Wishlist.create({
     name: "Happy Go",
@@ -147,23 +133,15 @@ async function seed() {
   await Wishlist.create({
     name: "Graduation Gifts",
     userId: users[3].dataValues.id,
-    isPrivate: false,
-    isShared: true,
-    isPublic: false,
   });
   await Wishlist.create({
     name: "Anniversary Gifts",
     userId: users[4].dataValues.id,
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
+    isShared: true
   });
   await Wishlist.create({
     name: "Mother's Day",
     userId: users[5].dataValues.id,
-    isPrivate: false,
-    isShared: false,
-    isPublic: true,
   });
 
   // pre-Creating a few groups

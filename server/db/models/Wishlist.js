@@ -22,7 +22,7 @@ const Wishlist = db.define("wishlist", {
   },
   isShared: {
     type: BOOLEAN,
-    default: false,
+    defaultValue: false,
   },
   isPublic: {
     type: BOOLEAN,
