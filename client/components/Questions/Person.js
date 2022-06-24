@@ -102,7 +102,7 @@ class Person extends Component {
         const { onTextChange, handleSubmit } = this;
         const { budget } = this.props;
         return (
-            <div>
+            <div className='persons-div'>
                 <div className='person-div'>
                 <h1 className='questionsH1'>Who are you shopping for?</h1>
                 <form onSubmit={handleSubmit} className='person-form'>
