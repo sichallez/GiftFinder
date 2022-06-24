@@ -85,6 +85,18 @@ async function seed() {
     userId: users[3].dataValues.id,
     default: true,
     name: "Default Wishlist",
+    isShared: true
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Mother's Day Gifts",
+    isShared: true
+  });
+  await Wishlist.create({
+    userId: users[3].dataValues.id,
+    default: true,
+    name: "Babyshower",
   });
   await Wishlist.create({
     userId: users[4].dataValues.id,
@@ -101,6 +113,7 @@ async function seed() {
   await Wishlist.create({
     name: "Birthday Wishlist",
     userId: users[0].dataValues.id,
+    isShared: true
   });
   await Wishlist.create({
     name: "Valentine's Day Ideas",
@@ -124,6 +137,7 @@ async function seed() {
   await Wishlist.create({
     name: "Anniversary Gifts",
     userId: users[4].dataValues.id,
+    isShared: true
   });
   await Wishlist.create({
     name: "Mother's Day",

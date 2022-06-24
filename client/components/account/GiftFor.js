@@ -90,7 +90,18 @@ const GiftFor = () => {
       </Typography>
       <List>
         {groupsAndMembers.map((group, index) => {
-          console.log(group)
+
+          //figure out how many total shared lists
+          let totalLists = 0; 
+
+          group.members.map(member => {
+            allUserLists.allUserLists.map(list=>{
+                if(member.id === list.userId && list.isShared){
+                  totalLists++
+                }
+              
+          })})
+          
           return (
             <div key={group.group.id}>
               <ListItem
@@ -101,8 +112,9 @@ const GiftFor = () => {
                   })
                 }
               >
+                {console.log(group.group)}
                 <ListItemText
-                  primary={`${group.group.name} (0 shared wishlists)`}
+                  primary={`${group.group.name} (${totalLists} shared wishlists)`}
                   primaryTypographyProps={{
                     fontSize: 30,
                     fontWeight: "medium",
@@ -115,10 +127,10 @@ const GiftFor = () => {
                 <List component="div" disablePadding>
                   {group.members.length === 0 ? 'No Lists.' : group.members.map(member => {
                     return(<div key = {member.id}>
-                      {member.username}'s lists{member.id === auth.id?'(your lists)':''}:
+                      <Typography variant= 'h5'>{member.username}'s shared lists{member.id === auth.id?'(your lists)':''}:</Typography>
                       {allUserLists.allUserLists.map(list=>{
                         //if list userId matches current member userID, display
-                        if(member.id === list.userId){
+                        if(member.id === list.userId && list.isShared){
                           return(
                             <div key={list.id}>
                             {list.name}
@@ -126,6 +138,7 @@ const GiftFor = () => {
                           )
                         }
                       })}
+                      <br/>
                       <br/>
                       </div>)
                   })}
