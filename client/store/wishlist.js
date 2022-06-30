@@ -67,7 +67,7 @@ export const addToWishlist = (product,id) => {
         price: product.price, 
         rating: product.rating,
         description: product.description, 
-        image_url: product.Images[0].url_fullxfull, 
+        image_url: product.Images[0].url_fullxfull || product.image_url, 
         listingId: product.listing_id,
         wishlistId: wishlist.id
       })).data;
