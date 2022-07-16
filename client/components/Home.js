@@ -26,7 +26,7 @@ class Home extends Component {
     isLoading: true,
     isMostViews: false,
     page: 1,
-    amountPerPage: 10,
+    amountPerPage: 12,
   }
 
   componentDidMount = () => {

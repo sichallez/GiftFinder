@@ -1,37 +1,66 @@
-# FS-App-Template
+# GIFTFINDER
 
-This is our team 8 Capstone project while attending Fullstack Academy. It is a PERN stack - a web app developed using PostgreSQL, Express, React, Node.js and MUI. Wanna discover what is it? Clone it and try it out!
+Have you ever bothered by searching for a perfect gift for your beloved ones. GiftFinder brings you a lot of ideas, inspirations and guides you with your preferences and categories.
+
+You can view gifts falling into different cateogries (fetched from Etsy API). As a registered user, you are able to add any gift you like to your wish list. A user has a default wish list, she can also create new wish lists corresponding to different occasions (such as Birthday, Wedding, Graduation, Mother's Day etc). You could set these lists as Private, Shared, or Public. If it is private, only you can see it. If it is public, everyone on the internet can see it if they have the link.
+
+A user can delete item from a list and can move the items to a different list she created.
+You can also manually add an item to your wish list with external website links, name, images, price and description. All the gift items will show up in your list nicely.  
+
+Best of all, You could share any of your wish lists to your friends by creating groups. Within your group, only the members that are within that group are able to view your shared lists.
+
+A member within a group could mark a gift in your wishlist as reserved or purchased (under work) -- Every other member can see it, thus won't prepare a repeated gift for you for that occasion.
+
+Members in the same group could communicate or messaging each other by a built-in chat widget, which makes discussion of purchasing a gift for someone much easier by sharing ideas or products that may directly found on our website.
+
+What's more, it features a Personalized Questionnaire to help you find the best gift ideas for your beloved ones.
+
+There are still much more to explore!
+
+(This is our team 8 Capstone project while attending Fullstack Academy. It is a PERN stack - a web app developed using PostgreSQL, Express, React, Node.js and MUI. Wanna discover what is it and how we implement it? Clone it and try it out!)
+
+## Screenshots
+
+### Home Page
+<img src="public/assets/GiftFinder_HomePage.png" alt="GiftFinder App Main Page">
+
+### Create groups
+Log in as a user, you are able to create a group and invite friends to your group.
+<img src="public/assets/GiftFinder_CreateGroup_InviteFriends.png" alt="GiftFinder Creating Group and Inviting Friends">
+
+### Create your own Wish List and Share it within your groups
+<img src="public/assets/GiftFinder_CreateShareWishList.png" alt="GiftFinder Create and Share Wish List">
+
+### Shop For your friend's Wish List within the same group
+Log in as a different user, you could view the Shared Wish List of friends in the same group, Shop for them!
+You could mark their Wish List items as Reserved or Purchased, every member can see!
+<img src="public/assets/GiftFinder_ShopForSharedWishList.png" alt="GiftFinder Shop For your Friends">
+
+### Personalized Questionnaire - Gifts Picked Just For You!
+<img src="public/assets/GiftFinder_PersonalizedQuestionnaire.png" alt="GiftFinder Personalized Questionnaire">
+
+## Built With
+* [React](https://react.com)
+* [Node.js](https://nodejs.org) + [Express](https://expressjs.com/)
+* [ETSY API](https://developer.etsy.com/documentation/)
+* [PostgreSQL](https://www.postgresql.org/) + [Sequelize](https://sequelize.org/)
+* [MUI](https://mui.com/)
+* [CometChat](https://www.cometchat.com/)
+* [Figma](https://www.figma.com/)
+
+## Heroku 
+The application is deployed at:
+https://giftfinder2201.herokuapp.com/
 
 ## Setup
 
-To use this as boilerplate, you'll need to take the following steps:
-
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
-
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
-
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
-
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-* Update project name and description in `package.json`
 * `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
+* Create two postgres databases
 * These commands will create both your **development** and **test** databases
 
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+createdb giftfinder
+createdb giftfinder-test
 ```
 
 * By default, running `npm test` will use your test database, while
@@ -46,34 +75,27 @@ Sync and seed your database by running `npm run seed`. Running `npm run start:de
 - start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
 
 
-### Heroku
-
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
-
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
-
-* **If you are creating a new app...**
-
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
-
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
+## Future Steps
+* Considering using Non-relational DB, i.e. [MongoDB](https://www.mongodb.com/), [Redis](https://redis.io/) to manage our groups and wish list.
+* Exploring [Supabase](https://supabase.com/) for hosting our DB and BackEnd
+* Add in-App Notification inbox center, using [MagicBell](https://www.magicbell.com/)
+* Add Machine Learning for Recommending Gift Search.
 
 
-* **If you already have a Heroku app...**
+## License
+![License](https://img.shields.io/badge/License-mit-blue.svg "License Badge")
 
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
+[MIT License](http://opensource.org/licenses/mit-license.php)
 
+## Contributors
+* **Ying Ying Feng** - UI (JavaScript, HTML, CSS, MUI) / Website Design, Logo / Questionnaire / Redux Store / Etsy API / Server
+* **Savannah Lin** - Database / APIs / Google OAuth / Passport.js Login / Filtering, Sorting, Pagination, Web scraper
+* **Maribel Jaramillo** - Server / Database setup / models / Etsy API / Wish List / Front-end
+* **Simon Cheng** - MUI / React components / models / Gift List / CometChat
 
-Now, you should be deployed!
+## Github Info
+[Ying Ying Feng](https://github.com/yingying127),
+[Savannah Lin](https://github.com/savannah-yahsuanlin),
+[Maribel Jaramillo](https://github.com/jaramll2),
+[Simon Cheng](https://github.com/sichallez)
+
