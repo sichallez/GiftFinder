@@ -210,6 +210,7 @@ console.log(keyword)
       indexOfFirstProduct,
       indexOfLastProduct
     );
+console.log(filteredProducts)
     return (
       <div>
         <Box sx={{ display: "grid", justifyContent: "center"}}>

@@ -26,7 +26,7 @@ import AddIcon from "@mui/icons-material/Add";
 import GradeIcon from "@mui/icons-material/Grade";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-import {addToWishlist} from '../../store/wishlist'
+import {createGift} from '../../store/gifts'
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -71,7 +71,7 @@ const AddItem = ({ id }) => {
       description
     } = createValues
 
-    dispatch(addToWishlist({...createValues}, id))
+    dispatch(createGift({...createValues}, id))
    
     setCreateValues("")
   };
@@ -180,8 +180,8 @@ const mapState = ({ wishlist }) => {
 }
 const mapDispatch = dispatch => {
   return {
-      addToWishlist: function (product, id) {
-        dispatch(addToWishlist(product, id));
+      createItem: function (product, id) {
+        dispatch(createGift(product, id));
     },
   }
 }

@@ -2,6 +2,7 @@ import axios from "axios";
 
 /* Action Types */
 const GET_WISHLIST = "GET_WISHLIST";
+const CREATE_ITEM = 'CREATE_ITEM'
 
 /* Action Creators */
 const _getWishlist = (wishlist) => {
@@ -11,6 +12,12 @@ const _getWishlist = (wishlist) => {
   };
 };
 
+const _createItem = (item) => {
+  return {
+    type: CREATE_ITEM,
+    item
+  }
+}
 
 /* Thunks */
 
@@ -99,7 +106,6 @@ export const deleteFromWishlist = (gift,wishlistId) => {
       })
     ).data;
     
-    console.log(wishlist)
     dispatch(_getWishlist(wishlist));
   };
 };
@@ -121,10 +127,11 @@ export const moveItem = (oldListId,newListId,giftId) => {
       })
     ).data;
     
-    console.log(wishlist)
     dispatch(_getWishlist(wishlist));
   };
 };
+
+
 
 /* Reducer */
 export default function (state = [], action) {

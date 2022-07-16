@@ -89,7 +89,7 @@ export const addToGiftlist = (product, id) => {
           giftlistId: giftlist.id,
         })
       ).data;
-
+    console.log(gift)
       //return updated giftlist to state
       dispatch(_getGiftlist(giftlist));
     } catch (err) {
