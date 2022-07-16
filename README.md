@@ -98,4 +98,3 @@ Sync and seed your database by running `npm run seed`. Running `npm run start:de
 [Savannah Lin](https://github.com/savannah-yahsuanlin),
 [Maribel Jaramillo](https://github.com/jaramll2),
 [Simon Cheng](https://github.com/sichallez)
-
