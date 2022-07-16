@@ -20,7 +20,7 @@ router.delete("/:id", requireLoggedIn, async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
 
-    res.json(await Gift.create(req.body)).sendStatus(201);
+    res.json(await Gift.create(req.body)).status(201);
   } catch (err) {
     next(err);
   }
