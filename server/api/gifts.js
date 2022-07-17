@@ -55,7 +55,14 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
+router.get('/db', async(req, res, next) => {
+  try {
+    const gift = await Gift.findAll()
+    res.json(gift)
+  }catch(err) {
+    next(err)
+  }
+})
 
 router.get("/:id", async (req, res, next) => {
   try {

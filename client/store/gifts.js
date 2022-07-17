@@ -2,6 +2,7 @@ import axios from "axios";
 /* Action Types */
 const SET_PRODUCTS = "SET_PRODUCTS";
 const CREATE_GIFT = 'CREATE_GIFT'
+const SET_GIFTS = "SET_GIFTS"
 
 /* Action Creators */
 
@@ -19,6 +20,13 @@ const _createGift = (gift) => {
   }
 }
 
+const _setGifts = (gifts) => {
+  return {
+    type: SET_GIFTS,
+    gifts
+  }
+}
+
 /* Thunks */
 
 export const fetchProducts = (query, minPrice, maxPrice) => {
@@ -31,6 +39,13 @@ export const fetchProducts = (query, minPrice, maxPrice) => {
     dispatch(_fetchProducts(gifts));
   };
 };
+
+export const loadGifts = () => {
+  return async dispatch => {
+    const gifts = (await axios.get('/api/gifts/db')).data
+    dispatch(_setGifts(gifts))
+  }
+}
 
 export const createGift = (gift, wishlistId) => {
   return async dispatch => {
@@ -55,6 +70,8 @@ export default function (state = [], action) {
       return action.gifts;
     case CREATE_GIFT:
       return [...state, action.gift]
+    case SET_GIFTS:
+      return action.gifts
     default:
       return state;
   }

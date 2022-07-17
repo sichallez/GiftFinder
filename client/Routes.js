@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
-import { getAllGroups, me } from "./store";
+import { getAllGroups, me, loadGifts } from "./store";
 import Home from "./components/Home";
 import Questions from "./components/Questions";
 import Budget from "./components/Questions/Budget";
@@ -80,6 +80,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
     },
     fetchAllGroups: (userId) => dispatch(getAllGroups(userId)),
+    loadGifts: () => dispatch(loadGifts())
   };
 };
 

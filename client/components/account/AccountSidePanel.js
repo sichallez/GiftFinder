@@ -244,7 +244,7 @@ class AccountSidePanel extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllLists: function () {
+    getAllLists:  () => {
       dispatch(getAllLists());
     },
     getAllMembers: (groupRouteId) => {
