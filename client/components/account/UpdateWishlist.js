@@ -1,4 +1,4 @@
-improt React, {Component} from 'react'
+import React, {Component} from 'react'
 
 class UpdateWishlist extends Component {
 	render() {
